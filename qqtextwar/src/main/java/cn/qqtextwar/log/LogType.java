@@ -8,15 +8,7 @@ with the law, @Copyright Jsmod2 China,more can see <a href="http://jsmod2.cn">th
  */
 package cn.qqtextwar.log;
 
-/**
- *
- * the type of log
- *
- * @author magiclu550
- *
- * @version jsmod2 001
- *
- */
+
 
 
 public enum LogType {
