@@ -31,9 +31,8 @@ public class GameMap {
     }
 
     public Vector randomVector(){
-
+        return vectors.get(random.nextInt(vectors.size()-1));
     }
-
 
     private String file;
 
