@@ -6,10 +6,16 @@ import java.util.Random;
 
 public class GameMap {
 
-    private Random random;
+
     private static int WHITE_SPACE = 0;
 
     private List<Vector> vectors = new ArrayList<>();
+
+    private String file;
+
+    private List<List<Integer>> mapData;
+
+    private Random random;
 
     public GameMap(String file, List<List<Integer>> mapData) {
         this.file = file;
@@ -34,9 +40,6 @@ public class GameMap {
         return vectors.get(random.nextInt(vectors.size()-1));
     }
 
-    private String file;
-
-    private List<List<Integer>> mapData;
 
     public List<List<Integer>> getMapData() {
         return mapData;
