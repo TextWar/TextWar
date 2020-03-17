@@ -10,10 +10,22 @@ public class Entity {
 
     private Vector vector;
 
+    private double healthPoints;
+
+    private double manaPoints;
+
     public Entity(Vector vector, long id) {
         uuid = UUID.randomUUID();
         this.vector = vector;
         this.id = id;
+    }
+
+    public Entity(Vector vector, long id, double healthPoints, double manaPoints) {
+        uuid = UUID.randomUUID();
+        this.vector = vector;
+        this.id = id;
+        this.healthPoints = healthPoints;
+        this.manaPoints = manaPoints;
     }
 
     public long getId() {
@@ -36,6 +48,38 @@ public class Entity {
         return vector;
     }
 
+    public double getHealthPoints() {
+        return healthPoints;
+    }
+
+    public double getManaPoints() {
+        return manaPoints;
+    }
+
+    protected final void setHealthPoints(double healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    protected final void setManaPoints(double manaPoints) {
+        this.manaPoints = manaPoints;
+    }
+
+    protected final synchronized void addHealthPoints(double value) {
+        this.healthPoints += value;
+    }
+
+    protected final synchronized void delHealthPoints(double value) {
+        this.healthPoints -= value;
+    }
+
+    protected final synchronized void addManaPoints(double value) {
+        this.manaPoints += value;
+    }
+
+    protected final synchronized void delManaPoints(double value) {
+        this.manaPoints -= value;
+    }
+
     public static enum FreaksEnum {
         NINE(9),
         TEN(10),
@@ -45,6 +89,7 @@ public class Entity {
         FOURTEEN(14),
         FIFTEEN(15);
         public final long mapValue;
+
         FreaksEnum(long value) {
             this.mapValue = value;
         }
