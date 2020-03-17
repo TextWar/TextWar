@@ -10,11 +10,7 @@ public class Entity {
 
     private Vector vector;
 
-    public static final int[] freaks = {
-      9,10,11,12,13,14,15
-    };
-
-    public Entity(Vector vector,long id){
+    public Entity(Vector vector, long id) {
         uuid = UUID.randomUUID();
         this.vector = vector;
         this.id = id;
@@ -38,5 +34,19 @@ public class Entity {
 
     public Vector getVector() {
         return vector;
+    }
+
+    public static enum FreaksEnum {
+        NINE(9),
+        TEN(10),
+        ELEVEN(11),
+        TWELVE(12),
+        THIRTEEN(13),
+        FOURTEEN(14),
+        FIFTEEN(15);
+        public final long mapValue;
+        FreaksEnum(long value) {
+            this.mapValue = value;
+        }
     }
 }
