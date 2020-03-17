@@ -8,18 +8,15 @@ public class Entity {
 
     private UUID uuid;
 
-    private int x;
-
-    private int y;
+    private Vector vector;
 
     public static final int[] freaks = {
       9,10,11,12,13,14,15
     };
 
-    public Entity(int x,int y,long id){
+    public Entity(Vector vector,long id){
         uuid = UUID.randomUUID();
-        this.x = x;
-        this.y = y;
+        this.vector = vector;
         this.id = id;
     }
 
@@ -32,11 +29,14 @@ public class Entity {
     }
 
     public int getX() {
-        return x;
+        return vector.getX();
     }
 
     public int getY() {
-        return y;
+        return vector.getY();
     }
 
+    public Vector getVector() {
+        return vector;
+    }
 }

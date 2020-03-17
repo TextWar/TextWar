@@ -4,6 +4,7 @@ import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Entity
 import cn.qqtextwar.entity.GameMap
 import cn.qqtextwar.entity.Player
+import cn.qqtextwar.entity.Vector
 import cn.qqtextwar.log.ServerLogger
 import groovy.transform.CompileStatic
 
@@ -63,8 +64,10 @@ class Server {
         rpcRunner.start(ip,port)
     }
 
-    public Player createPlayer(long qq){
-        Player player = new Player(qq,random.nextInt())
+    Player createPlayer(long qq,GameMap map){
+        Vector vector = map.randomVector()
+        Player player = new Player(qq,vector)
+        return player
     }
 
 
