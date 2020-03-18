@@ -26,7 +26,7 @@ class RPCRunner {
         logger.info("The xml rpc has started!")
     }
 
-    public <T> T execute(String name,Class<T> returnType,Object... params){
+    def <T> T execute(String name,Class<T> returnType,Object... params){
         String pMethod = PKEY+name
         return returnType.cast(client.execute(pMethod,params))
     }
