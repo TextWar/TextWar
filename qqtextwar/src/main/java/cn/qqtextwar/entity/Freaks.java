@@ -6,7 +6,7 @@ public class Freaks extends Entity {
         super(vector, id);
     }
 
-    public static enum FreaksEnum {
+    public enum FreaksEnum {
         NINE(9),
         TEN(10),
         ELEVEN(11),
