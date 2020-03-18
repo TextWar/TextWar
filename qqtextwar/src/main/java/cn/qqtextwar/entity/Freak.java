@@ -2,13 +2,13 @@ package cn.qqtextwar.entity;
 
 import cn.qqtextwar.math.Vector;
 
-public class Freaks extends Entity {
+public class Freak extends Entity {
 
-    public Freaks(Vector vector, long id) {
+    public Freak(Vector vector, long id) {
         super(vector, id);
     }
 
-    public enum FreaksEnum {
+    public enum FreakEnum {
         NINE(9),
         TEN(10),
         ELEVEN(11),
@@ -18,7 +18,7 @@ public class Freaks extends Entity {
         FIFTEEN(15);
         public final long mapValue;
 
-        FreaksEnum(long value) {
+        FreakEnum(long value) {
             this.mapValue = value;
         }
     }
