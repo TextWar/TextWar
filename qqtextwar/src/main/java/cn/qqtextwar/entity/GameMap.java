@@ -1,6 +1,6 @@
 package cn.qqtextwar.entity;
 
-import cn.qqtextwar.log.Vector;
+import cn.qqtextwar.math.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

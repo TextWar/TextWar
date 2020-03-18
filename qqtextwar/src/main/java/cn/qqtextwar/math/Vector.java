@@ -1,4 +1,4 @@
-package cn.qqtextwar.log;
+package cn.qqtextwar.math;
 
 public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
 

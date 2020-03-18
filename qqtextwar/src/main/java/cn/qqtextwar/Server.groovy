@@ -6,7 +6,7 @@ import cn.qqtextwar.entity.Freaks
 import cn.qqtextwar.entity.Freaks.FreaksEnum
 import cn.qqtextwar.entity.GameMap
 import cn.qqtextwar.entity.Player
-import cn.qqtextwar.log.Vector
+import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import groovy.transform.CompileStatic
 

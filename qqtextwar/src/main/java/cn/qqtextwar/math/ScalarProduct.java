@@ -1,4 +1,4 @@
-package cn.qqtextwar.log;
+package cn.qqtextwar.math;
 
 public interface ScalarProduct<T> {
 
