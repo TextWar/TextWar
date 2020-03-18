@@ -1,6 +1,6 @@
 package cn.qqtextwar.math;
 
-public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
+public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Direction{
 
     private int x;
 
@@ -52,4 +52,9 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
         return new Vector((int)((this.x + lambda * vector2.x)/(1+lambda)),(int)((this.y + lambda * vector2.y)/(1+lambda)));
     }
 
+    //相对于一个正方向单位向量的夹角
+    @Override
+    public double getDirection() {
+        return arcCos(new Vector(0,1),false);
+    }
 }
