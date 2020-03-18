@@ -1,4 +1,4 @@
-package cn.qqtextwar.entity;
+package cn.qqtextwar.log;
 
 public interface Computable<T> {
 

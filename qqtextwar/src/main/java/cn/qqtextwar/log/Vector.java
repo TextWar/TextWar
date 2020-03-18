@@ -1,4 +1,4 @@
-package cn.qqtextwar.entity;
+package cn.qqtextwar.log;
 
 public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
 
@@ -47,5 +47,5 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
     public double mod() {
         return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
     }
-    
+
 }

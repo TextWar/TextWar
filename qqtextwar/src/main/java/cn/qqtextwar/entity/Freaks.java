@@ -1,5 +1,7 @@
 package cn.qqtextwar.entity;
 
+import cn.qqtextwar.log.Vector;
+
 public class Freaks extends Entity {
 
     public Freaks(Vector vector, long id) {
