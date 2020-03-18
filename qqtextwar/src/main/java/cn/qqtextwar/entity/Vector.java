@@ -47,8 +47,5 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
     public double mod() {
         return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
     }
-
-    public static void main(String[] args) {
-        System.out.println(new Vector(3,4).arcCos(new Vector(3,0),true));
-    }
+    
 }
