@@ -15,10 +15,6 @@ package cn.qqtextwar.log;
  * use to print the message in console
  *
  * child: ServerLogger
- *
- * @author magiclu550 #(code) for scpsl
- * @version jsmod2 001
- * jsmod2 @noyark-sys
  */
 
 public interface ILogger extends IErrorLogger,IDebugLogger,IInfoLogger,IWarnLogger,ICritLogger{
