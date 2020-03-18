@@ -93,7 +93,7 @@ class Server {
 
     GameMap getMap(){
         if(rpcRunner){
-            return new GameMap("",rpcRunner.execute(GET_MAP,List<List<Integer>>.class))
+            return new GameMap("",(List<List<Integer>>)rpcRunner.execute(GET_MAP,List.class))
         }
         return null
     }

@@ -21,7 +21,7 @@ class RPCRunner {
     void start(String ip,String port) {
         logger.info("The xml rpc is starting....")
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl()
-        config.setServerURL(new URL("${ip}:${port}"))
+        config.setServerURL(new URL("http://${ip}:${port}"))
         client.setConfig(config)
         logger.info("The xml rpc has started!")
     }
