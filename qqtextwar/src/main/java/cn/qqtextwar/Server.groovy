@@ -58,6 +58,16 @@ class Server {
         this.state = NO
     }
 
+    //启动的方法组合顺序
+    // 1. 开启数据库链接，RPC
+    // 2. 获得开局信息
+    // 3. 开局结束则重新获得地图，如果还在开局则从数据库获得地图
+    // 4. 创建玩家对象
+    // 5. 从数据库获得信息初始化玩家，玩家坐标如果是重新开局则重置坐标
+    // 6. 创建怪物对象
+    // 7. 如果重新开局直接重新创建对象，如果没有结束则从数据库读取对象
+    // 8. 游戏开始
+    // 9. 游戏结束，初始化全部对象。
     void start(){
         this.logger.info("server is starting...")
         String ip = this.parser.getHeadValue("server.ip")
@@ -75,6 +85,15 @@ class Server {
         }else{
             return players[qq]
         }
+    }
+
+    //这里通过数据库初始化信息
+    void initPlayers(){
+
+    }
+    //同上
+    void initFreaks(){
+
     }
 
     Freaks createFreaks(GameMap map,FreaksEnum freaksId){
@@ -100,6 +119,10 @@ class Server {
 
     File getBaseFile() {
         return baseFile
+    }
+
+    ServerConfigParser getParser() {
+        return parser
     }
 
 }

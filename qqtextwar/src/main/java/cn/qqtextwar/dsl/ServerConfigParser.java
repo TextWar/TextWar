@@ -19,4 +19,9 @@ public class ServerConfigParser extends DSLParser {
     public void rpc(Closure closure){
         closure.call();
     }
+
+    @DSLMethod
+    public void database(Closure closure){
+        closure.call();
+    }
 }
