@@ -48,4 +48,8 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
         return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
     }
 
+    public Vector ratioVector(Vector vector2,double lambda){
+        return new Vector((int)((this.x + lambda * vector2.x)/(1+lambda)),(int)((this.y + lambda * vector2.y)/(1+lambda)));
+    }
+
 }
