@@ -2,9 +2,20 @@ package cn.qqtextwar
 
 import groovy.transform.CompileStatic
 
+/**
+ * FileRegister
+ * 用于管理服务端全部的配置文件，目的为了有有序的进行配置的读取。
+ * 方便管理和添加配置.
+ * 这里的文件名字必须是在resources文件夹下存在的。最终会被复制到服务端的根目录下。
+ *
+ * @author MagicLu
+ */
 @CompileStatic
 class FileRegister {
 
+    /**
+     * Server.cfg 服务端的主文件，参见resources/server.cfg
+     */
     static final String MAIN_CONFIG = "server.cfg"
 
     private List<String> resources

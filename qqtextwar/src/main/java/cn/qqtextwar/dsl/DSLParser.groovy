@@ -58,7 +58,7 @@ abstract class DSLParser {
     }
 
     void loadDSLMethod(){
-        this.class.methods.toList().forEach{
+        this.class.methods.toList().each{
             x->
                 if(x.getAnnotation(DSLMethod.class)){
                     this.methodMap[x.name] = x

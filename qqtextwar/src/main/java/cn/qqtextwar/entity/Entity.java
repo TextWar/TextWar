@@ -23,7 +23,7 @@ public class Entity {
     }
 
     public Entity(Vector vector, long id, double healthPoints, double manaPoints) {
-        uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
         this.vector = vector;
         this.id = id;
         this.healthPoints = healthPoints;
