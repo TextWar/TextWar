@@ -1,9 +1,5 @@
 package cn.qqtextwar
 
-import org.apache.commons.io.IOUtils
-
-
-
 class Utils {
 
     static String simpleClassName(Class<?> clz){
@@ -20,6 +16,9 @@ class Utils {
     }
     static String byInputStream(InputStream input){
         return input.text
+    }
+    static String readClassStream(File file,String res){
+        file.write(this.classLoader.getResourceAsStream(res).text)
     }
 
 }

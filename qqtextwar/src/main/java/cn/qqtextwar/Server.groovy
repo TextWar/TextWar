@@ -25,7 +25,7 @@ class Server {
 
     static final String GET_MAP = "get_map"
 
-    static final String MAIN_CONFIG = "server.cfg"
+
 
     private ServerLogger logger = new ServerLogger()
 
@@ -47,13 +47,13 @@ class Server {
     //怪物 - uuid唯一
     private Map<UUID, Entity> freaksMap = new HashMap<>()
 
+    private FileRegister register
+
     Server(){
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
-        File main = new File(baseFile,MAIN_CONFIG)
-        if(!main.exists()){
-            main.createNewFile()
-        }
-        this.parser = new ServerConfigParser(main)
+        this.register = new FileRegister(this)
+        this.register.register()
+        this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
         this.round = 0
         this.state = NO
     }
@@ -96,6 +96,10 @@ class Server {
             return new GameMap("",(List<List<Integer>>)rpcRunner.execute(GET_MAP,List.class))
         }
         return null
+    }
+
+    File getBaseFile() {
+        return baseFile
     }
 
 }
