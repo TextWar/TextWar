@@ -39,7 +39,7 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
 
     @Override
     public double scalarProduct(Vector vector) {
-        return this.x*vector.y+this.x+this.y;
+        return this.x*vector.x+this.y*vector.y;
     }
 
     @Override
