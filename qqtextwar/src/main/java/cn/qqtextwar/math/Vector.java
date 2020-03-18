@@ -19,6 +19,22 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
         return x;
     }
 
+    public Vector down(){
+        return add(new Vector(0,-1));
+    }
+
+    public Vector up(){
+        return add(new Vector(0,1));
+    }
+
+    public Vector left(){
+        return add(new Vector(-1,0));
+    }
+
+    public Vector right(){
+        return add(new Vector(1,0));
+    }
+
     public Vector add(Vector vector){
         return new Vector(this.x+vector.x,this.y+vector.y);
     }
