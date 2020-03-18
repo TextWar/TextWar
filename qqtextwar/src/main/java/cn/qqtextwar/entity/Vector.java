@@ -33,8 +33,9 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
     }
 
     @Override
-    public double arcCos(Vector vector) {
-        return Math.acos(cos(vector));
+    public double arcCos(Vector vector,boolean degreeMeasure) {
+        double rad =  Math.acos(cos(vector));
+        return degreeMeasure?((rad*180)/Math.PI):rad;
     }
 
     @Override
@@ -44,6 +45,10 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod{
 
     @Override
     public double mod() {
-        return Math.sqrt(Math.abs(this.x)+Math.abs(this.y));
+        return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Vector(3,4).arcCos(new Vector(3,0),true));
     }
 }
