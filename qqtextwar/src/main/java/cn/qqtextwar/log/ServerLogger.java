@@ -12,14 +12,9 @@ package cn.qqtextwar.log;
 import cn.qqtextwar.Utils;
 import org.apache.log4j.Logger;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import static org.fusesource.jansi.Ansi.Color.*;
 
 public class ServerLogger implements ILogger{
-
-    private BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
     private static ServerLogger log;
 
@@ -124,21 +119,18 @@ public class ServerLogger implements ILogger{
     @Override
     public void error(String message, String prefix, String suffix) {
         String msg = LogFormat.format(LogFormat.textFormat(message,RED),"ERROR",RED,prefix,true)+suffix;
-        queue.offer(msg);
         logger.error(msg);
     }
 
     @Override
     public void info(String message, String prefix, String suffix) {
         String msg = LogFormat.format(message,"INFO",YELLOW,prefix)+suffix;
-        queue.offer(msg);
         logger.info(msg);
     }
 
     @Override
     public void warn(String message, String prefix, String suffix) {
         String msg = LogFormat.format(message,"WARN",RED,prefix,true)+suffix;
-        queue.offer(msg);
         logger.warn(msg);
     }
 
@@ -155,7 +147,6 @@ public class ServerLogger implements ILogger{
     @Override
     public void crit(String s, String s1, String s2) {
         String msg = LogFormat.format(s,"CRIT",YELLOW,s1,true)+s2;
-        queue.offer(msg);
         logger.warn(msg);
     }
 
@@ -168,10 +159,6 @@ public class ServerLogger implements ILogger{
         return log;
     }
 
-
-    public BlockingQueue<String> getQueue() {
-        return queue;
-    }
 
     private String getMultiMessage(Class clz){
         return LogFormat.textFormat("[",BLUE)+LogFormat.textFormat(getLine()+"",BLUE)+"]"+LogFormat.textFormat("["+ Utils.simpleClassName(clz) +"]", CYAN);
