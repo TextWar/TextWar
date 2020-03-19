@@ -1,6 +1,7 @@
 package cn.qqtextwar
 
 import groovy.transform.CompileStatic
+import groovy.transform.Memoized
 
 /**
  * FileRegister
@@ -40,6 +41,7 @@ class FileRegister {
         }
     }
 
+    @Memoized
     File getConfig(String cfg){
         files.get(cfg)
     }

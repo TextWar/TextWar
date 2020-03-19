@@ -1,29 +1,33 @@
 package cn.qqtextwar.sql
 
 import cn.qqtextwar.Server
-import com.alibaba.druid.pool.DruidDataSource
+import groovy.sql.DataSet
+import groovy.sql.Sql
 
-import java.sql.Connection
 
 class SQLiteConnetor {
 
+
     private static final String DATABASE = "server.database"
 
-    private Server server
-
-    private Connection connection
-
+    private Sql sql
 
     SQLiteConnetor(Server server){
-        this.server = server
-        DruidDataSource dataSource = new DruidDataSource()
-        dataSource.url = server.parser.getHeadValue("${DATABASE}.url")
-        dataSource.driverClassName = server.parser.getHeadValue("${DATABASE}.driver")
-        this.connection = dataSource.getConnection()
+        String url = server.parser.getHeadValue("${DATABASE}.url")
+        String driver = server.parser.getHeadValue("${DATABASE}.driver")
+        this.sql = Sql.newInstance(url,driver)
     }
 
-    Connection getConnection() {
-        return connection
+    void eachRow(String sql,Closure closure){
+        this.sql.eachRow(sql,closure)
+    }
+
+    String execute(String sql,Object... prepares){
+        this.sql.execute(sql,prepares)
+    }
+
+    DataSet getTable(String table){
+        return this.sql.dataSet(table)
     }
 
 }

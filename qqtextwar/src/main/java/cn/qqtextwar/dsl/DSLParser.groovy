@@ -1,5 +1,6 @@
 package cn.qqtextwar.dsl
 
+import groovy.transform.Memoized
 
 import java.lang.reflect.Method
 import cn.qqtextwar.Utils
@@ -48,11 +49,13 @@ abstract class DSLParser {
         this.fileClass.getMethod("run").invoke(fileClass.newInstance())
     }
 
+    @Memoized
     Object[] getValue(String key,Object defaultValue){
         def t = entry[key]
         t==null?[defaultValue]:t
     }
 
+    @Memoized
     String getHeadValue(String key){
         return getValue(key,"")[0]
     }

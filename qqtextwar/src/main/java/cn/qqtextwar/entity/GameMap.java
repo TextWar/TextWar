@@ -1,11 +1,13 @@
 package cn.qqtextwar.entity;
 
 import cn.qqtextwar.math.Vector;
+import groovy.transform.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@ToString
 public class GameMap {
 
 
