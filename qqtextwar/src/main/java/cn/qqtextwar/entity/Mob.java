@@ -4,7 +4,9 @@ import cn.qqtextwar.math.Vector;
 
 public class Mob extends Entity{
 
-    public Mob(Vector vector, long id, double healthPoints, double manaPoints) {
+    private boolean harmful;
+
+    public Mob(Vector vector, long id, double healthPoints, double manaPoints,boolean harmful) {
         super(vector, id, healthPoints, manaPoints);
     }
 
@@ -21,5 +23,9 @@ public class Mob extends Entity{
         MobEnum(long value) {
             this.mapValue = value;
         }
+    }
+
+    public boolean isHarmful() {
+        return harmful;
     }
 }
