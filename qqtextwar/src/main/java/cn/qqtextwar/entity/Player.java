@@ -25,7 +25,7 @@ public class Player extends Entity{
         levels.put(points,levels.get(points)+1);
     }
 
-    public SkillPoint doSkill(SkillPoints points){
+    public synchronized SkillPoint doSkill(SkillPoints points){
         LocalDateTime time = useDates.get(points);
         LocalDateTime now = LocalDateTime.now();
         if(time == null){
