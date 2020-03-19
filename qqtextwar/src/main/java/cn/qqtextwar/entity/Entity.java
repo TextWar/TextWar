@@ -10,13 +10,13 @@ public class Entity {
 
     private UUID uuid;
 
-    private Vector vector;
-
     private double healthPoints;
 
     private double manaPoints;
 
     private int level;
+    
+    protected Vector vector;
 
     public Entity(Vector vector, long id) {
         uuid = UUID.randomUUID();
