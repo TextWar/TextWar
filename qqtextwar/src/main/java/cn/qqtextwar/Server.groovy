@@ -3,7 +3,7 @@ package cn.qqtextwar
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Entity
 import cn.qqtextwar.entity.Freak
-import cn.qqtextwar.entity.Freak.FreakEnum
+import cn.qqtextwar.entity.Mob.MobEnum
 import cn.qqtextwar.entity.GameMap
 import cn.qqtextwar.entity.Player
 import cn.qqtextwar.math.Vector
@@ -79,7 +79,7 @@ class Server {
     Player createPlayer(long qq,GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
-            Player player = new Player(qq,vector)
+            Player player = new Player(vector,qq,100,100,100)
             players[qq] = player
             return player
         }else{
@@ -96,8 +96,8 @@ class Server {
 
     }
 
-    Freak createFreaks(GameMap map, FreakEnum freaksId){
-        Freak freaks = new Freak(map.randomVector(),freaksId.mapValue)
+    Freak createFreaks(GameMap map, MobEnum freaksId){
+        Freak freaks = new Freak(map.randomVector(),freaksId.mapValue,freaksId.health,freaksId.manaPoints)
         freaksMap.put(freaks.uuid,freaks)
         return freaks
     }
