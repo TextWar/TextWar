@@ -22,12 +22,18 @@ class SQLiteConnetor {
         this.sql.eachRow(sql,closure)
     }
 
-    String execute(String sql,Object... prepares){
-        this.sql.execute(sql,prepares)
+    String execute(String sql,Object... params){
+        this.sql.execute(sql,params)
+    }
+
+    int executeUpdate(String sql,Object... params){
+        this.sql.executeUpdate(sql,params)
     }
 
     DataSet getTable(String table){
-        return this.sql.dataSet(table)
+        this.sql.dataSet(table)
     }
+
+
 
 }
