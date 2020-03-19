@@ -17,22 +17,22 @@ public class GameMap {
 
     private String file;
 
-    private List<List<Integer>> mapData;
+    private int[][] mapData;
 
     private Random random;
 
-    public GameMap(String file, List<List<Integer>> mapData) {
+    public GameMap(String file, int[][] mapData) {
         this.file = file;
         this.mapData = mapData;
         this.getVectors(mapData);
         this.random = new Random();
     }
 
-    public void getVectors(List<List<Integer>> mapData){
-        for(int i = 0;i<mapData.size();i++){
-            List<Integer> map = mapData.get(0);
-            for(int j = 0;j<vectors.size();j++){
-                int number = map.get(j);
+    public void getVectors(int[][] mapData){
+        for(int i = 0;i<mapData.length;i++){
+            int[] map = mapData[0];
+            for(int j = 0;j<map.length;j++){
+                int number = map[j];
                 if(number == WHITE_SPACE){
                     vectors.add(new Vector(j,i));
                 }
@@ -45,7 +45,7 @@ public class GameMap {
     }
 
 
-    public List<List<Integer>> getMapData() {
+    public int[][] getMapData() {
         return mapData;
     }
 

@@ -9,7 +9,7 @@ with the law, @Copyright Jsmod2 China,more can see <a href="http://jsmod2.cn">th
 package cn.qqtextwar.log;
 
 
-import cn.qqtextwar.Utils;
+import cn.qqtextwar.utils.Utils;
 import org.apache.log4j.Logger;
 
 import static org.fusesource.jansi.Ansi.Color.*;

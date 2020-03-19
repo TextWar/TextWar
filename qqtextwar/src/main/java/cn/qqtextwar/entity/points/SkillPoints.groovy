@@ -3,12 +3,15 @@ package cn.qqtextwar.entity.points
 import groovy.transform.ToString;
 
 @ToString
-enum SkillPoints {
+class SkillPoints {
 
-    BIG_STROM("big_strom",
-            new SkillPoint(10,100,0,"_level1"),
-            new SkillPoint(20,200,1,"_level2")
-    );
+    private static final Map<String,SkillPoints> SKILLS = [
+            big_storm : new SkillPoints(
+                    "big_storm",
+                    new SkillPoint(10,100,0,"_level1",10),
+                    new SkillPoint(20,200,1,"_level2",10)
+            )
+    ]
 
     private String name
 
@@ -23,14 +26,9 @@ enum SkillPoints {
         }
     }
 
-    static SkillPoints getByName(String name){
-        return (SkillPoints)SkillPoints.class.getDeclaredFields().findResult{
-            SkillPoints points = ((SkillPoints)it.get(null))
-            if(points.name == name){
-                return points
-            }
-        }
-    }
-
     SkillPoint getSkillByLevel(int level){ points[level] }
+
+    static SkillPoints getSkillPointsByName(String name){
+        SKILLS.get(name)
+    }
 }

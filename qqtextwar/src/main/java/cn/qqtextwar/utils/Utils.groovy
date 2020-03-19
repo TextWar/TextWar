@@ -1,4 +1,4 @@
-package cn.qqtextwar
+package cn.qqtextwar.utils
 
 class Utils {
 

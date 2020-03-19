@@ -3,7 +3,7 @@ package cn.qqtextwar.dsl
 import groovy.transform.Memoized
 
 import java.lang.reflect.Method
-import cn.qqtextwar.Utils
+import cn.qqtextwar.utils.Utils
 
 
 abstract class DSLParser {

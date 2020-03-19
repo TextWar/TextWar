@@ -1,5 +1,6 @@
 package cn.qqtextwar
 
+import cn.qqtextwar.utils.Utils
 import groovy.transform.CompileStatic
 import groovy.transform.Memoized
 

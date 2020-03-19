@@ -103,16 +103,16 @@ class Server {
     }
 
 
-    String updateMap(String image,List<List<Integer>> map){
+    String updateMap(String image,int[][] map){
         if(rpcRunner){
             return rpcRunner.execute(UPDATE_MAP,String.class,image,map)
         }
         return ""
     }
 
-    GameMap getMap(){
+    GameMap getMap(String file){
         if(rpcRunner){
-            return new GameMap("",(List<List<Integer>>)rpcRunner.execute(GET_MAP,List.class))
+            return new GameMap(file,(int[][])rpcRunner.execute(GET_MAP,int[][].class,file))
         }
         return null
     }
