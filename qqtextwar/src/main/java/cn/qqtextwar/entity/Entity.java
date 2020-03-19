@@ -16,6 +16,8 @@ public class Entity {
 
     private double manaPoints;
 
+    private int level;
+
     public Entity(Vector vector, long id) {
         uuid = UUID.randomUUID();
         this.vector = vector;
@@ -56,6 +58,14 @@ public class Entity {
 
     public double getManaPoints() {
         return manaPoints;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     protected final void setHealthPoints(double healthPoints) {
