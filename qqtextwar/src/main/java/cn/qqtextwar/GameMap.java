@@ -1,4 +1,4 @@
-package cn.qqtextwar.entity;
+package cn.qqtextwar;
 
 import cn.qqtextwar.math.Vector;
 import groovy.transform.ToString;

@@ -2,34 +2,34 @@ package cn.qqtextwar.entity;
 
 import cn.qqtextwar.math.Vector;
 
-public class Mob extends Entity{
+import java.util.HashMap;
+import java.util.Map;
+
+
+public abstract class Mob extends Entity{
+
+    private static Map<String,Class<? extends Registered>> mobs = new HashMap<>();
 
     private boolean harmful;
 
-    public Mob(Vector vector, long id, double healthPoints, double manaPoints,boolean harmful) {
-        super(vector, id, healthPoints, manaPoints);
+    public Mob(Vector vector, long id,boolean harmful,int difficulty) {
+        super(vector, id, 0,0);
+        this.harmful = harmful;
+        setLevel(randomLevel(difficulty));
+        setHealthPoints(initHealth(getLevel()));
     }
 
-    public enum MobEnum {
-        NINE(9,100,100),
-        TEN(10,200,200),
-        ELEVEN(11,300,300),
-        TWELVE(12,400,400),
-        THIRTEEN(13,500,500),
-        FOURTEEN(14,600,600),
-        FIFTEEN(15,700,700);
-        public final long mapValue;
-        public final int health;
-        public final int manaPoints;
-
-        MobEnum(long value,int health,int manaPoints) {
-            this.mapValue = value;
-            this.health = health;
-            this.manaPoints = manaPoints;
-        }
+    public static void registerMob(Class<? extends Registered> mob){
+        mobs.put(mob.getName(),mob);
     }
 
     public boolean isHarmful() {
         return harmful;
     }
+
+    public abstract int randomLevel(int difficulty);
+
+    public abstract double initHealth(int level);
+
+
 }

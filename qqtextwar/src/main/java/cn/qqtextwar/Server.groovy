@@ -2,16 +2,21 @@ package cn.qqtextwar
 
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Entity
-import cn.qqtextwar.entity.Freak
-import cn.qqtextwar.entity.Mob.MobEnum
-import cn.qqtextwar.entity.GameMap
-import cn.qqtextwar.entity.Player
+
+import cn.qqtextwar.entity.impl.SkeletonMan
+import cn.qqtextwar.entity.Mob
+import cn.qqtextwar.entity.impl.Slime
+import cn.qqtextwar.entity.player.Player
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import groovy.transform.CompileStatic
 
 @CompileStatic
 class Server {
+
+    static{
+        registerMobs()
+    }
 
     static final int NO = -1
 
@@ -25,7 +30,9 @@ class Server {
 
     static final String GET_MAP = "get_map"
 
+    static final String UPDATE_PIC = "update_pic"
 
+    private int difficulty //难度，后定
 
     private ServerLogger logger = new ServerLogger()
 
@@ -34,8 +41,6 @@ class Server {
     private ServerConfigParser parser
 
     private RPCRunner rpcRunner
-
-
 
     private int round //记录回合
 
@@ -76,6 +81,11 @@ class Server {
         rpcRunner.start(ip,port)
     }
 
+    static void registerMobs(){
+        Mob.registerMob(Slime.class)
+        Mob.registerMob(SkeletonMan.class)
+    }
+
     Player createPlayer(long qq,GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
@@ -96,10 +106,10 @@ class Server {
 
     }
 
-    Freak createFreaks(GameMap map, MobEnum freaksId){
-        Freak freaks = new Freak(map.randomVector(),freaksId.mapValue,freaksId.health,freaksId.manaPoints)
-        freaksMap.put(freaks.uuid,freaks)
-        return freaks
+    Mob createMob(GameMap map,Class<? extends Mob> clz){
+        Mob mob = clz.newInstance(map.randomVector(),difficulty)
+        freaksMap.put(mob.uuid,mob)
+        return mob
     }
 
 
@@ -115,6 +125,12 @@ class Server {
             return new GameMap(file,(int[][])rpcRunner.execute(GET_MAP,int[][].class,file))
         }
         return null
+    }
+
+    void updatePicture(int id,String file){
+        if(rpcRunner){
+            rpcRunner.execute(UPDATE_PIC,id,file)
+        }
     }
 
     File getBaseFile() {

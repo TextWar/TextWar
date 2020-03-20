@@ -1,4 +1,4 @@
-package cn.qqtextwar.entity;
+package cn.qqtextwar.entity.player;
 
 public class Item {
 

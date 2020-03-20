@@ -2,9 +2,18 @@ package cn.qqtextwar.entity;
 
 import cn.qqtextwar.math.Vector;
 
-public class Freak extends Mob {
+public abstract class Freak extends Mob implements Skillable,Registered {
 
-    public Freak(Vector vector, long id, double healthPoints, double manaPoints) {
-        super(vector, id, healthPoints, manaPoints,true);
+    private int anggressivity;
+
+    public Freak(Vector vector,int id,int difficulty) {
+        super(vector,id,true,difficulty);
+        setManaPoints(initManaPoints(getLevel()));
     }
+
+    public abstract double initManaPoints(int level);
+
+    public abstract int initAnggressivity(int level);
+
+
 }

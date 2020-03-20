@@ -1,6 +1,6 @@
 package cn.qqtextwar.entity.tasks;
 
-import cn.qqtextwar.entity.Item;
+import cn.qqtextwar.entity.player.Item;
 
 import java.util.Map;
 

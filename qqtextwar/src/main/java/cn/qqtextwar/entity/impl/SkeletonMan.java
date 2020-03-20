@@ -1,0 +1,31 @@
+package cn.qqtextwar.entity.impl;
+
+import cn.qqtextwar.entity.Freak;
+import cn.qqtextwar.math.Vector;
+
+public class SkeletonMan extends Freak {
+
+    public SkeletonMan(Vector vector, int difficulty) {
+        super(vector,9,difficulty);
+    }
+
+    @Override
+    public double initHealth(int level) {
+        return level * 100 + 10;
+    }
+
+    @Override
+    public double initManaPoints(int level) {
+        return level * 100 + 10;
+    }
+
+    @Override
+    public int randomLevel(int difficulty) {
+        return random.nextInt(10);
+    }
+
+    @Override
+    public int initAnggressivity(int level) {
+        return level * 10;
+    }
+}
