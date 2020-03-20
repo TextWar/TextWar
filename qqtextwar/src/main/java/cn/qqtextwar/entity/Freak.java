@@ -13,7 +13,7 @@ public abstract class Freak extends Mob implements Skillable,Registered {
 
     public abstract double initManaPoints(int level);
 
-    public abstract int initAnggressivity(int level);
+    public abstract int initAggressivity(int level);
 
 
 }

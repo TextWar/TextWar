@@ -25,7 +25,7 @@ public class SkeletonMan extends Freak {
     }
 
     @Override
-    public int initAnggressivity(int level) {
+    public int initAggressivity(int level) {
         return level * 10;
     }
 }
