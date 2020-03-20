@@ -2,7 +2,7 @@ package cn.qqtextwar
 
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Entity
-
+import cn.qqtextwar.entity.Registered
 import cn.qqtextwar.entity.impl.SkeletonMan
 import cn.qqtextwar.entity.Mob
 import cn.qqtextwar.entity.impl.Slime
@@ -54,6 +54,8 @@ class Server {
 
     private FileRegister register
 
+    private Random random
+
     Server(){
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
@@ -61,6 +63,7 @@ class Server {
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
         this.round = 0
         this.state = NO
+        this.random = new Random()
     }
 
     //启动的方法组合顺序
@@ -106,10 +109,23 @@ class Server {
 
     }
 
-    Mob createMob(GameMap map,Class<? extends Mob> clz){
-        Mob mob = clz.newInstance(map.randomVector(),difficulty)
+    synchronized int random(int round){
+        random.nextInt(round)
+    }
+
+    Mob createMob(GameMap map,Class<? extends Registered> clz){
+        Mob mob = (Mob)clz.newInstance(map.randomVector(),difficulty)
         freaksMap.put(mob.uuid,mob)
         return mob
+    }
+
+    List<Mob> createRandomMobs(GameMap map,int n){
+        List<Mob> mobs = new ArrayList<>()
+        (1..n).each {
+            int round = random(Mob.getMobs().size())
+            mobs.add(createMob(map,Mob.mobs().get(round)))
+        }
+        return mobs
     }
 
 

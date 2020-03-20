@@ -11,7 +11,7 @@ public class Slime extends CommonMob {
 
     @Override
     public int randomLevel(int difficulty) {
-        return random.nextInt(10);
+        return random(10);
     }
 
     @Override

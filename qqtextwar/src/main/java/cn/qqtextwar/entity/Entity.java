@@ -49,6 +49,10 @@ public abstract class Entity {
         this.random = new Random();
     }
 
+    public synchronized int random(int round){
+        return random.nextInt(round);
+    }
+
     public synchronized SkillPoint doSkill(SkillPoints points){
         LocalDateTime time = useDates.get(points);
         LocalDateTime now = LocalDateTime.now();

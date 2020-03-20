@@ -21,7 +21,7 @@ public class SkeletonMan extends Freak {
 
     @Override
     public int randomLevel(int difficulty) {
-        return random.nextInt(10);
+        return random(10);
     }
 
     @Override
