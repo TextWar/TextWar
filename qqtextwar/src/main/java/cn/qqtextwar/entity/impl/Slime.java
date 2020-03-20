@@ -3,7 +3,7 @@ package cn.qqtextwar.entity.impl;
 import cn.qqtextwar.entity.CommonMob;
 import cn.qqtextwar.math.Vector;
 
-public abstract class Slime extends CommonMob {
+public class Slime extends CommonMob {
 
     public Slime(Vector vector,int diff) {
         super(vector, 11,diff);
@@ -19,4 +19,8 @@ public abstract class Slime extends CommonMob {
         return level * 10 +20;
     }
 
+    @Override
+    public double getXp(int level) {
+        return level*10;
+    }
 }

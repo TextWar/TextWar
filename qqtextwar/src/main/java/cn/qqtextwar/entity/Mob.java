@@ -31,5 +31,7 @@ public abstract class Mob extends Entity{
 
     public abstract double initHealth(int level);
 
+    public abstract double getXp(int level);
+
 
 }

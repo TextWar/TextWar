@@ -28,4 +28,9 @@ public class SkeletonMan extends Freak {
     public int initAggressivity(int level) {
         return level * 10;
     }
+
+    @Override
+    public double getXp(int level) {
+        return level * 100;
+    }
 }
