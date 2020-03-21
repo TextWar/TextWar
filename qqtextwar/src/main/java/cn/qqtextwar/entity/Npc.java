@@ -1,6 +1,6 @@
 package cn.qqtextwar.entity;
 
-import cn.qqtextwar.entity.tasks.Task;
+import cn.qqtextwar.tasks.Task;
 import cn.qqtextwar.math.Vector;
 
 import java.util.Queue;

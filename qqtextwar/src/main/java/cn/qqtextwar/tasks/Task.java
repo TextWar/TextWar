@@ -1,4 +1,4 @@
-package cn.qqtextwar.entity.tasks;
+package cn.qqtextwar.tasks;
 
 import cn.qqtextwar.entity.player.Item;
 

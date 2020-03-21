@@ -114,9 +114,14 @@ class Server {
     }
 
     Mob createMob(GameMap map,Class<? extends Registered> clz){
-        Mob mob = (Mob)clz.newInstance(map.randomVector(),difficulty)
-        freaksMap.put(mob.uuid,mob)
-        return mob
+        Registered registered = clz.newInstance(map.randomVector(),difficulty)
+        if(registered instanceof Mob){
+            Mob mob = registered as Mob
+            freaksMap.put(mob.uuid,mob)
+            return mob
+        }
+
+        return null
     }
 
     List<Mob> createRandomMobs(GameMap map,int n){
