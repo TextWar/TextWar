@@ -120,7 +120,7 @@ public class OamlReader implements DocumentReader {
 		if(cdn == null) {
 			throw new ReaderException("文件提前结束");
 		}else if(!cdn.replace(" ","").matches("\\?encoding:[\\s\\S]+version:[\\s\\S]+\\?")) {
-			throw new ReaderException("Nnkown encoding:null");
+			throw new ReaderException("Unknown encoding:null");
 		}else {
 			cdn = cdn.substring(cdn.indexOf("encoding:")+"encoding:".length(),cdn.indexOf("version")).trim();
 		}
