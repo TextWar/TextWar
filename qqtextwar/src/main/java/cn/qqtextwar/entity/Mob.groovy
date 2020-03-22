@@ -7,6 +7,7 @@ import groovy.transform.ToString
 
 /**
  * 生物类
+ * id > 1000
  * @author MagicLu550 @ 卢昶存
  */
 @CompileStatic

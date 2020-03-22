@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * 玩家类
+ * id > 10000
  */
 public class Player extends Entity implements Skillable {
 

@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Npc,可以售出货物和给予任务
- *
+ * id> 3000
  * @author MagicLu550 @ 卢昶存
  */
 public class Npc extends Entity{

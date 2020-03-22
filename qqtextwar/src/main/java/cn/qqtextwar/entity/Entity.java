@@ -111,8 +111,10 @@ public abstract class Entity {
 
     /**
      * 每个实体类型都有自己的特有id
-     * 一般9以上的都是怪物
-     * 50000以上的都是玩家
+     * mob > 1000
+     * qq > 10000
+     * dynamic block > 2000
+     * npc > 3000
      */
     public long getId() {
         return id;

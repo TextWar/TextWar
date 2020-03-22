@@ -210,15 +210,18 @@ class Server {
     /** 向rpc服务端发出指令，以更新图片，传入修改过的map对象 */
     String updateMap(String image,GameMap map){
         if(rpcRunner){
-            return rpcRunner.execute(UPDATE_MAP,String.class,image,map.getMapData())
+            String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.getMapData())
+            map.setFile(file)
+            return file
         }
         return ""
     }
 
+    // Todo Map
     /**获得最新的Map，只有开始第一回合或者下一回合调用  */
-    GameMap getMap(String file){
+    GameMap getMap(int type){
         if(rpcRunner){
-            return new GameMap(file,(int[][])rpcRunner.execute(GET_MAP,int[][].class,file))
+            return new GameMap((String)rpcRunner.execute(GET_MAP,String.class,type))
         }
         return null
     }

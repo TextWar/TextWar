@@ -1,6 +1,17 @@
 package cn.qqtextwar.utils
 
+import cn.qqtextwar.Server
+
 class Utils {
+
+    static String getClassFileName(String file){
+        return Server.class.getClassLoader().getResource("/").getPath()+file;
+    }
+
+    static PrintWriter getWriter(OutputStream stream){
+        PrintWriter writer = new PrintWriter(stream,true)
+        return writer;
+    }
 
     static String simpleClassName(Class<?> clz){
         String className = clz.getName()
