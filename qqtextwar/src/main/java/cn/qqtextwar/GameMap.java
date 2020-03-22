@@ -129,7 +129,7 @@ public class GameMap {
     private static Long[] getLongArray(JSONArray array){
         return array.toJavaList(Long.class).toArray(new Long[0]);
     }
-    
+
     private static boolean canCross(String name){
         return name.startsWith(CROSS_LABEL);
     }
