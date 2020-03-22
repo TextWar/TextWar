@@ -10,7 +10,7 @@ import groovy.transform.Memoized
  * 方便管理和添加配置.
  * 这里的文件名字必须是在resources文件夹下存在的。最终会被复制到服务端的根目录下。
  *
- * @author MagicLu
+ * @author MagicLu @ 卢昶存
  */
 @CompileStatic
 class FileRegister {
@@ -20,10 +20,19 @@ class FileRegister {
      */
     static final String MAIN_CONFIG = "server.cfg"
 
+    /**
+     * 这里存储注册的全部文件
+     */
     private List<String> resources
 
+    /**
+     * 从Server对象获得的根目录
+     */
     private File baseFile
 
+    /**
+     * 这里存储后面注册的映射，为文件名对应根目录下的文件对象
+     */
     private Map<String,File> files = [:]
 
     FileRegister(Server server){

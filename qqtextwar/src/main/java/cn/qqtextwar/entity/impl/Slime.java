@@ -3,6 +3,9 @@ package cn.qqtextwar.entity.impl;
 import cn.qqtextwar.entity.CommonMob;
 import cn.qqtextwar.math.Vector;
 
+/**
+ * 史莱姆
+ */
 public class Slime extends CommonMob {
 
     public Slime(Vector vector,int diff) {

@@ -3,6 +3,9 @@ package cn.qqtextwar.entity.player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 背包
+ */
 public class Inventory {
 
     private List<Item> items;

@@ -5,7 +5,9 @@ import groovy.transform.Memoized
 import java.lang.reflect.Method
 import cn.qqtextwar.utils.Utils
 
-
+/**
+ * @author MagicLu550 @ 卢昶存
+ */
 abstract class DSLParser {
 
     GroovyClassLoader loader
@@ -49,12 +51,27 @@ abstract class DSLParser {
         this.fileClass.getMethod("run").invoke(fileClass.newInstance())
     }
 
+    /**
+     * 这里用于获取相应的元素，返回全部参数
+     * 如
+     * <code>
+     *     rpc{
+     *         server "name","hello"
+     *         //名称 rpc.server 参数为name和hello
+     *         //默认值如果没有这个属性，默认返回的数值
+     *     }
+     * </code>
+     */
     @Memoized
     Object[] getValue(String key,Object defaultValue){
         def t = entry[key]
         t==null?[defaultValue]:t
     }
 
+    /**
+     *这个是简化了操作，只能获取一个参数的，多个可能会报错
+     * 并且参数必须是字符串类型
+     */
     @Memoized
     String getHeadValue(String key){
         return getValue(key,"")[0]

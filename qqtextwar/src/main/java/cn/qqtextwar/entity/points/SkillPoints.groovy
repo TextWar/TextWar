@@ -2,6 +2,9 @@ package cn.qqtextwar.entity.points
 
 import groovy.transform.ToString;
 
+/**
+ * 这个用于容纳多个技能点，根据所有者等级使用相应等级的技能点
+ */
 @ToString
 class SkillPoints {
 

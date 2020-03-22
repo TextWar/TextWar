@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 游戏的地图对象，否则操控和计算地图的怪物分配及玩家分配
+ *
+ * @author MagicLu550 @ 卢昶存
+ */
 @ToString
 public class GameMap {
 

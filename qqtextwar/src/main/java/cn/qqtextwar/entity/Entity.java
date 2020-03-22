@@ -11,6 +11,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * 这里是所有实体的基类，只要是游戏里活着的东西都继承
+ * 它
+ *
+ * @author gunveda
+ * @author MagicLu550 @ 卢昶存
+ */
 public abstract class Entity {
 
     private long id;
@@ -53,6 +60,10 @@ public abstract class Entity {
         return random.nextInt(round);
     }
 
+    /**
+     * 这个负责执行技能，只有实现了Skillable接口的生物才能使用
+     * 这里允许使用的为玩家和有害的生物
+     */
     public synchronized SkillPoint doSkill(SkillPoints points){
         LocalDateTime time = useDates.get(points);
         LocalDateTime now = LocalDateTime.now();
@@ -74,25 +85,42 @@ public abstract class Entity {
         }
     }
 
+
+    /**
+     * 这里可以对相应的技能升级，只要传入SkillPoints对象即可
+     */
     private void upLevel(SkillPoints points){
         levels.put(points,levels.get(points)+1);
     }
 
 
-
+    /**
+     * 可以添加技能
+     */
     public void addSkill(SkillPoints points){
         this.levels.put(points,0);
     }
 
+    /**
+     * 获得生物相相应等级的特定技能
+     */
     private SkillPoint getSkillByLevel(SkillPoints points){
         return points.getSkillByLevel(levels.get(points));
     }
 
 
+    /**
+     * 每个实体类型都有自己的特有id
+     * 一般9以上的都是怪物
+     * 50000以上的都是玩家
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * 每个实体的基准id，用于辨别特定的实体
+     */
     public UUID getUuid() {
         return uuid;
     }
@@ -105,6 +133,11 @@ public abstract class Entity {
         return vector.getY();
     }
 
+    /**
+     * 获得向量，每个实体的坐标都是默认为从原点开始的向量
+     * 原点为左上角第一个方格，从上到下，从左到右，坐标
+     * 量增加，均为正
+     */
     public Vector getVector() {
         return vector;
     }

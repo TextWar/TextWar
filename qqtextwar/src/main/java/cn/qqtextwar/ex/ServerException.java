@@ -1,5 +1,8 @@
 package cn.qqtextwar.ex;
 
+/**
+ * 服务端的异常必须继承
+ */
 public class ServerException extends RuntimeException {
 
     public ServerException() {

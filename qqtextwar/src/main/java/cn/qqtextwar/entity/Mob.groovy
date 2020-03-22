@@ -5,6 +5,10 @@ import groovy.transform.CompileStatic
 import groovy.transform.Memoized
 import groovy.transform.ToString
 
+/**
+ * 生物类
+ * @author MagicLu550 @ 卢昶存
+ */
 @CompileStatic
 @ToString
 abstract class Mob extends Entity{

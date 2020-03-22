@@ -8,8 +8,14 @@ import cn.qqtextwar.math.Vector;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 玩家类
+ */
 public class Player extends Entity implements Skillable {
 
+    /**
+     * 这里用于定义升下一级所需的xp值
+     */
     private static final Map<Integer,Integer> LEVEL_LIMIT = new HashMap<>();
 
     static {

@@ -4,7 +4,11 @@ import cn.qqtextwar.Server
 import groovy.sql.DataSet
 import groovy.sql.Sql
 
-
+/**
+ * 对于数据库连接的封装
+ *
+ * @author MagicLu550 @ 卢昶存
+ */
 class SQLiteConnetor {
 
 

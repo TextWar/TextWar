@@ -1,6 +1,10 @@
 package cn.qqtextwar.entity.points;
 
 //SkillPoints(name,[new Skill])
+
+/**
+ * 技能点，
+ */
 public class SkillPoint {
 
     private int buff;

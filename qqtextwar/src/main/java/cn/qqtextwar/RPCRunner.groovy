@@ -5,6 +5,12 @@ import groovy.transform.CompileStatic
 import org.apache.xmlrpc.client.XmlRpcClient
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl
 
+/**
+ * 负责运行RPC相关职能，在Server中激活开启。
+ * 另外所需信息来自server.cfg
+ *
+ * @author MagicLu550 @ 卢昶存
+ */
 @CompileStatic
 class RPCRunner {
 
