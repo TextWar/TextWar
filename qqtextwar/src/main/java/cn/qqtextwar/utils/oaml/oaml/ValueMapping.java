@@ -2,11 +2,11 @@ package cn.qqtextwar.utils.oaml.oaml;
 
 public class ValueMapping {
     private String before;
-    private String After;
+    private String after;
 
     public ValueMapping(String before, String after) {
         this.before = before;
-        After = after;
+        this.after = after;
     }
     public ValueMapping(){
 
@@ -20,18 +20,18 @@ public class ValueMapping {
     }
 
     public String getAfter() {
-        return After;
+        return after;
     }
 
     public void setAfter(String after) {
-        After = after;
+        after = after;
     }
 
     @Override
     public String toString() {
         return "ValueMapping{" +
                 "before='" + before + '\'' +
-                ", After='" + After + '\'' +
+                ", After='" + after + '\'' +
                 '}';
     }
 }
