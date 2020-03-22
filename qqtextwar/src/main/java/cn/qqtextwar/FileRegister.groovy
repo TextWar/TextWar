@@ -44,7 +44,7 @@ class FileRegister {
 
     @Memoized
     File getConfig(String cfg){
-        files.get(cfg)
+        files[cfg]
     }
 
 
