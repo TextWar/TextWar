@@ -1,14 +1,13 @@
 package cn.qqtextwar;
 
 import cn.qqtextwar.blocks.Block;
-import cn.qqtextwar.entity.player.Player;
+import cn.qqtextwar.entity.Entity;
 import cn.qqtextwar.math.Vector;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import groovy.transform.ToString;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -76,10 +75,9 @@ public class GameMap {
         return vectors.get(random.nextInt(vectors.size()-1));
     }
 
-    public void addPlayer(Player player){
-        mapData[player.getY()][player.getX()] = player.getId();
+    public void addEntity(Entity e){
+        mapData[e.getY()][e.getX()] = e.getId();
     }
-
 
 
     public Long[][] getMapData() {
