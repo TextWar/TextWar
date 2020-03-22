@@ -1,6 +1,7 @@
 package cn.qqtextwar;
 
 import cn.qqtextwar.blocks.Block;
+import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.math.Vector;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -20,13 +21,15 @@ import java.util.Random;
 public class GameMap {
 
 
-    private static int WHITE_SPACE = 0;
+    private static final int WHITE_SPACE = 0;
+
+    private static final String CROSS_LABEL = "*";
 
     private List<Vector> vectors = new ArrayList<>();
 
     private String file;
 
-    private Integer[][] mapData;
+    private Long[][] mapData;
 
     private Random random;
 
@@ -55,24 +58,15 @@ public class GameMap {
         this.blocks = new ArrayList<>();
     }
 
-    private static Integer[][] toData(Object[] map){
-        List<Integer[]> data = new ArrayList<>(map.length);
-        for(Object arr : map){
-            data.add(((JSONArray)arr).toArray(new Integer[0]));
-        }
-        return data.toArray(new Integer[0][0]);
-    }
-
-
-    public void getVectors(Integer[][] mapData){
+    public void getVectors(Long[][] mapData){
         for(int i = 0;i<mapData.length;i++){
-            Integer[] map = mapData[0];
+            Long[] map = mapData[0];
             for(int j = 0;j<map.length;j++){
-                int number = map[j];
+                long number = map[j];
                 if(number == WHITE_SPACE){
                     vectors.add(new Vector(j,i));
                 }else{
-                    blocks.add(new Block(new Vector(j,i),number, hashMap.get(number).startsWith("*")));
+                    blocks.add(new Block(new Vector(j,i),number, canCross(hashMap.get((int)number))));
                 }
             }
         }
@@ -82,8 +76,13 @@ public class GameMap {
         return vectors.get(random.nextInt(vectors.size()-1));
     }
 
+    public void addPlayer(Player player){
+        mapData[player.getY()][player.getX()] = player.getId();
+    }
 
-    public Integer[][] getMapData() {
+
+
+    public Long[][] getMapData() {
         return mapData;
     }
 
@@ -117,5 +116,21 @@ public class GameMap {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    private static Long[][] toData(Object[] map){
+        List<Long[]> data = new ArrayList<>(map.length);
+        for(Object arr : map){
+            data.add(getLongArray((JSONArray) arr));
+        }
+        return data.toArray(new Long[0][0]);
+    }
+
+    private static Long[] getLongArray(JSONArray array){
+        return array.toJavaList(Long.class).toArray(new Long[0]);
+    }
+    
+    private static boolean canCross(String name){
+        return name.startsWith(CROSS_LABEL);
     }
 }

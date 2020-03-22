@@ -9,7 +9,7 @@ import cn.qqtextwar.math.Vector;
 public class Slime extends CommonMob {
 
     public Slime(Vector vector,int diff) {
-        super(vector, 11,diff);
+        super(vector, 1001,diff);
     }
 
     @Override

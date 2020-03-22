@@ -9,7 +9,7 @@ import cn.qqtextwar.math.Vector;
 public class SkeletonMan extends Freak {
 
     public SkeletonMan(Vector vector, int difficulty) {
-        super(vector,9,difficulty);
+        super(vector,1000,difficulty);
     }
 
     @Override

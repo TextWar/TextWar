@@ -35,7 +35,6 @@ public class Player extends Entity implements Skillable {
 
     public Player(Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
-
         this.xp = 0;
         this.inventory = new Inventory();
         this.money = money;
