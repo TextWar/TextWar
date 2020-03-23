@@ -138,7 +138,7 @@ public abstract class Entity {
         return vector.getY();
     }
 
-    public void move(Vector vector, GameMap map) throws MoveException{
+    public synchronized void move(Vector vector, GameMap map) throws MoveException{
         Vector v = this.vector.add(vector);
         if(v.getX()<0){
             throw new MoveException("out of bounds of the map");
