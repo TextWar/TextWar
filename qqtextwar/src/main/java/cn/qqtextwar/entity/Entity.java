@@ -118,6 +118,8 @@ public abstract class Entity {
      * qq > 10000
      * dynamic block > 2000
      * npc > 3000
+     * 映射字符 *
+     * *name 为可穿越方块
      */
     public long getId() {
         return id;
@@ -167,6 +169,10 @@ public abstract class Entity {
 
     public void left(GameMap map){
         move(new Vector(-1,0),map);
+    }
+
+    public void update(GameMap map){
+        map.updateEntity(this);
     }
 
     public void right(GameMap map){

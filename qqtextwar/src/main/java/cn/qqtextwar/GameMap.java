@@ -9,6 +9,9 @@ import groovy.transform.ToString;
 
 import java.util.*;
 
+import static cn.qqtextwar.ProtocolVar.CROSS_LABEL;
+import static cn.qqtextwar.ProtocolVar.WHITE_SPACE;
+
 /**
  * 游戏的地图对象，否则操控和计算地图的怪物分配及玩家分配
  *
@@ -18,9 +21,7 @@ import java.util.*;
 public class GameMap{
 
 
-    private static final int WHITE_SPACE = 0;
 
-    private static final String CROSS_LABEL = "*";
 
     private List<Vector> vectors = new ArrayList<>();
 
@@ -45,10 +46,10 @@ public class GameMap{
     private Map<UUID,Vector> entityVector;
 
     public GameMap(String json) {
-        this.init(json);
         this.random = new Random();
         this.blocks = new HashMap<>();
         this.entityVector = new HashMap<>();
+        this.init(json);
     }
 
 
@@ -75,6 +76,10 @@ public class GameMap{
             mapData[vector.getY()][vector.getX()] = id;
             mapData[e.getY()][e.getX()] = e.getId();
         }
+    }
+
+    public void updateEntity(Entity e){
+        addEntity(e);
     }
 
 
@@ -150,6 +155,15 @@ public class GameMap{
             data.add(getLongArray((JSONArray) arr));
         }
         return data.toArray(new Long[0][0]);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(Long[] longs : mapData){
+            builder.append(Arrays.toString(longs)).append("\n");
+        }
+        return builder.toString();
     }
 
     private static Long[] getLongArray(JSONArray array){

@@ -170,6 +170,23 @@ class Server {
         }
     }
 
+    /** 创建玩家，并注册到地图 */
+    Player registerPlayer(long qq,GameMap map){
+        Player player = createPlayer(qq,map)
+        map.addEntity(player)
+        return player
+    }
+
+
+    /** 创建Mob，并注册到地图 */
+    List<Mob> registerMobs(GameMap map,int n){
+        List<Mob> mobs = createRandomMobs(map,n)
+        for(Mob mob : mobs){
+            map.addEntity(mob)
+        }
+        return mobs
+    }
+
     /** 这里通过数据库初始化信息 */
     void initPlayers(){
 
@@ -177,6 +194,10 @@ class Server {
     /** 同上 */
     void initFreaks(){
 
+    }
+
+    Player getPlayer(long qq){
+        return players[qq]
     }
 
     /** 线程安全的随机表，在创建怪物时使用 */
