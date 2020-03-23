@@ -1,7 +1,10 @@
 package cn.qqtextwar.entity;
 
+import cn.qqtextwar.GameMap;
+import cn.qqtextwar.blocks.Block;
 import cn.qqtextwar.entity.points.SkillPoint;
 import cn.qqtextwar.entity.points.SkillPoints;
+import cn.qqtextwar.ex.MoveException;
 import cn.qqtextwar.math.Vector;
 
 import java.time.Duration;
@@ -133,6 +136,41 @@ public abstract class Entity {
 
     public int getY() {
         return vector.getY();
+    }
+
+    public void move(Vector vector, GameMap map) throws MoveException{
+        Vector v = this.vector.add(vector);
+        if(v.getX()<0){
+            throw new MoveException("out of bounds of the map");
+        }
+        if(v.getY()<0){
+            throw new MoveException("out of bounds of the map");
+        }
+        Block block = map.getBlocks().get(vector);
+        if(block!=null){
+            if(block.isCross()){
+                this.vector = block.getVector();
+            }
+            throw new MoveException("You could not cross this block id: "+block.getId());
+        }else{
+            this.vector = v;
+        }
+    }
+
+    public void up(GameMap map){
+        move(new Vector(0,-1),map);
+    }
+
+    public void down(GameMap map){
+        move(new Vector(0,1),map);
+    }
+
+    public void left(GameMap map){
+        move(new Vector(-1,0),map);
+    }
+
+    public void right(GameMap map){
+        move(new Vector(1,0),map);
     }
 
     /**

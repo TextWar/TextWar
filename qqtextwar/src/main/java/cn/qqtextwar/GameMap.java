@@ -7,9 +7,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import groovy.transform.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 游戏的地图对象，否则操控和计算地图的怪物分配及玩家分配
@@ -32,7 +30,7 @@ public class GameMap {
 
     private Random random;
 
-    private List<Block> blocks;
+    private Map<Vector,Block> blocks;
 
     private String version;
 
@@ -44,6 +42,8 @@ public class GameMap {
 
     private List<String> hashMap;
 
+    private Map<UUID,Vector> entityVector;
+
     public GameMap(String json) {
         JSONObject object = JSONObject.parseObject(json);
         this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
@@ -54,7 +54,8 @@ public class GameMap {
         this.mapData = toData(((JSONArray) object.get("map")).toArray());
         this.getVectors(mapData);
         this.random = new Random();
-        this.blocks = new ArrayList<>();
+        this.blocks = new HashMap<>();
+        this.entityVector = new HashMap<>();
     }
 
     public void getVectors(Long[][] mapData){
@@ -65,7 +66,12 @@ public class GameMap {
                 if(number == WHITE_SPACE){
                     vectors.add(new Vector(j,i));
                 }else{
-                    blocks.add(new Block(new Vector(j,i),number, canCross(hashMap.get((int)number))));
+                    Vector vector = new Vector(j,i);
+                    Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
+                    blocks.put(vector,block);
+                    if(block.isCross()){
+                        vectors.add(vector);
+                    }
                 }
             }
         }
@@ -75,8 +81,24 @@ public class GameMap {
         return vectors.get(random.nextInt(vectors.size()-1));
     }
 
+    //玩家移动时，需要判断一下方块可穿过
+    //这里默认方块都是可穿过的，因为在先前就可以判断
     public void addEntity(Entity e){
-        mapData[e.getY()][e.getX()] = e.getId();
+        if(!entityVector.containsKey(e.getUuid())){
+            entityVector.put(e.getUuid(),e.getVector());
+            mapData[e.getY()][e.getX()] = e.getId();
+        }else{
+            //先前的vector
+            Vector vector = entityVector.get(e.getUuid());
+            long id;
+            if(blocks.get(vector)!=null){
+                id = blocks.get(vector).getId();
+            }else{
+                id = 0L;
+            }
+            mapData[vector.getY()][vector.getX()] = id;
+            mapData[e.getY()][e.getX()] = e.getId();
+        }
     }
 
 
@@ -92,7 +114,7 @@ public class GameMap {
         return vectors;
     }
 
-    public List<Block> getBlocks() {
+    public Map<Vector,Block> getBlocks() {
         return blocks;
     }
 
