@@ -15,7 +15,7 @@ import java.util.*;
  * @author MagicLu550 @ 卢昶存
  */
 @ToString
-public class GameMap {
+public class GameMap{
 
 
     private static final int WHITE_SPACE = 0;
@@ -45,37 +45,13 @@ public class GameMap {
     private Map<UUID,Vector> entityVector;
 
     public GameMap(String json) {
-        JSONObject object = JSONObject.parseObject(json);
-        this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
-        this.type = (Integer) object.get("type");
-        this.name = (String) object.get("name");
-        this.author = (String)object.get("author");
-        this.version = (String)object.get("version");
-        this.mapData = toData(((JSONArray) object.get("map")).toArray());
-        this.getVectors(mapData);
+        this.init(json);
         this.random = new Random();
         this.blocks = new HashMap<>();
         this.entityVector = new HashMap<>();
     }
 
-    public void getVectors(Long[][] mapData){
-        for(int i = 0;i<mapData.length;i++){
-            Long[] map = mapData[0];
-            for(int j = 0;j<map.length;j++){
-                long number = map[j];
-                if(number == WHITE_SPACE){
-                    vectors.add(new Vector(j,i));
-                }else{
-                    Vector vector = new Vector(j,i);
-                    Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
-                    blocks.put(vector,block);
-                    if(block.isCross()){
-                        vectors.add(vector);
-                    }
-                }
-            }
-        }
-    }
+
 
     public Vector randomVector(){
         return vectors.get(random.nextInt(vectors.size()-1));
@@ -136,6 +112,36 @@ public class GameMap {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    private void init(String json){
+        JSONObject object = JSONObject.parseObject(json);
+        this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
+        this.type = (Integer) object.get("type");
+        this.name = (String) object.get("name");
+        this.author = (String)object.get("author");
+        this.version = (String)object.get("version");
+        this.mapData = toData(((JSONArray) object.get("map")).toArray());
+        this.getVectors(mapData);
+    }
+
+    private void getVectors(Long[][] mapData){
+        for(int i = 0;i<mapData.length;i++){
+            Long[] map = mapData[0];
+            for(int j = 0;j<map.length;j++){
+                long number = map[j];
+                if(number == WHITE_SPACE){
+                    vectors.add(new Vector(j,i));
+                }else{
+                    Vector vector = new Vector(j,i);
+                    Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
+                    blocks.put(vector,block);
+                    if(block.isCross()){
+                        vectors.add(vector);
+                    }
+                }
+            }
+        }
     }
 
     private static Long[][] toData(Object[] map){
