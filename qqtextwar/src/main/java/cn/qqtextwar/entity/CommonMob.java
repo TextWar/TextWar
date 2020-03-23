@@ -10,7 +10,7 @@ import cn.qqtextwar.math.Vector;
  */
 public abstract class CommonMob extends Mob implements Registered{
 
-    public CommonMob(Vector vector, int diff,int id) {
+    public CommonMob(Vector vector, int id,int diff) {
         super(vector, id, false,diff);
     }
 

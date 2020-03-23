@@ -1,5 +1,7 @@
 package cn.qqtextwar;
 
+import cn.qqtextwar.entity.Mob;
+import cn.qqtextwar.entity.impl.Slime;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.math.Vector;
 
@@ -26,6 +28,8 @@ public class Example {
         GameMap map = new GameMap(EXAMPLE_MAP);
         Player player = new Player(new Vector(0,0),192992929,1,1,1);
         player.move(new Vector(1,2),map).update();
+        Mob mob = new Slime(new Vector(1,1),0);
+        mob.move(new Vector(2,1),map).update();
         System.out.println(map);
     }
 }
