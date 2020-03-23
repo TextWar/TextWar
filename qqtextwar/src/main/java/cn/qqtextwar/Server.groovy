@@ -1,5 +1,6 @@
 package cn.qqtextwar
 
+import cn.qqtextwar.Threads.MapThread
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Registered
 import cn.qqtextwar.entity.impl.SkeletonMan
@@ -28,20 +29,23 @@ class Server {
         registerMobs()
     }
 
+    public static final String GAME_DIFFICULTY = "server.game.difficulty"
+
+    public static final String PYTHON_COMMAND = "server.python.command"
     /** 第一次开启时的状态 */
-    static final int NO = -1
+    public static final int NO = -1
 
     /** 游戏开启的状态 */
-    static final int START = 0
+    public static final int START = 0
 
     /** 游戏进行的状态 */
-    static final int GAMEING = 1
+    public static final int GAMEING = 1
 
     /** 游戏一回合结束的状态 */
-    static final int END = 2
+    public static final int END = 2
 
     /** 服务端即将关闭的状态 **/
-    static final int CLOSED = 3
+    public static final int CLOSED = 3
 
     /** 从python端更新地图图片的pkey */
     static final String UPDATE_MAP = "update_map"
@@ -93,6 +97,10 @@ class Server {
     /** 单例服务端，会在start静态方法时创建  */
     private static Server server
 
+    private volatile GameMap gameMap
+
+    private MapThread mapThread
+
     /** 服务端构造方法，请不要直接使用它 */
     private Server(){
         if(!server){
@@ -104,9 +112,14 @@ class Server {
         this.register = new FileRegister(this)
         this.register.register()
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
+        this.difficulty = (Integer)parser.getValue(GAME_DIFFICULTY,1)[0]
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
         this.random = new Random()
+        this.mapThread = new MapThread(this)
+        ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each {
+            it.execute()
+        }
     }
 
     //启动的方法组合顺序
@@ -121,17 +134,30 @@ class Server {
     // 9. 游戏结束，初始化全部对象。
     /** 服务端对象的启动方法，请不要直接调用，否则会出现不可预料的错误 */
     private void start0(){
-        this.logger.info("server is starting...")
+        this.logger.info("Server is starting...")
         String ip = this.parser.getHeadValue("server.ip")
         String port = this.parser.getHeadValue("server.port")
         this.rpcRunner = new RPCRunner()
         rpcRunner.start(ip,port)
+        this.logger.info("Map thread is starting...")
+        mapThread.start()
+        this.logger.info("Map thread has started")
+        this.state.compareAndSet(state.get(),START)
     }
 
+    //游戏第下一回合，
+    //需要重新获得地图，
+    //玩家的坐标重新初始化，
+    //怪物全部清除，
+    //GameMap设置为空，
+    //重新获取，
+    //回合+1
+    //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
     static start(){
         new Server().start0()
     }
+
 
     /** 服务端只能关闭一次，同时改变状态使所有线程关闭 */
     static stop(){
@@ -194,6 +220,12 @@ class Server {
     /** 同上 */
     void initFreaks(){
 
+    }
+
+    /** 更新地图计数 */
+
+    void wantUpdate(){
+        mapThread.wantUpdate()
     }
 
     Player getPlayer(long qq){
@@ -262,8 +294,19 @@ class Server {
         return parser
     }
 
+    GameMap getGameMap() {
+        return gameMap
+    }
+
+    void setGameMap(GameMap gameMap) {
+        this.gameMap = gameMap
+    }
+
+    AtomicInteger getState() {
+        return state
+    }
+
     static Server getServer(){
         return server
     }
-
 }

@@ -37,7 +37,7 @@ class RPCRunner {
         return returnType.cast(client.execute(pMethod,params))
     }
 
-    void execute(String name,Object... params){
+    synchronized void execute(String name,Object... params){
         String pMethod = PKEY+name
         client.execute(pMethod,params)
     }

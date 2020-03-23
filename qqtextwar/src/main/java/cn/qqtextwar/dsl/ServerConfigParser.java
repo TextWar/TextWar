@@ -38,4 +38,14 @@ public class ServerConfigParser extends DSLParser {
     public void database(Closure closure){
         closure.call();
     }
+
+    @DSLMethod
+    public void game(Closure closure){
+        closure.call();
+    }
+
+    @DSLMethod
+    public void python(Closure closure){
+        closure.call();
+    }
 }

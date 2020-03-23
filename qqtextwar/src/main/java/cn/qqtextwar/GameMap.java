@@ -20,9 +20,6 @@ import static cn.qqtextwar.ProtocolVar.WHITE_SPACE;
 @ToString
 public class GameMap{
 
-
-
-
     private List<Vector> vectors = new ArrayList<>();
 
     private String file;

@@ -20,6 +20,8 @@ class FileRegister {
      */
     static final String MAIN_CONFIG = "server.cfg"
 
+    static final String IMAGE = "image"
+
     /**
      * 这里存储注册的全部文件
      */
@@ -35,10 +37,15 @@ class FileRegister {
      */
     private Map<String,File> files = [:]
 
+    private List<String> dirs
+
     FileRegister(Server server){
         this.baseFile = server.baseFile
         resources = [
                 MAIN_CONFIG
+        ]
+        dirs = [
+                IMAGE
         ]
     }
 
@@ -48,6 +55,10 @@ class FileRegister {
             if(!file.exists())
                 Utils.readClassStream(file,it)
             files.put(it,file)
+        }
+        dirs.each {
+            File file = new File(baseFile,it)
+            file.mkdirs()
         }
     }
 
