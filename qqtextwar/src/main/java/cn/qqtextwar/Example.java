@@ -31,5 +31,6 @@ public class Example {
         Mob mob = new Slime(new Vector(1,1),0);
         mob.move(new Vector(2,1),map).update();
         System.out.println(map);
+        System.out.println(map.getValue(map.randomVector()));
     }
 }

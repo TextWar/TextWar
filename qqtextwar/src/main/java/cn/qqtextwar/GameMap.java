@@ -55,7 +55,11 @@ public class GameMap{
 
 
     public Vector randomVector(){
-        return vectors.get(random.nextInt(vectors.size()-1));
+        Vector vector = vectors.get(random.nextInt(vectors.size()-1));
+        while (getValue(vector) != 0 || (blocks.get(vector)!=null&&!blocks.get(vector).isCross())){
+            vector = vectors.get(random.nextInt(vectors.size()-1));
+        }
+        return vector;
     }
 
     //玩家移动时，需要判断一下方块可穿过
@@ -98,6 +102,10 @@ public class GameMap{
 
     public Map<Vector,Block> getBlocks() {
         return blocks;
+    }
+
+    public long getValue(Vector vector){
+        return mapData[vector.getY()][vector.getX()];
     }
 
     public String getVersion() {
