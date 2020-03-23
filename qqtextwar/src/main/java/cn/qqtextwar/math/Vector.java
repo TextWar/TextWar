@@ -1,5 +1,7 @@
 package cn.qqtextwar.math;
 
+import java.util.Objects;
+
 /**
  * 二维向量类，用于进行坐标计算
  *
@@ -84,5 +86,27 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
     @Override
     public double getDirection() {
         return arcCos(new Vector(0,1),false);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return x == vector.x &&
+                y == vector.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

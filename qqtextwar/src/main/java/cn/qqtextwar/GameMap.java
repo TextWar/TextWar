@@ -60,7 +60,7 @@ public class GameMap{
 
     //玩家移动时，需要判断一下方块可穿过
     //这里默认方块都是可穿过的，因为在先前就可以判断
-    public void addEntity(Entity e){
+    public synchronized void addEntity(Entity e){
         if(!entityVector.containsKey(e.getUuid())){
             entityVector.put(e.getUuid(),e.getVector());
             mapData[e.getY()][e.getX()] = e.getId();
@@ -75,6 +75,7 @@ public class GameMap{
             }
             mapData[vector.getY()][vector.getX()] = id;
             mapData[e.getY()][e.getX()] = e.getId();
+            entityVector.put(e.getUuid(),e.getVector());
         }
     }
 
@@ -132,7 +133,7 @@ public class GameMap{
 
     private void getVectors(Long[][] mapData){
         for(int i = 0;i<mapData.length;i++){
-            Long[] map = mapData[0];
+            Long[] map = mapData[i];
             for(int j = 0;j<map.length;j++){
                 long number = map[j];
                 if(number == WHITE_SPACE){

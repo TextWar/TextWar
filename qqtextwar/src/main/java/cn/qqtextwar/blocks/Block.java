@@ -31,4 +31,13 @@ public class Block {
     public void setCross(boolean cross) {
         this.cross = cross;
     }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "vector=" + vector +
+                ", id=" + id +
+                ", cross=" + cross +
+                '}';
+    }
 }
