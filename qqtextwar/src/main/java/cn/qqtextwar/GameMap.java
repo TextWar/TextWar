@@ -167,9 +167,30 @@ public class GameMap{
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(Long[] longs : mapData){
-            builder.append(Arrays.toString(longs)).append("\n");
+            for(long l : longs){
+                if(l < (long) Integer.MAX_VALUE){
+                    if(!appendPlayer(l,builder)) {
+                        int index = (int) l;
+                        builder.append(index > hashMap.size() - 1 ? l : hashMap.get(index));
+                    }
+                }else{
+                    appendPlayer(l,builder);
+                }
+                builder.append(" ");
+            }
+            builder.append("\n");
         }
         return builder.toString();
+    }
+
+    private boolean appendPlayer(long l,StringBuilder builder){
+        if(l>=ProtocolVar.PLAYER_MIN_ID){
+            builder.append("人");
+            return true;
+        }else if(l >= (long) Integer.MAX_VALUE){
+            builder.append(l);
+        }
+        return false;
     }
 
     private static Long[] getLongArray(JSONArray array){

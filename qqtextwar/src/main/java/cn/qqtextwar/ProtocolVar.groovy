@@ -14,7 +14,7 @@ interface ProtocolVar {
 
     Range<Integer> NPC_ID = 3000..<10000
 
-    int PLAYER_MIN_ID = 10000
+    long PLAYER_MIN_ID = 10000
 
     int WHITE_SPACE = 0
 
