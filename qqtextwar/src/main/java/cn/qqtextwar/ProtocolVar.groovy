@@ -16,8 +16,6 @@ interface ProtocolVar {
 
     long PLAYER_MIN_ID = 10000
 
-    int WHITE_SPACE = 0
-
     String CROSS_LABEL = "*"
 
 }

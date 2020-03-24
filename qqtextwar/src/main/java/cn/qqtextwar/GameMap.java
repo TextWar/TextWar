@@ -10,7 +10,6 @@ import groovy.transform.ToString;
 import java.util.*;
 
 import static cn.qqtextwar.ProtocolVar.CROSS_LABEL;
-import static cn.qqtextwar.ProtocolVar.WHITE_SPACE;
 
 /**
  * 游戏的地图对象，否则操控和计算地图的怪物分配及玩家分配
@@ -53,7 +52,7 @@ public class GameMap{
 
     public Vector randomVector(){
         Vector vector = vectors.get(random.nextInt(vectors.size()-1));
-        while (getValue(vector) != 0 || (blocks.get(vector)!=null&&!blocks.get(vector).isCross())){
+        while (blocks.get(vector)!=null&&!blocks.get(vector).isCross()){
             vector = vectors.get(random.nextInt(vectors.size()-1));
         }
         return vector;
@@ -141,15 +140,11 @@ public class GameMap{
             Long[] map = mapData[i];
             for(int j = 0;j<map.length;j++){
                 long number = map[j];
-                if(number == WHITE_SPACE){
-                    vectors.add(new Vector(j,i));
-                }else{
-                    Vector vector = new Vector(j,i);
-                    Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
-                    blocks.put(vector,block);
-                    if(block.isCross()){
-                        vectors.add(vector);
-                    }
+                Vector vector = new Vector(j,i);
+                Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
+                blocks.put(vector,block);
+                if(block.isCross()){
+                    vectors.add(vector);
                 }
             }
         }
@@ -175,7 +170,7 @@ public class GameMap{
                     }else if(ProtocolVar.MOB_ID.containsWithinBounds(index)) {
                         builder.append("MOB");
                     } else if(!appendPlayer(l,builder)) {
-                        builder.append(index > hashMap.size() - 1 ? l : hashMap.get(index));
+                        builder.append(index > hashMap.size() - 1 ? l : hashMap.get(index).replace("*"," "));
                     }
 
                 }else{
