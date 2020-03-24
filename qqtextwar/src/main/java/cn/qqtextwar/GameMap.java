@@ -170,8 +170,14 @@ public class GameMap{
                     }else if(ProtocolVar.MOB_ID.containsWithinBounds(index)) {
                         builder.append("MOB");
                     } else if(!appendPlayer(l,builder)) {
-                        Object o = index > hashMap.size() - 1 ? l : hashMap.get(index)
-                                .replace("*"," ");
+                        Object o = index > hashMap.size() - 1 ? l : hashMap.get(index);
+                        if(o instanceof String){
+                            if("*".equals(o)){
+                                o = ((String)o).replace("*","");
+                            }else{
+                                o = ((String)o).replace("*"," ");
+                            }
+                        }
                         builder.append(o);
                     }
 
@@ -201,5 +207,9 @@ public class GameMap{
 
     private static boolean canCross(String name){
         return name.startsWith(CROSS_LABEL);
+    }
+
+    public List<String> getHashMap() {
+        return hashMap;
     }
 }
