@@ -32,6 +32,15 @@ class Server {
     public static final String GAME_DIFFICULTY = "server.game.difficulty"
 
     public static final String PYTHON_COMMAND = "server.python.command"
+
+    public static final String BORN = "server.game.player.born"
+
+    public static final String PLAYER_HP= "${BORN}.health"
+
+    public static final String PLAYER_MONEY = "${BORN}.money"
+
+    public static final String PLAYER_MANA = "${BORN}.mana"
+
     /** 第一次开启时的状态 */
     public static final int NO = -1
 
@@ -101,6 +110,12 @@ class Server {
 
     private MapThread mapThread
 
+    private int playerHealth
+
+    private int playerMana
+
+    private int playerMoney
+
     /** 服务端构造方法，请不要直接使用它 */
     private Server(){
         if(!server){
@@ -117,6 +132,9 @@ class Server {
         this.state = new AtomicInteger()
         this.random = new Random()
         this.mapThread = new MapThread(this)
+        this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
+        this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
+        this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each {
             it.execute()
         }

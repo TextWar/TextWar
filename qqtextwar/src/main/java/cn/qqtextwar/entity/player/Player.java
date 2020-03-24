@@ -50,6 +50,7 @@ public class Player extends Entity implements Skillable {
         if(this.xp >= LEVEL_LIMIT.get(getLevel()+1)){
             this.xp -= xpToUprade;
             setLevel(getLevel()+1);
+            whenLevelUp(getLevel());
         }
     }
 
@@ -68,6 +69,10 @@ public class Player extends Entity implements Skillable {
 
     public int getMoney() {
         return money;
+    }
+
+    public void whenLevelUp(int level){
+        //设置升级内容
     }
 
 }
