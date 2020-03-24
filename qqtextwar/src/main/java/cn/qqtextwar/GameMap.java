@@ -170,7 +170,9 @@ public class GameMap{
                     }else if(ProtocolVar.MOB_ID.containsWithinBounds(index)) {
                         builder.append("MOB");
                     } else if(!appendPlayer(l,builder)) {
-                        builder.append(index > hashMap.size() - 1 ? l : hashMap.get(index).replace("*"," "));
+                        Object o = index > hashMap.size() - 1 ? l : hashMap.get(index)
+                                .replace("*"," ");
+                        builder.append(o);
                     }
 
                 }else{
