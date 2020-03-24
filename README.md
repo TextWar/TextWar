@@ -15,7 +15,7 @@ We wrote a game's map generator and map editor using python.
 
 Data structure with json as map.
 
-If you want to make and modify maps, use[MapEditor](https://github.com/TextWar/Textwar-MapEditor)
+If you want to make and modify maps, use the [MapEditor](https://github.com/TextWar/Textwar-MapEditor)
 
 You should get the [Map generator](https://github.com/TextWar/textwar-py) to run it.
 
