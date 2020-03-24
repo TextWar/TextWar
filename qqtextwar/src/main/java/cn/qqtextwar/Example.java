@@ -23,9 +23,6 @@ public class Example {
         System.out.println(mob);
         System.out.println(map.getVersion());
         System.out.println(map.getValue(map.randomVector()));
-        map.getHashMap().forEach((x)->{
-            System.out.println(x.replace("*",""));
-        });
     }
 
 }

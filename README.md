@@ -25,6 +25,24 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
+#### API
+
+We will support the api for the TextWar plugins.
+
+such as
+
+```groovy
+ GameMap map = new GameMap(EXAMPLE_MAP);
+        Player player = new Player(new Vector(0,0),192992929,1,1,1)
+                .addInto(map)
+                .as(Player.class);
+        player.move(new Vector(1,2),map).update();
+        Mob mob = new Slime(new Vector(1,1),0)
+                .addInto(map)
+                .as(Mob.class);
+        mob.move(new Vector(3,1),map).update();
+```
+
 
 
 
