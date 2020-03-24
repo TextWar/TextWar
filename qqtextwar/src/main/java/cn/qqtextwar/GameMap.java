@@ -169,10 +169,15 @@ public class GameMap{
         for(Long[] longs : mapData){
             for(long l : longs){
                 if(l < (long) Integer.MAX_VALUE){
-                    if(!appendPlayer(l,builder)) {
-                        int index = (int) l;
+                    int index = (int) l;
+                    if(ProtocolVar.NPC_ID.containsWithinBounds(index)){
+                        builder.append("NPC");
+                    }else if(ProtocolVar.MOB_ID.containsWithinBounds(index)) {
+                        builder.append("MOB");
+                    } else if(!appendPlayer(l,builder)) {
                         builder.append(index > hashMap.size() - 1 ? l : hashMap.get(index));
                     }
+
                 }else{
                     appendPlayer(l,builder);
                 }
@@ -185,7 +190,7 @@ public class GameMap{
 
     private boolean appendPlayer(long l,StringBuilder builder){
         if(l>=ProtocolVar.PLAYER_MIN_ID){
-            builder.append("人");
+            builder.append("PER");
             return true;
         }else if(l >= (long) Integer.MAX_VALUE){
             builder.append(l);
