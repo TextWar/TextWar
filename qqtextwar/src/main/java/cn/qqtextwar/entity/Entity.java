@@ -3,6 +3,7 @@ package cn.qqtextwar.entity;
 import cn.qqtextwar.GameMap;
 import cn.qqtextwar.blocks.Block;
 import cn.qqtextwar.entity.player.Movement;
+import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.entity.points.SkillPoint;
 import cn.qqtextwar.entity.points.SkillPoints;
 import cn.qqtextwar.ex.MoveException;
@@ -58,6 +59,15 @@ public abstract class Entity {
         this.healthPoints = healthPoints;
         this.manaPoints = manaPoints;
         this.random = new Random();
+    }
+
+    public Entity addInto(GameMap map){
+        map.addEntity(this);
+        return this;
+    }
+
+    public <T extends Entity> T as(Class<T> type){
+        return type.cast(this);
     }
 
     public synchronized int random(int round){
@@ -231,5 +241,18 @@ public abstract class Entity {
         this.manaPoints -= value;
     }
 
-
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "id=" + id +
+                ", uuid=" + uuid +
+                ", healthPoints=" + healthPoints +
+                ", manaPoints=" + manaPoints +
+                ", level=" + level +
+                ", random=" + random +
+                ", vector=" + vector +
+                ", levels=" + levels +
+                ", useDates=" + useDates +
+                '}';
+    }
 }

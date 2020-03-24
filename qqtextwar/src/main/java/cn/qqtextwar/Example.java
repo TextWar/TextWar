@@ -26,11 +26,17 @@ public class Example {
 
     public static void main(String[] args) {
         GameMap map = new GameMap(EXAMPLE_MAP);
-        Player player = new Player(new Vector(0,0),192992929,1,1,1);
-        player.move(new Vector(1,2),map).update();
-        Mob mob = new Slime(new Vector(1,1),0);
-        mob.move(new Vector(2,1),map).update();
+        Player player = new Player(new Vector(0,0),192992929,1,1,1)
+                .addInto(map)
+                .as(Player.class);
+        //player.move(new Vector(1,2),map).update();
+        Mob mob = new Slime(new Vector(1,1),0)
+                .addInto(map)
+                .as(Mob.class);
+        //mob.move(new Vector(2,1),map).update();
         System.out.println(map);
+        System.out.println(mob);
+        System.out.println(map.getVersion());
         System.out.println(map.getValue(map.randomVector()));
     }
 }
