@@ -24,7 +24,7 @@ public class GameMap{
 
     private String file;
 
-    private Long[][] mapData;
+    private volatile Long[][] mapData;
 
     private Random random;
 
