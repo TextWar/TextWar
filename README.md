@@ -2,7 +2,6 @@
 ### A Simple game for chatting software
 
 This game is based on Unicode character design, 
-
 you can stitch your map by characters, and build your own server and player battle.
 
 This RPG game is designed with NPCs, monsters, creatures, skill points.
