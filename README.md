@@ -3,7 +3,7 @@
 </p>
 
 
-# QQTextWar
+# TextWar
 ### A Simple game for chatting software
 
 This game is based on Unicode character design, 
