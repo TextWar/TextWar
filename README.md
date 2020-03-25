@@ -2,6 +2,7 @@
 <img src="readme_image/logo.png" width=200>
 </p>
 
+
 # QQTextWar
 ### A Simple game for chatting software
 
