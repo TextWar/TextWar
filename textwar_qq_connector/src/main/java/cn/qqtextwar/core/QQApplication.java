@@ -14,4 +14,9 @@ public class QQApplication implements Application {
     public void run() {
 
     }
+
+    @Override
+    public void sendMessage(long qq,String message) {
+
+    }
 }

@@ -1,6 +1,9 @@
 package cn.qqtextwar.entity.player;
 
 
+import cn.qqtextwar.CommandSender;
+import cn.qqtextwar.Hitable;
+import cn.qqtextwar.Server;
 import cn.qqtextwar.entity.Entity;
 import cn.qqtextwar.entity.Skillable;
 import cn.qqtextwar.math.Vector;
@@ -12,7 +15,9 @@ import java.util.Map;
  * 玩家类
  * id > 10000
  */
-public class Player extends Entity implements Skillable {
+public class Player extends Entity implements Skillable, CommandSender, Hitable {
+
+    private Server server;
 
     /**
      * 这里用于定义升下一级所需的xp值
@@ -24,8 +29,6 @@ public class Player extends Entity implements Skillable {
         LEVEL_LIMIT.put(2,200);
     }
 
-
-
     private int xp;
 
     private Inventory inventory;
@@ -33,11 +36,12 @@ public class Player extends Entity implements Skillable {
     private int money;
 
 
-    public Player(Vector vector, long id, double healthPoints, double manaPoints, int money) {
+    public Player(Server server, Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
         this.xp = 0;
         this.inventory = new Inventory();
         this.money = money;
+        this.server = server;
     }
 
 
@@ -72,7 +76,16 @@ public class Player extends Entity implements Skillable {
     }
 
     public void whenLevelUp(int level){
-        //设置升级内容
+        //TODO 设置升级内容
     }
 
+    @Override
+    public int initAggressivity(int level) {
+        //TODO 设置攻击力
+        return 0;
+    }
+
+    public void sendMessage(String message){
+        this.server.getApplication().sendMessage(getId(),message);
+    }
 }

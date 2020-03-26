@@ -12,4 +12,6 @@ public interface Application {
 
     void run();
 
+    void sendMessage(long qq,String message);
+
 }

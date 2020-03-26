@@ -2,6 +2,7 @@ package cn.qqtextwar
 
 import cn.qqtextwar.Threads.MapThread
 import cn.qqtextwar.api.Application
+import cn.qqtextwar.command.CommandExecutor
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Registered
 import cn.qqtextwar.entity.impl.SkeletonMan
@@ -119,6 +120,8 @@ class Server {
 
     private Application application
 
+    private CommandExecutor executor
+
     /** 服务端构造方法，请不要直接使用它 */
     private Server(Application app){
         if(!server){
@@ -136,6 +139,7 @@ class Server {
         this.state = new AtomicInteger()
         this.random = new Random()
         this.mapThread = new MapThread(this)
+        this.executor = new CommandExecutor(this)
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
@@ -213,10 +217,10 @@ class Server {
     }
 
     /** 用于创建玩家对象，首次创建要从数据获得数据 */
-    Player createPlayer(long qq,GameMap map){
+    Player createPlayer(long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
-            Player player = new Player(vector,qq,100,100,100)
+            Player player = new Player(this,vector,qq,100,100,100)
             players[qq] = player
             return player
         }else{
@@ -332,6 +336,14 @@ class Server {
 
     AtomicInteger getState() {
         return state
+    }
+
+    Application getApplication() {
+        return application
+    }
+
+    CommandExecutor getExecutor() {
+        return executor
     }
 
     static Server getServer(){
