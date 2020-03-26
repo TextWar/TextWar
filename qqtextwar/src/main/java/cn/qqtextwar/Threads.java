@@ -1,13 +1,29 @@
 package cn.qqtextwar;
 
+import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.ServerLogger;
 
 import java.io.File;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static cn.qqtextwar.Server.CLOSED;
 
 public class Threads {
+
+    static class ApplicationRunThread extends Thread{
+
+        private Application application;
+
+        public ApplicationRunThread(Application application){
+            this.application = application;
+        }
+
+        @Override
+        public void run() {
+            application.run();
+        }
+    }
 
 
     static class MapThread extends Thread{
@@ -22,11 +38,14 @@ public class Threads {
 
         private TimeThread thread;
 
+        private CountDownLatch latch;
+
         public MapThread(Server server){
             this.server = server;
             this.people = new AtomicInteger(0);
             this.thread = new TimeThread();
             this.thread.start();
+            this.latch = new CountDownLatch(1);
         }
 
         public void wantUpdate(){
@@ -37,6 +56,7 @@ public class Threads {
         public void run() {
             try{
                 while (server.getState().get() != CLOSED){
+                    //若为null，则获得，获得不了，则报错，关闭服务端
                     if(server.getGameMap() == null){
                         server.setGameMap(server.getMap((Integer) server.getParser().getValue(TYPE,1)[0]));
                     }
@@ -53,6 +73,7 @@ public class Threads {
                 }
                 logger.info("The map thread has closed");
             }catch (Exception e){
+                server.close0(e);
                 e.printStackTrace();
             }
         }

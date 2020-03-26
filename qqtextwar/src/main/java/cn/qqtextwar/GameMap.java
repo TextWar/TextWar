@@ -63,7 +63,7 @@ public class GameMap{
     public synchronized void addEntity(Entity e){
         if(!entityVector.containsKey(e.getUuid())){
             entityVector.put(e.getUuid(),e.getVector());
-            mapData[e.getY()][e.getX()] = e.getId();
+            mapData[(int)e.getY()][(int)e.getX()] = e.getId();
         }else{
             //先前的vector
             Vector vector = entityVector.get(e.getUuid());
@@ -73,8 +73,8 @@ public class GameMap{
             }else{
                 id = 0L;
             }
-            mapData[vector.getY()][vector.getX()] = id;
-            mapData[e.getY()][e.getX()] = e.getId();
+            mapData[(int)vector.getY()][(int)vector.getX()] = id;
+            mapData[(int)e.getY()][(int)e.getX()] = e.getId();
             entityVector.put(e.getUuid(),e.getVector());
         }
     }
@@ -101,7 +101,7 @@ public class GameMap{
     }
 
     public long getValue(Vector vector){
-        return mapData[vector.getY()][vector.getX()];
+        return mapData[(int)vector.getY()][(int)vector.getX()];
     }
 
     public String getVersion() {
@@ -173,9 +173,9 @@ public class GameMap{
                         Object o = index > hashMap.size() - 1 ? l : hashMap.get(index);
                         if(o instanceof String){
                             if("*".equals(o)){
-                                o = ((String)o).replace("*","");
-                            }else{
                                 o = ((String)o).replace("*"," ");
+                            }else{
+                                o = ((String)o).replace("*","");
                             }
                         }
                         builder.append(o);

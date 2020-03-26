@@ -2,6 +2,8 @@ package cn.qqtextwar.utils
 
 import cn.qqtextwar.Server
 
+import java.text.DecimalFormat
+
 class Utils {
 
     static String getClassFileName(String file){
@@ -28,8 +30,20 @@ class Utils {
     static String byInputStream(InputStream input){
         return input.text
     }
-    static String readClassStream(File file,String res){
+    static void readClassStream(File file,String res){
         file.write(this.classLoader.getResourceAsStream(res).text)
     }
+
+    static double format(double d){
+        return Double.parseDouble(new DecimalFormat("0.00").format(d))
+    }
+
+    static cn.qqtextwar.math.Vector maxX(cn.qqtextwar.math.Vector vector1,cn.qqtextwar.math.Vector vector2){
+        return vector1.x>vector2.x?vector1:vector2
+    }
+    static cn.qqtextwar.math.Vector minX(cn.qqtextwar.math.Vector vector1,cn.qqtextwar.math.Vector vector2){
+        return vector1.x<vector2.x?vector1:vector2
+    }
+
 
 }

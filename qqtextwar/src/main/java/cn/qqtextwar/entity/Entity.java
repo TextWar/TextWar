@@ -8,7 +8,9 @@ import cn.qqtextwar.entity.points.SkillPoint;
 import cn.qqtextwar.entity.points.SkillPoints;
 import cn.qqtextwar.ex.MoveException;
 import cn.qqtextwar.math.Vector;
+import cn.qqtextwar.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -35,6 +37,9 @@ public abstract class Entity {
 
     private int level;
 
+    //攻击力
+    protected int anggressivity;
+
     protected Random random;
     
     protected Vector vector;
@@ -50,6 +55,7 @@ public abstract class Entity {
         this.id = id;
         this.levels = new HashMap<>();
         this.useDates = new HashMap<>();
+        this.anggressivity = initAggressivity(getLevel());
     }
 
     public Entity(Vector vector, long id, double healthPoints, double manaPoints) {
@@ -99,6 +105,52 @@ public abstract class Entity {
         }
     }
 
+    public String hit(Entity entity,GameMap map){
+        Vector vector = this.getVector().reduce(entity.getVector());
+        if(vector.mod() <= Math.sqrt(2) && this.haveObstacle(entity,map)){
+            entity.delHealthPoints(anggressivity);
+            return "攻击成功 -- HIT";
+        }
+        return "攻击范围不足，或者有阻挡物";
+    }
+
+    //TODO 技能攻击
+    public String skill(SkillPoints points,GameMap map,Entity entity){
+        return "";
+    }
+
+
+    //是否两个个体之间有障碍,返回与x轴的夹角tan值
+    //如果无法看见，返回-1
+    public boolean haveObstacle(Entity entity,GameMap map){
+        //水平，斜面
+        Vector vector = entity.getVector();
+        Vector dir = vector.reduce(this.getVector()).toPositive();
+        Vector max = Utils.maxX(vector,getVector());
+        Vector min = Utils.minX(vector,getVector());
+        double tan = dir.getDirection();
+        double xl = max.getX() - min.getX();
+        if(xl != 0){
+            double startX = min.getX();
+            for(int i = 0;i<=xl;i++){
+                Block block = map.getBlocks().get(new Vector(i+startX,(int)(startX+i*tan)));
+                if(!block.isCross()){
+                    return false;
+                }
+            }
+        }else{
+            int mx = (int)Math.max(vector.getY(),this.getVector().getY());
+            for(int i = (int)Math.min(vector.getY(),this.getVector().getY());i<mx;i++){
+                Block block = map.getBlocks().get(new Vector(max.getX(),i));
+                if(!block.isCross()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
 
     /**
      * 这里可以对相应的技能升级，只要传入SkillPoints对象即可
@@ -143,11 +195,11 @@ public abstract class Entity {
         return uuid;
     }
 
-    public int getX() {
+    public double getX() {
         return vector.getX();
     }
 
-    public int getY() {
+    public double getY() {
         return vector.getY();
     }
 
@@ -241,6 +293,8 @@ public abstract class Entity {
         this.manaPoints -= value;
     }
 
+    public abstract int initAggressivity(int level);
+
     @Override
     public String toString() {
         return "Entity{" +
@@ -255,4 +309,6 @@ public abstract class Entity {
                 ", useDates=" + useDates +
                 '}';
     }
+
+
 }

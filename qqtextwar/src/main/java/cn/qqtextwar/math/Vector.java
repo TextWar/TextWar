@@ -1,28 +1,32 @@
 package cn.qqtextwar.math;
 
+import cn.qqtextwar.utils.Utils;
+
 import java.util.Objects;
 
 /**
  * 二维向量类，用于进行坐标计算
  *
+ * 世界的所有格子的向量是由原点开始的向量。
+ *
  * @author MagicLu @ 卢昶存
  */
 public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Direction{
 
-    private int x;
+    private double x;
 
-    private int y;
+    private double y;
 
-    public Vector(int x, int y) {
+    public Vector(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -49,20 +53,21 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
 
     /** 向量相减 */
     public Vector reduce(Vector vector){
-        return new Vector(this.x+vector.x,this.y+vector.y);
+        return new Vector(this.x-vector.x,this.y-vector.y);
     }
 
     /** 获得和另一个向量的余弦值 */
     @Override
     public double cos(Vector vector) {
-        return scalarProduct(vector)/(this.mod()*vector.mod());
+        return Utils.format(scalarProduct(vector)/(this.mod()*vector.mod()));
     }
 
     /** 获得反余弦值，degreeMeasure可以选择使用角度制 */
     @Override
     public double arcCos(Vector vector,boolean degreeMeasure) {
         double rad =  Math.acos(cos(vector));
-        return degreeMeasure?((rad*180)/Math.PI):rad;
+
+        return Utils.format(degreeMeasure?Math.toDegrees(rad):rad);
     }
 
     /** 获得数量积 */
@@ -79,20 +84,20 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
 
     /** 对于向量平分坐标公式的封装 */
     public Vector ratioVector(Vector vector2,double lambda){
-        return new Vector((int)((this.x + lambda * vector2.x)/(1+lambda)),(int)((this.y + lambda * vector2.y)/(1+lambda)));
+        return new Vector((this.x + lambda * vector2.x)/(1+lambda),(this.y + lambda * vector2.y)/(1+lambda));
     }
 
-    /** 相对于一个正方向单位向量的夹角 */
+    /** 相对于一个正方向单位向量的tan */
     @Override
     public double getDirection() {
-        return arcCos(new Vector(0,1),false);
+        return y/x;
     }
 
     @Override
     public String toString() {
         return "Vector{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + getX() +
+                ", y=" + getY() +
                 '}';
     }
 
@@ -105,6 +110,21 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
                 y == vector.y;
     }
 
+    public boolean parallel(Vector vector){
+        return vector.x * this.y == this.x * vector.y;
+    }
+
+    public boolean vertical(Vector vector){
+        return scalarProduct(vector) == 0;
+    }
+
+    public Vector toPositive(){
+        return new Vector(Math.abs(x),Math.abs(y));
+    }
+
+    public double tan(Vector vector){
+        return Math.tan(arcCos(vector,false));
+    }
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

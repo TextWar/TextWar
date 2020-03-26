@@ -1,6 +1,7 @@
 package cn.qqtextwar
 
 import cn.qqtextwar.Threads.MapThread
+import cn.qqtextwar.api.Application
 import cn.qqtextwar.dsl.ServerConfigParser
 import cn.qqtextwar.entity.Registered
 import cn.qqtextwar.entity.impl.SkeletonMan
@@ -116,8 +117,10 @@ class Server {
 
     private int playerMoney
 
+    private Application application
+
     /** 服务端构造方法，请不要直接使用它 */
-    private Server(){
+    private Server(Application app){
         if(!server){
             server = this
         }else{
@@ -127,6 +130,7 @@ class Server {
         this.register = new FileRegister(this)
         this.register.register()
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
+        ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
         this.difficulty = (Integer)parser.getValue(GAME_DIFFICULTY,1)[0]
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
@@ -135,9 +139,9 @@ class Server {
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
-        ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each {
-            it.execute()
-        }
+        this.application = app
+        this.application.init(this)
+        new Threads.ApplicationRunThread(this.application).run()
     }
 
     //启动的方法组合顺序
@@ -172,28 +176,34 @@ class Server {
     //回合+1
     //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
-    static start(){
-        new Server().start0()
+    static start(Application app){
+        new Server(app).start0()
     }
 
 
     /** 服务端只能关闭一次，同时改变状态使所有线程关闭 */
     static stop(){
-        if(server){
-            server.close0()
-        }else{
-            throw new CloseException("You could not stop the server before starting state: -1 - NO")
+        try{
+            if(server){
+                server.close0(null)
+            }else{
+                throw new CloseException("You could not stop the server before starting state: -1 - NO")
+            }
+        }catch(Exception ignore){
+            System.exit(0)
         }
     }
 
     /** 服务端只能关闭一次*/
-    void close0(){
+    void close0(Throwable throwable){
         if(this.state.get() == CLOSED){
             throw new CloseException("the Server has closed")
         }
         this.logger.info("the server is closing...")
         this.state.compareAndSet(this.state.get(),CLOSED)
-        throw new CloseException("the Server has closed state: 3 - CLOSED")
+        if(throwable!=null) this.logger.error(throwable.toString())
+        this.logger.info("the Server has closed state: 3 - CLOSED")
+        System.exit(0)
     }
 
     /** 负责注册全部的怪物，会在createMobs里使用，会根据这个表随机创建怪物 */
