@@ -353,7 +353,7 @@ class Server {
     EventExecutor getEventExecutor() {
         return eventExecutor
     }
-    
+
     static Server getServer(){
         return server
     }

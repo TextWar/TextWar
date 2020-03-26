@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tests" />
+        <module name="textwar_console" />
         <module name="textwar_qq_connector" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="qqtextwar" target="1.8" />
       <module name="tests" target="1.8" />
+      <module name="textwar_console" target="1.8" />
       <module name="textwar_qq_connector" target="1.8" />
     </bytecodeTargetLevel>
   </component>
