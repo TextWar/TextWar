@@ -22,16 +22,16 @@ class SQLiteConnetor {
         this.sql = Sql.newInstance(url,driver)
     }
 
-    void eachRow(String sql,Closure closure){
-        this.sql.eachRow(sql,closure)
+    void eachRow(SQL sql,Closure closure){
+        this.sql.eachRow(sql.sql,closure)
     }
 
-    String execute(String sql,Object... params){
-        this.sql.execute(sql,params)
+    String execute(SQL sql,Object... params){
+        this.sql.execute(sql.sql,params)
     }
 
-    int executeUpdate(String sql,Object... params){
-        this.sql.executeUpdate(sql,params)
+    int executeUpdate(SQL sql,Object... params){
+        this.sql.executeUpdate(sql.sql,params)
     }
 
     DataSet getTable(String table){
