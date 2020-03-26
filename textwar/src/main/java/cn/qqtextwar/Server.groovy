@@ -123,7 +123,7 @@ class Server {
 
     private CommandExecutor executor
 
-    private EventExecutor eventExecutor;
+    private EventExecutor eventExecutor
 
     /** 服务端构造方法，请不要直接使用它 */
     private Server(Application app){
