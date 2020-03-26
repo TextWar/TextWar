@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.textwar</groupId>
-    <artifactId>qqtextwar</artifactId>
+    <artifactId>textwar</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>../textwar_qq_connector</module>
+        <module>../textwar_console</module>
         <module>../tests</module>
     </modules>
     <dependencies>
