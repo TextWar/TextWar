@@ -74,4 +74,9 @@ public class Npc extends Entity{
     public void addTask(Task task){
         tasks.add(task);
     }
+
+    @Override
+    public int initAggressivity(int level) {
+        return 0;
+    }
 }

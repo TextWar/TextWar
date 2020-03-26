@@ -6,7 +6,7 @@
         <artifactId>qqtextwar</artifactId>
         <groupId>cn.textwar</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../qqtextwar/pom.xml</relativePath>
+        <relativePath>../textwar/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

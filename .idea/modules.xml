@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TextWar.iml" filepath="$PROJECT_DIR$/.idea/TextWar.iml" />
       <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
-      <module fileurl="file://$PROJECT_DIR$/qqtextwar/textwar.iml" filepath="$PROJECT_DIR$/qqtextwar/textwar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/textwar/textwar.iml" filepath="$PROJECT_DIR$/textwar/textwar.iml" />
       <module fileurl="file://$PROJECT_DIR$/textwar_qq_connector/textwar-qq-connector.iml" filepath="$PROJECT_DIR$/textwar_qq_connector/textwar-qq-connector.iml" />
       <module fileurl="file://$PROJECT_DIR$/textwar_console/textwar_console.iml" filepath="$PROJECT_DIR$/textwar_console/textwar_console.iml" />
     </modules>

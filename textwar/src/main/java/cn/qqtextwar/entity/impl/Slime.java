@@ -26,4 +26,9 @@ public class Slime extends CommonMob {
     public double getXp(int level) {
         return level*10;
     }
+
+    @Override
+    public int initAggressivity(int level) {
+        return 0;
+    }
 }
