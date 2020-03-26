@@ -26,7 +26,9 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 
 ![editor](readme_image/editor.png)
 
-![map](readme_image/map.png)
+<p align="center">
+<img src="readme_image/map.png" width=500>
+</p>
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
