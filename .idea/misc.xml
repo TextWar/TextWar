@@ -8,6 +8,8 @@
       <list>
         <option value="$PROJECT_DIR$/qqtextwar/pom.xml" />
         <option value="$PROJECT_DIR$/textwar_console/pom.xml" />
+        <option value="$PROJECT_DIR$/textwar_client/pom.xml" />
+        <option value="$PROJECT_DIR$/textwar/pom.xml" />
       </list>
     </option>
   </component>

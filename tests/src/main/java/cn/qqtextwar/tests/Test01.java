@@ -8,9 +8,9 @@ import cn.qqtextwar.math.Vector;
 import org.junit.Test;
 
 public class Test01 {
-        @Test
-        public void test01() {
-                Server.start(new QQApplication());
+
+        public static void main(String[] args) {
+                //Server.start(new QQApplication());
                 GameMap map = new GameMap("{\n" +
                         "  \"author\": \"someone behind the screen\",\n" +
                         "  \"hashmap\": [\n" +
@@ -32,8 +32,8 @@ public class Test01 {
                         "    ],\n" +
                         "    [\n" +
                         "      0,\n" +
-                        "      1,\n" +
-                        "      1,\n" +
+                        "      0,\n" +
+                        "      0,\n" +
                         "      0,\n" +
                         "      0,\n" +
                         "      0,\n" +
@@ -43,7 +43,7 @@ public class Test01 {
                         "    [\n" +
                         "      0,\n" +
                         "      1,\n" +
-                        "      1,\n" +
+                        "      0,\n" +
                         "      0,\n" +
                         "      0,\n" +
                         "      0,\n" +

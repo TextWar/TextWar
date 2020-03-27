@@ -122,6 +122,9 @@ public abstract class Entity {
 
     //是否两个个体之间有障碍,返回与x轴的夹角tan值
     //如果无法看见，返回-1
+    //*A**********
+    //**C*********
+    //**CB****B***
     public boolean haveObstacle(Entity entity,GameMap map){
         //水平，斜面
         Vector vector = entity.getVector();
