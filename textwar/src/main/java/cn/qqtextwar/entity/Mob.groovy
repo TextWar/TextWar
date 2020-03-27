@@ -1,5 +1,7 @@
 package cn.qqtextwar.entity
 
+import cn.qqtextwar.ProtocolVar
+import cn.qqtextwar.ex.IllegalIdException
 import cn.qqtextwar.math.Vector
 import groovy.transform.CompileStatic
 import groovy.transform.Memoized
@@ -20,6 +22,9 @@ abstract class Mob extends Entity{
 
     Mob(Vector vector, long id,boolean harmful,int difficulty) {
         super(vector, id, 0,0)
+        if(!ProtocolVar.MOB_ID.contains(id)){
+            throw new IllegalIdException("mob's id is between 1000 and 2000")
+        }
         this.harmful = harmful
         setLevel(randomLevel(difficulty))
         setHealthPoints(initHealth(getLevel()))

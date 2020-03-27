@@ -172,10 +172,10 @@ public class GameMap{
                     } else if(!appendPlayer(l,builder)) {
                         Object o = index > hashMap.size() - 1 ? l : hashMap.get(index);
                         if(o instanceof String){
-                            if("*".equals(o)){
-                                o = ((String)o).replace("*"," ");
+                            if(CROSS_LABEL.equals(o)){
+                                o = ((String)o).replace(CROSS_LABEL," ");
                             }else{
-                                o = ((String)o).replace("*","");
+                                o = ((String)o).replace(CROSS_LABEL,"");
                             }
                         }
                         builder.append(o);

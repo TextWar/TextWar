@@ -1,5 +1,7 @@
 package cn.qqtextwar.entity;
 
+import cn.qqtextwar.ProtocolVar;
+import cn.qqtextwar.ex.IllegalIdException;
 import cn.qqtextwar.tasks.Task;
 import cn.qqtextwar.math.Vector;
 
@@ -25,6 +27,9 @@ public class Npc extends Entity{
 
     public Npc(String name, NpcEnum type, Vector vector, long id) {
         super(vector,id);
+        if(id > Integer.MAX_VALUE || !ProtocolVar.NPC_ID.contains((int)id)){
+            throw new IllegalIdException("the npc's id is between 1000 and 10000");
+        }
         this.name = name;
         this.type = type;
         this.trader = type.isSellable();

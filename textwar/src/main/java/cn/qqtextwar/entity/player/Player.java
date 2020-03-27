@@ -3,9 +3,11 @@ package cn.qqtextwar.entity.player;
 
 import cn.qqtextwar.CommandSender;
 import cn.qqtextwar.Hitable;
+import cn.qqtextwar.ProtocolVar;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.entity.Entity;
 import cn.qqtextwar.entity.Skillable;
+import cn.qqtextwar.ex.IllegalIdException;
 import cn.qqtextwar.math.Vector;
 
 import java.util.HashMap;
@@ -38,6 +40,9 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
 
     public Player(Server server, Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
+        if(id < ProtocolVar.PLAYER_MIN_ID){
+            throw new IllegalIdException("the player's id is bigger than 10000");
+        }
         this.xp = 0;
         this.inventory = new Inventory();
         this.money = money;
