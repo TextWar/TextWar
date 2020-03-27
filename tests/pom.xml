@@ -6,7 +6,6 @@
         <artifactId>textwar_pom</artifactId>
         <groupId>cn.textwar</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../textwar/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
