@@ -1,6 +1,5 @@
 package cn.qqtextwar;
 
-import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.ServerLogger;
 
 import java.io.File;
@@ -13,15 +12,19 @@ public class Threads {
 
     static class ApplicationRunThread extends Thread{
 
-        private Application application;
+        private Server server;
 
-        public ApplicationRunThread(Application application){
-            this.application = application;
+        public ApplicationRunThread(Server server){
+            this.server = server;
         }
 
         @Override
         public void run() {
-            application.run();
+            try {
+                server.getApplication().run();
+            }catch (Throwable e){
+                server.close0(e);
+            }
         }
     }
 

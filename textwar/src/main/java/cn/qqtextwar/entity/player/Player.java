@@ -22,7 +22,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
 
     private Server server;
 
-
+    private String ip;
 
     /**
      * 这里用于定义升下一级所需的xp值
@@ -41,7 +41,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
     private int money;
 
 
-    public Player(Server server, Vector vector, long id, double healthPoints, double manaPoints, int money) {
+    public Player(String ip,Server server, Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
         if(id < ProtocolVar.PLAYER_MIN_ID){
             throw new IllegalIdException("the player's id is bigger than 10000");
@@ -91,6 +91,10 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
     public int initAggressivity(int level) {
         //TODO 设置攻击力
         return 0;
+    }
+
+    public String getIp() {
+        return ip;
     }
 
     public void sendMessage(String message){

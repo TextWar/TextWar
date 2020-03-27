@@ -51,15 +51,19 @@ class FileRegister {
 
     void register(){
         resources.each {
-            File file = new File(baseFile,it)
-            if(!file.exists())
-                Utils.readClassStream(file,it)
-            files.put(it,file)
+            register(it)
         }
         dirs.each {
             File file = new File(baseFile,it)
             file.mkdirs()
         }
+    }
+
+    void register(String it){
+        File file = new File(baseFile,it)
+        if(!file.exists())
+            Utils.readClassStream(file,it)
+        files.put(it,file)
     }
 
     @Memoized

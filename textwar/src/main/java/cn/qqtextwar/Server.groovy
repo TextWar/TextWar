@@ -129,13 +129,16 @@ class Server {
 
     private EventExecutor eventExecutor
 
+    private boolean test
+
     /** 服务端构造方法，请不要直接使用它 */
-    private Server(Application app){
+    private Server(Application app,boolean test){
         if(!server){
             server = this
         }else{
             throw new ServerException("the server has started!")
         }
+        this.test = test
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
         this.register.register()
@@ -153,7 +156,11 @@ class Server {
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         this.application = app
         this.application.init(this)
-        new Threads.ApplicationRunThread(this.application).run()
+        new Threads.ApplicationRunThread(this).run()
+    }
+
+    static Server testServer(Application app){
+        new Server(app,true).start0()
     }
 
     //启动的方法组合顺序
@@ -167,16 +174,18 @@ class Server {
     // 8. 游戏开始
     // 9. 游戏结束，初始化全部对象。
     /** 服务端对象的启动方法，请不要直接调用，否则会出现不可预料的错误 */
-    private void start0(){
-        this.logger.info("Server is starting...")
+    private Server start0(){
         String ip = this.parser.getHeadValue("server.ip")
         String port = this.parser.getHeadValue("server.port")
-        this.rpcRunner = new RPCRunner()
-        rpcRunner.start(ip,port)
-        this.logger.info("Map thread is starting...")
-        mapThread.start()
-        this.logger.info("Map thread has started")
+        if(!test){
+            this.rpcRunner = new RPCRunner()
+            rpcRunner.start(ip,port)
+            this.logger.info("Map thread is starting...")
+            mapThread.start()
+            this.logger.info("Map thread has started")
+        }
         this.state.compareAndSet(state.get(),START)
+        this
     }
 
     //游戏第下一回合，
@@ -189,7 +198,9 @@ class Server {
     //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
     static start(Application app){
-        new Server(app).start0()
+        Server server = new Server(app,false).start0()
+        server.logger.info("Server has started..")
+        server.logger.info("The TextWar game's server core v1.0.0 CopyRight @TextWar")
     }
 
 
@@ -213,7 +224,17 @@ class Server {
         }
         this.logger.info("the server is closing...")
         this.state.compareAndSet(this.state.get(),CLOSED)
-        if(throwable!=null) this.logger.error(throwable.toString())
+        if(throwable!=null) {
+            this.logger.error(throwable.toString())
+            throwable.stackTrace.each {
+                this.logger.error("at "+it)
+            }
+            this.logger.error(throwable.cause.toString())
+            throwable.cause.stackTrace.each {
+                this.logger.error("at "+it)
+            }
+
+        }
         this.logger.info("the Server has closed state: 3 - CLOSED")
         System.exit(0)
     }
@@ -225,10 +246,10 @@ class Server {
     }
 
     /** 用于创建玩家对象，首次创建要从数据获得数据 */
-    Player createPlayer(long qq, GameMap map){
+    Player createPlayer(String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
-            Player player = new Player(this,vector,qq,100,100,100)
+            Player player = new Player(ip,this,vector,qq,100,100,100)
             players[qq] = player
             return player
         }else{
@@ -237,8 +258,8 @@ class Server {
     }
 
     /** 创建玩家，并注册到地图 */
-    Player registerPlayer(long qq,GameMap map){
-        Player player = createPlayer(qq,map)
+    Player registerPlayer(String ip,long qq,GameMap map){
+        Player player = createPlayer(ip,qq,map)
         map.addEntity(player)
         return player
     }
@@ -395,6 +416,10 @@ class Server {
 
     EventExecutor getEventExecutor() {
         return eventExecutor
+    }
+
+    FileRegister getRegister() {
+        return register
     }
 
     static Server getServer(){

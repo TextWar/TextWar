@@ -11,10 +11,13 @@ import java.util.Map;
 
 public class CommandExecutor {
 
+    private RegisterCommand command;
+
     private Server server;
 
     public CommandExecutor(Server server){
         this.server = server;
+        this.command = new RegisterCommand(server);
         registerCommands();
     }
 
@@ -28,6 +31,11 @@ public class CommandExecutor {
     public void registerCommand(CommandBase base){
         base.getCommand().forEach((x)->commands.put(x,base));
         base.initServer(server);
+    }
+
+    //注册玩家时的命令
+    public void registerPlayer(String ip,long qq){
+        this.command.execute(ip,qq);
     }
 
     public void doCommandOrAction(String name,long qq,String[] args){
