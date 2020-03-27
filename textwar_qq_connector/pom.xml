@@ -24,6 +24,10 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -31,6 +35,11 @@
             <groupId>cn.textwar</groupId>
             <artifactId>textwar</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mamoe</groupId>
+            <artifactId>mirai-core-qqandroid-jvm</artifactId>
+            <version>0.30.1</version> <!-- 替换版本为最新版本 -->
         </dependency>
     </dependencies>
 
