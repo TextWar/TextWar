@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tests" />
         <module name="textwar_console" />
-        <module name="textwar_client" />
         <module name="textwar_qq_connector" />
         <module name="textwar_client_connector" />
       </profile>
