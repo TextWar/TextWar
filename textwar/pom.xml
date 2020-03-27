@@ -12,6 +12,7 @@
         <module>../textwar_qq_connector</module>
         <module>../textwar_console</module>
         <module>../tests</module>
+        <module>../textwar_client_connector</module>
     </modules>
     <dependencies>
         <dependency>
