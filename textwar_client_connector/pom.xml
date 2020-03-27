@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>textwar</artifactId>
         <groupId>cn.textwar</groupId>
-        <version>1.0</version>
-        <relativePath>../textwar/pom.xml</relativePath>
+        <artifactId>textwar_pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,6 +13,10 @@
     <artifactId>textwar_client_connector</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.textwar</groupId>
+            <artifactId>textwar</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
         <dependency>
             <groupId>io.netty</groupId>

@@ -12,4 +12,10 @@
 
     <artifactId>tests</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.textwar</groupId>
+            <artifactId>textwar</artifactId>
+        </dependency>
+    </dependencies>
 </project>

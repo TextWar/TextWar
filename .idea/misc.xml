@@ -12,12 +12,8 @@
         <option value="$PROJECT_DIR$/textwar_client_connector/pom.xml" />
         <option value="$PROJECT_DIR$/textwar_pom/pom.xml" />
         <option value="$PROJECT_DIR$/textwar_qq_connector/pom.xml" />
+        <option value="$PROJECT_DIR$/tests/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/textwar_pom/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8.0_181" project-jdk-type="JavaSDK" />
