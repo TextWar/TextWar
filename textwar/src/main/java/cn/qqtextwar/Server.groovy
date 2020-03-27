@@ -14,6 +14,8 @@ import cn.qqtextwar.ex.CloseException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
+import com.alibaba.fastjson.JSONArray
+import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -67,6 +69,8 @@ class Server {
 
     /** 从python端初始化地图元素图片的pkey，如怪物的图片 */
     static final String UPDATE_PIC = "update_pic"
+
+    static final String GET_AREA_MAP = "get_area_map"
 
     /** 游戏难度，目前还没有完成 **/
     private int difficulty //难度，后定
@@ -315,12 +319,43 @@ class Server {
         return null
     }
 
+
+
     /** 初始化全部怪物的图片，在开启时调用 */
     void updatePicture(int id,String file){
         if(rpcRunner){
             rpcRunner.execute(UPDATE_PIC,id,file)
         }
     }
+
+    String getAreaMap(String picturePath,Player player,Vector[] entity,GameMap map){
+        if(rpcRunner){
+            int x1 = map.getXBound((int)(player.getX() - 5))
+            int y1 = map.getYBound((int)(player.getY() - 5))
+            int x2 = map.getXBound((int)(player.getX() + 5))
+            int y2 = map.getYBound((int)(player.getY() + 5))
+            JSONObject jsonObject = new JSONObject()
+            jsonObject.put("picpath",picturePath)
+            JSONArray area = new JSONArray(4)
+            area.add(x1)
+            area.add(y1)
+            area.add(x2)
+            area.add(y2)
+            jsonObject.put("area",area)
+            JSONArray es = new JSONArray()
+            for(Vector vector : entity){
+                JSONArray e = new JSONArray()
+                e.add(vector.getX())
+                e.add(vector.getY())
+                es.add(e)
+            }
+            jsonObject.put("num",es)
+            return rpcRunner.execute(GET_AREA_MAP,String.class,jsonObject.toJSONString())
+        }
+        return ""
+    }
+
+
 
     File getBaseFile() {
         return baseFile

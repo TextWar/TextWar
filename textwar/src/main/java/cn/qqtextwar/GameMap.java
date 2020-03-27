@@ -2,6 +2,7 @@ package cn.qqtextwar;
 
 import cn.qqtextwar.blocks.Block;
 import cn.qqtextwar.entity.Entity;
+import cn.qqtextwar.ex.MapDataException;
 import cn.qqtextwar.math.Vector;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -132,6 +133,7 @@ public class GameMap{
         this.author = (String)object.get("author");
         this.version = (String)object.get("version");
         this.mapData = toData(((JSONArray) object.get("map")).toArray());
+        if(mapData.length == 0)throw new MapDataException("the map's length could not be 0");
         this.getVectors(mapData);
     }
 
@@ -148,6 +150,30 @@ public class GameMap{
                 }
             }
         }
+    }
+
+    public boolean outY(int y){
+        return y < 0 || y > mapData.length-1;
+    }
+
+    public boolean outX(int x){
+        if(mapData.length != 0){
+            return x < 0 || x > mapData[0].length-1;
+        }
+        return false;
+    }
+
+    //如果超出边界返回边界值 不超出边界则返回原来的值
+    public int getYBound(int y){
+        if(y < 0)return 0;
+        if(y > mapData.length-1)return mapData.length-1;
+        return y;
+    }
+
+    public int getXBound(int x){
+        if(x < 0)return 0;
+        if(x > mapData[0].length-1)return mapData[0].length-1;
+        return x;
     }
 
     private static Long[][] toData(Object[] map){
