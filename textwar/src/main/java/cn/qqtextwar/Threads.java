@@ -55,6 +55,7 @@ public class Threads {
         @Override
         public void run() {
             try{
+                server.preparePicture();//更新图片
                 while (server.getState().get() != CLOSED){
                     //若为null，则获得，获得不了，则报错，关闭服务端
                     if(server.getGameMap() == null){

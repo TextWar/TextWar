@@ -17,9 +17,12 @@ import java.util.Map;
  * 玩家类
  * id > 10000
  */
+//TODO 这边要对玩家做一个id-Vector的映射，来标记python端的截图和id
 public class Player extends Entity implements Skillable, CommandSender, Hitable {
 
     private Server server;
+
+
 
     /**
      * 这里用于定义升下一级所需的xp值

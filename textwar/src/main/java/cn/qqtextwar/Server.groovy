@@ -220,8 +220,8 @@ class Server {
 
     /** 负责注册全部的怪物，会在createMobs里使用，会根据这个表随机创建怪物 */
     static void registerMobs(){
-        Mob.registerMob(Slime.class)
-        Mob.registerMob(SkeletonMan.class)
+        Mob.registerMob(1000,SkeletonMan.class,"")
+        Mob.registerMob(1001,Slime.class,"")
     }
 
     /** 用于创建玩家对象，首次创建要从数据获得数据 */
@@ -325,6 +325,14 @@ class Server {
     void updatePicture(int id,String file){
         if(rpcRunner){
             rpcRunner.execute(UPDATE_PIC,id,file)
+        }
+    }
+
+    void preparePicture(){
+        Mob.idMapping.each{
+            int x,Class y->
+                String image = Mob.mobImages.get(y)
+                updatePicture(x,image)
         }
     }
 

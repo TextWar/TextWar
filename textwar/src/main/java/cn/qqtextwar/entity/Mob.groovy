@@ -18,6 +18,9 @@ abstract class Mob extends Entity{
 
     private static Map<String,Class<? extends Registered>> mobs = new HashMap<>()
 
+    private static Map<Class<? extends Registered>,String> mobImages = new HashMap<>()
+
+    private static Map<Integer,Class<? extends Registered>> idMapping = new HashMap<>()
     private boolean harmful
 
     Mob(Vector vector, long id,boolean harmful,int difficulty) {
@@ -30,8 +33,10 @@ abstract class Mob extends Entity{
         setHealthPoints(initHealth(getLevel()))
     }
 
-    static void registerMob(Class<? extends Registered> mob){
+    static void registerMob(int id,Class<? extends Registered> mob,String image){
         mobs.put(mob.getName(),mob)
+        mobImages.put(mob,image)
+        idMapping.put(id,mob)
     }
 
     @Memoized
@@ -51,8 +56,16 @@ abstract class Mob extends Entity{
         return getXp(getLevel())
     }
 
+    static Map<Class<? extends Registered>, String> getMobImages() {
+        return mobImages
+    }
+
     static Map<String, Class<? extends Registered>> getMobs() {
         return mobs
+    }
+
+    static Map<Integer, Class<? extends Registered>> getIdMapping() {
+        return idMapping
     }
 
     abstract double getXp(int level)
