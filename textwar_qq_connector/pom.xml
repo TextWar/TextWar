@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>textwar</artifactId>
+        <artifactId>textwar_pom</artifactId>
         <groupId>cn.textwar</groupId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../textwar/pom.xml</relativePath>
@@ -35,11 +35,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.textwar</groupId>
-            <artifactId>textwar</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-qqandroid-jvm</artifactId>
