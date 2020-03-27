@@ -3,16 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>textwar_pom</artifactId>
-        <groupId>cn.textwar</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../textwar/pom.xml</relativePath>
-    </parent>
+    <groupId>cn.textwar</groupId>
     <artifactId>textwar</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.textwar</groupId>
+            <artifactId>textwar</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -72,19 +72,7 @@
             <version>3.30.1</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>alimaven</id>
-            <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+
     <build>
         <plugins>
 

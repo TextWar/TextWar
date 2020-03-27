@@ -7,18 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="textwar" />
-        <module name="tests" />
+        <module name="textwar-qq-connector" />
         <module name="textwar_console" />
         <module name="textwar_client_connector" />
-        <module name="textwar_qq_connector" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="tests" target="1.5" />
       <module name="textwar" target="1.8" />
+      <module name="textwar-qq-connector" target="1.8" />
       <module name="textwar_client" target="1.8" />
-      <module name="textwar_client_connector" target="1.5" />
-      <module name="textwar_console" target="1.5" />
+      <module name="textwar_client_connector" target="1.8" />
+      <module name="textwar_console" target="1.8" />
       <module name="textwar_pom" target="1.5" />
       <module name="textwar_qq_connector" target="1.5" />
     </bytecodeTargetLevel>
