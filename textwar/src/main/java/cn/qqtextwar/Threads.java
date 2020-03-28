@@ -59,13 +59,12 @@ public class Threads {
         @Override
         public void run() {
             try{
-                server.preparePicture();//更新图片
+                //server.preparePicture();//更新图片
                 while (server.getState().get() != CLOSED){
                     //若为null，则获得，获得不了，则报错，关闭服务端
                     if(server.getGameMap() == null){
                         server.setGameMap(server.getMap((Integer) server.getParser().getValue(TYPE,1)[0]));
                     }
-                    System.out.println(server.getState());
                     while (thread.time.get() == 3 && server.getState().get() != CLOSED){
                         if(people.get() >= 2){
                             break;
@@ -73,7 +72,7 @@ public class Threads {
                     }
                     if(server.getState().get() != CLOSED){
                         //更新地图
-                        server.updateMap(new File(server.getBaseFile(),FileRegister.getIMAGE()).toString(),server.getGameMap());
+                        server.putImage(server.updateMap(new File(server.getBaseFile(),FileRegister.getIMAGE()).toString(),server.getGameMap())+".jpg");
                     }
                 }
                 logger.info(server.translate("map_thread_closed"));

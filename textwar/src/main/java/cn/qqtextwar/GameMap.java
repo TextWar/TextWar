@@ -135,15 +135,40 @@ public class GameMap{
     }
 
     private void init(String json){
-        JSONObject object = JSONObject.parseObject(json);
-        this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
-        this.type = (Integer) object.get("type");
-        this.name = (String) object.get("name");
-        this.author = (String)object.get("author");
-        this.version = (String)object.get("version");
-        this.mapData = toData(((JSONArray) object.get("map")).toArray());
-        if(mapData.length == 0)throw new MapDataException("the map's length could not be 0");
-        this.getVectors(mapData);
+        try {
+            JSONObject object = JSONObject.parseObject(json);
+            this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
+            this.type = (Integer) object.get("type");
+            this.name = (String) object.get("name");
+            this.author = (String) object.get("author");
+            this.version = (String) object.get("version");
+            this.mapData = toData(((JSONArray) object.get("map")).toArray());
+            if (mapData.length == 0) throw new MapDataException("the map's length could not be 0");
+            this.getVectors(mapData);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("illegal game map");
+        }
+    }
+    public String toJson(){
+        JSONObject object = new JSONObject();
+        object.put("hashmap",hashMap);
+        object.put("type",type);
+        object.put("name",name);
+        object.put("author",author);
+        object.put("version",version);
+        object.put("map",toJsonArray(mapData));
+        return object.toJSONString();
+    }
+
+    private JSONArray toJsonArray(Long[][] mapData){
+        JSONArray array = new JSONArray();
+        for(Long[] line : mapData){
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.addAll(Arrays.asList(line));
+            array.add(jsonArray);
+        }
+        return array;
     }
 
     private void getVectors(Long[][] mapData){
@@ -247,4 +272,7 @@ public class GameMap{
     public List<String> getHashMap() {
         return hashMap;
     }
+
+
+
 }

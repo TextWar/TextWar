@@ -21,6 +21,7 @@ import groovy.transform.CompileStatic
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -138,6 +139,8 @@ class Server {
 
     private Translate translater
 
+    private Queue<String> imageFiles = new LinkedBlockingQueue<>()
+
     /** 服务端构造方法，请不要直接使用它 */
     private Server(boolean test,Application... app){
         if(!server){
@@ -167,6 +170,14 @@ class Server {
         applications.each {
             threads.execute(new Threads.ApplicationRunThread(this,it))
         }
+    }
+
+    void putImage(String image){
+        imageFiles.offer(image)
+    }
+
+    String consumeImage(){
+        imageFiles.poll()
     }
 
     static Server testServer(Application... app){
@@ -272,8 +283,8 @@ class Server {
     // 9. 游戏结束，初始化全部对象。
     /** 服务端对象的启动方法，请不要直接调用，否则会出现不可预料的错误 */
     private Server start0(){
-        String ip = this.parser.getHeadValue("server.ip")
-        String port = this.parser.getHeadValue("server.port")
+        String ip = this.parser.getHeadValue("server.rpc.ip")
+        String port = this.parser.getHeadValue("server.rpc.port")
         if(!test){
             this.rpcRunner = new RPCRunner()
             rpcRunner.start(ip,port)
@@ -429,7 +440,7 @@ class Server {
     /** 向rpc服务端发出指令，以更新图片，传入修改过的map对象 */
     String updateMap(String image,GameMap map){
         if(rpcRunner){
-            String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.getMapData())
+            String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.toJson())
             map.setFile(file)
             return file
         }
@@ -440,7 +451,7 @@ class Server {
     /**获得最新的Map，只有开始第一回合或者下一回合调用  */
     GameMap getMap(int type){
         if(rpcRunner){
-            return new GameMap((String)rpcRunner.execute(GET_MAP,String.class,type))
+            return new GameMap(rpcRunner.execute(GET_MAP,String.class,type))
         }
         return null
     }

@@ -16,7 +16,7 @@ class RPCRunner {
 
     private ServerLogger logger = new ServerLogger()
 
-    static final String PKEY = "textwar."
+    static final String PKEY = ""
 
     private XmlRpcClient client
 
@@ -27,7 +27,8 @@ class RPCRunner {
     void start(String ip,String port) {
         logger.info("The xml rpc is starting....")
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl()
-        config.setServerURL(new URL("http://${ip}:${port}"))
+        config.setServerURL(new URL("http://${ip}:${port}/textwar"))
+        config.setEnabledForExtensions(true)
         client.setConfig(config)
         logger.info("The xml rpc has started!")
     }

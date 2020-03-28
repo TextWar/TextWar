@@ -94,7 +94,7 @@ public abstract class Entity {
             return point;
         }else{
             Duration duration = Duration.between(time,now);
-            if(duration.toMinutes()*60 >= getSkillByLevel(points).getTime()){
+            if(duration.toMillis()/1000 >= getSkillByLevel(points).getTime()){
                 useDates.put(points,now);
                 SkillPoint point = getSkillByLevel(points);
                 setManaPoints(getManaPoints() - point.getBuff());

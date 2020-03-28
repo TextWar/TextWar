@@ -30,12 +30,24 @@ class QQApplication implements Application {
         this.server = server
         Translate.getType("en").putAll(
                 [
-                        "cr" : "TextWar Game @CopyRight TextWar Dev has started!Version Beta 1",
+                        "cr" : "TextWar Game @CopyRight TextWar Dev has started!Version Beta 1,Please add me.",
                         "registered" : "#{id} : has registered in the game",
                         "add" : "I think you should add me",
                         "again_warn" : "Do not join again!",
                         "illegal_cmd" : "illegal command",
-                        "use_register" : "please login use: /register"
+                        "use_register" : "please login use: /register",
+                        "time_cool" : "cooling"
+                ]
+        )
+        Translate.getType("zh").putAll(
+                [
+                        "cr" : "TextWar Game @CopyRight TextWar Dev 已经启动！版本 Beta 1",
+                        "registered" : "#{id} : has registered in the game",
+                        "add" : "I think you should add me",
+                        "again_warn" : "Do not join again!",
+                        "illegal_cmd" : "illegal command",
+                        "use_register" : "please login use: /register",
+                        "time_cool" : "冷却后再试"
                 ]
         )
         this.logger = new ServerLogger()
@@ -61,7 +73,6 @@ class QQApplication implements Application {
         }else{
             groupObj.sendMessage(server.translate("cr"))
         }
-
         Events.subscribeAlways(GroupMessage.class){
             GroupMessage event ->
                 long id = event.sender.group.id
@@ -78,24 +89,43 @@ class QQApplication implements Application {
                                 }else{
                                     event.sender.group.sendMessage(server.translate("add"))
                                 }
-                            }else{1
+                            }else{
                                 event.sender.group.sendMessage(server.translate("again_warn"))
                             }
                         }else{
-                            String[] things = message.split(" ")
+                            String[] things = message.split(server.translate("time_cool"))
                             if(things.length == 0){
                                 event.sender.group.sendMessage(server.translate("illegal_cmd"))
                             }else{
                                 if(server.getPlayer(event.sender.id) != null){
-                                    String[] args = new String[things.length-1]
-                                    System.arraycopy(things,1,args,0,args.length)
-                                    event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,things))
+                                    if(server.getPlayer(event.sender.id).done(server)){
+                                        String[] args = new String[things.length-1]
+                                        System.arraycopy(things,1,args,0,args.length)
+                                        event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,things))
+                                        server.wantUpdate()
+                                        if(!server.isTest()){
+                                            //TODO 临时
+                                            String image = server.consumeImage()
+
+                                            if(image != null){
+                                                this.logger.debug("IMAGE: "+image)
+                                                groupObj.sendMessage(event.group.uploadImage(new FileInputStream(new File(server.consumeImage()))))
+                                            }
+                                        }
+                                    }else{
+                                        event.group.sendMessage(server.translate("time_cool"))
+                                    }
                                 }else{
                                     event.group.sendMessage(server.translate("use_register"))
                                 }
+
                             }
                         }
-                        if(server.isTest())groupObj.sendMessage(server.gameMap.toString())
+
+
+                        if(server.isTest()){
+                            groupObj.sendMessage(server.gameMap.toString())
+                        }
                     }
                 }
         }

@@ -4,6 +4,7 @@ package cn.qqtextwar.entity.player;
 import cn.qqtextwar.CommandSender;
 import cn.qqtextwar.Hitable;
 import cn.qqtextwar.ProtocolVar;
+
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.Entity;
@@ -11,6 +12,8 @@ import cn.qqtextwar.entity.Skillable;
 import cn.qqtextwar.ex.IllegalIdException;
 import cn.qqtextwar.math.Vector;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +23,8 @@ import java.util.Map;
  */
 //TODO 这边要对玩家做一个id-Vector的映射，来标记python端的截图和id
 public class Player extends Entity implements Skillable, CommandSender, Hitable {
+
+    private LocalDateTime operationTime;
 
     private Application application;
 
@@ -53,6 +58,22 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         this.inventory = new Inventory();
         this.money = money;
         this.ip = ip;
+        this.application = application;
+    }
+
+    public boolean done(Server server){
+        if(operationTime == null) {
+            operationTime = LocalDateTime.now();
+            return true;
+        }else{
+            LocalDateTime time = LocalDateTime.now();
+            if(Duration.between(operationTime,time).toMillis() / 1000 >= (int)server.getParser().getValue("server.messageTime",5)[0]){
+                this.operationTime = LocalDateTime.now();
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
 
