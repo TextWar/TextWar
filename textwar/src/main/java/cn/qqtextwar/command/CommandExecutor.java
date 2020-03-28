@@ -2,6 +2,7 @@ package cn.qqtextwar.command;
 
 import cn.qqtextwar.CommandSender;
 import cn.qqtextwar.Server;
+import cn.qqtextwar.api.Application;
 import cn.qqtextwar.command.actions.MoveAction;
 import cn.qqtextwar.command.commands.ExitCommand;
 import cn.qqtextwar.command.commands.HelpCommand;
@@ -39,8 +40,8 @@ public class CommandExecutor {
     }
 
     //注册玩家时的命令
-    public void registerPlayer(String ip,long qq){
-        this.command.execute(ip,qq);
+    public void registerPlayer(String ip, long qq, Application application){
+        this.command.execute(application,ip,qq);
     }
 
     public String doCommandOrAction(String name,long qq,String[] args){

@@ -19,6 +19,8 @@ import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
 
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -91,6 +93,8 @@ class Server {
     /** 记录回合数量 */
     private AtomicInteger round //记录回合
 
+    private Executor threads
+
     /**
      * 记录游戏的状态，这里同时也是用于控制每个线程的进行
      * 如果为CLOSED，线程全部结束
@@ -124,7 +128,7 @@ class Server {
 
     private int playerMoney
 
-    private Application application
+    private List<Application> applications
 
     private CommandExecutor executor
 
@@ -135,7 +139,7 @@ class Server {
     private Translate translater
 
     /** 服务端构造方法，请不要直接使用它 */
-    private Server(Application app,boolean test){
+    private Server(boolean test,Application... app){
         if(!server){
             server = this
         }else{
@@ -158,12 +162,15 @@ class Server {
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
-        this.application = app
-        new Threads.ApplicationRunThread(this).start()
+        this.applications = Arrays.asList(app)
+        this.threads = Executors.newFixedThreadPool(applications.size())
+        applications.each {
+            threads.execute(new Threads.ApplicationRunThread(this,it))
+        }
     }
 
-    static Server testServer(Application app){
-        Server server = new Server(app,true).start0()
+    static Server testServer(Application... app){
+        Server server = new Server(true,app).start0()
         server.logger.debug("testing....")
         server.gameMap = new GameMap("{\n" +
                 "  \"author\": \"someone behind the screen\",\n" +
@@ -287,8 +294,8 @@ class Server {
     //回合+1
     //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
-    static start(Application app){
-        Server server = new Server(app,false).start0()
+    static start(Application... app){
+        Server server = new Server(false,app).start0()
         server.logger.info(server.translate("server_started"))
         server.logger.info(server.translate("copyright"))
     }
@@ -339,10 +346,10 @@ class Server {
     }
 
     /** 用于创建玩家对象，*/
-    Player createPlayer(String ip,long qq, GameMap map){
+    Player createPlayer(Application app,String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
-            Player player = new Player(ip,this,vector,qq,100,100,100)
+            Player player = new Player(app,ip,vector,qq,100,100,100)
             players[qq] = player
             return player
         }else{
@@ -351,8 +358,8 @@ class Server {
     }
 
     /** 创建玩家，并注册到地图 */
-    Player registerPlayer(String ip,long qq,GameMap map){
-        Player player = createPlayer(ip,qq,map).addInto(map) as Player
+    Player registerPlayer(Application app,String ip,long qq,GameMap map){
+        Player player = createPlayer(app,ip,qq,map).addInto(map) as Player
         if(test)logger.debug(map.toString())
         return player
     }
@@ -504,8 +511,8 @@ class Server {
         return state
     }
 
-    Application getApplication() {
-        return application
+    List<Application> getApplications() {
+        return applications
     }
 
     CommandExecutor getExecutor() {

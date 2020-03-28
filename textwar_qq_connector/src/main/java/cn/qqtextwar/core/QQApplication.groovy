@@ -71,7 +71,7 @@ class QQApplication implements Application {
                         message = message.substring(message.indexOf("/")+"/".length()).trim()
                         if("register".equals(message)){
                             if(server.getPlayer(event.sender.id)==null) {
-                                server.executor.registerPlayer("Unknown IP : QQ", event.sender.id)
+                                server.executor.registerPlayer("Unknown IP : QQ", event.sender.id,this)
                                 event.sender.group.sendMessage(server.translate("registered").replace("#{id}","${event.sender.id} "))
                                 if(bot.friends.contains(event.sender.id)){
                                     event.sender.sendMessage(server.translate("registered").replace("#{id}","${event.sender.id} "))

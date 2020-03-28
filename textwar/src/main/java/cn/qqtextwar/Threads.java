@@ -1,9 +1,9 @@
 package cn.qqtextwar;
 
+import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.ServerLogger;
 
 import java.io.File;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static cn.qqtextwar.Server.CLOSED;
@@ -14,15 +14,18 @@ public class Threads {
 
         private Server server;
 
-        public ApplicationRunThread(Server server){
+        private Application application;
+
+        public ApplicationRunThread(Server server, Application application){
             this.server = server;
+            this.application = application;
         }
 
         @Override
         public void run() {
             try {
-                server.getApplication().init(server);
-                server.getApplication().run();
+                application.init(server);
+                application.run();
             }catch (Throwable e){
                 server.close0(e);
             }
@@ -42,14 +45,11 @@ public class Threads {
 
         private TimeThread thread;
 
-        private CountDownLatch latch;
-
         public MapThread(Server server){
             this.server = server;
             this.people = new AtomicInteger(0);
             this.thread = new TimeThread();
             this.thread.start();
-            this.latch = new CountDownLatch(1);
         }
 
         public void wantUpdate(){

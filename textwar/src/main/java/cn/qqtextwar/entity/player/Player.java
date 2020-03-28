@@ -5,6 +5,7 @@ import cn.qqtextwar.CommandSender;
 import cn.qqtextwar.Hitable;
 import cn.qqtextwar.ProtocolVar;
 import cn.qqtextwar.Server;
+import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.Entity;
 import cn.qqtextwar.entity.Skillable;
 import cn.qqtextwar.ex.IllegalIdException;
@@ -20,7 +21,8 @@ import java.util.Map;
 //TODO 这边要对玩家做一个id-Vector的映射，来标记python端的截图和id
 public class Player extends Entity implements Skillable, CommandSender, Hitable {
 
-    private Server server;
+    private Application application;
+
 
     private String ip;
 
@@ -42,7 +44,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
     private int money;
 
 
-    public Player(String ip,Server server, Vector vector, long id, double healthPoints, double manaPoints, int money) {
+    public Player(Application application,String ip, Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
         if(id < ProtocolVar.PLAYER_MIN_ID){
             throw new IllegalIdException("the player's id is bigger than 10000");
@@ -50,7 +52,6 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         this.xp = 0;
         this.inventory = new Inventory();
         this.money = money;
-        this.server = server;
         this.ip = ip;
     }
 
@@ -100,6 +101,6 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
     }
 
     public void sendMessage(String message){
-        this.server.getApplication().sendMessage(getId(),message);
+        application.sendMessage(getId(),message);
     }
 }
