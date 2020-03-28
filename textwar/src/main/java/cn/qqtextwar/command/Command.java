@@ -10,6 +10,6 @@ public abstract class Command extends CommandBase {
         super(command,desc);
     }
 
-    public abstract void execute(CommandSender player, Command command,String[] args);
+    public abstract String execute(CommandSender player, Command command,String[] args);
 
 }

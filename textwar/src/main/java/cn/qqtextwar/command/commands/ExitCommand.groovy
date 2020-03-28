@@ -4,17 +4,15 @@ import cn.qqtextwar.CommandSender
 import cn.qqtextwar.command.Command
 import cn.qqtextwar.entity.player.Player
 
+class ExitCommand extends Command {
 
-class UpdateMapCommand extends Command {
-
-    UpdateMapCommand() {
-        super(["/update"],"a command for updating the map")
+    ExitCommand() {
+        super(["/exit"], "player exit")
     }
 
     @Override
     String execute(CommandSender player, Command command, String[] args) {
-        if(player instanceof Player){
-            getServer().wantUpdate()
-        }
+        getServer().logOut(player as Player)
+        return "${(player as Player).id} has exited"
     }
 }

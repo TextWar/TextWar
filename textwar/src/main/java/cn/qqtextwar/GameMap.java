@@ -67,14 +67,7 @@ public class GameMap{
             mapData[(int)e.getY()][(int)e.getX()] = e.getId();
         }else{
             //先前的vector
-            Vector vector = entityVector.get(e.getUuid());
-            long id;
-            if(blocks.get(vector)!=null){
-                id = blocks.get(vector).getId();
-            }else{
-                id = 0L;
-            }
-            mapData[(int)vector.getY()][(int)vector.getX()] = id;
+            setMapBefore(e);
             mapData[(int)e.getY()][(int)e.getX()] = e.getId();
             entityVector.put(e.getUuid(),e.getVector());
         }
@@ -84,6 +77,22 @@ public class GameMap{
         addEntity(e);
     }
 
+    public void removeEntity(Entity e){
+        //先前的vector
+        setMapBefore(e);
+        entityVector.remove(e.getUuid());
+    }
+
+    private void setMapBefore(Entity e){
+        Vector vector = entityVector.get(e.getUuid());
+        long id;
+        if(blocks.get(vector)!=null){
+            id = blocks.get(vector).getId();
+        }else{
+            id = 0L;
+        }
+        mapData[(int)vector.getY()][(int)vector.getX()] = id;
+    }
 
     public Long[][] getMapData() {
         return mapData;

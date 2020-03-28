@@ -15,6 +15,6 @@ public abstract class Action extends CommandBase {
         super(command,desc);
     }
 
-    public abstract void execute(Player player, String command);
+    public abstract String execute(Player player, String command);
 
 }

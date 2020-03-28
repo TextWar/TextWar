@@ -382,6 +382,11 @@ class Server {
         return players[qq]
     }
 
+    void logOut(Player player){
+        players.remove(player.id)
+        gameMap.removeEntity(player)
+    }
+
     /** 线程安全的随机表，在创建怪物时使用 */
     synchronized int random(int round){
         random.nextInt(round)
@@ -509,6 +514,10 @@ class Server {
 
     FileRegister getRegister() {
         return register
+    }
+
+    ServerLogger getLogger(){
+        return logger
     }
 
     static Server getServer(){
