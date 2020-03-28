@@ -18,6 +18,11 @@
             <artifactId>textwar</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.textwar</groupId>
+            <artifactId>textwar-qq-connector</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <scope>compile</scope>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>

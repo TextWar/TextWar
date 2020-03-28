@@ -4,12 +4,11 @@ import cn.qqtextwar.Server
 import cn.qqtextwar.api.Application
 import cn.qqtextwar.log.ServerLogger
 import groovy.transform.CompileStatic
+import groovy.transform.TypeCheckingMode
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.BotFactoryJvm
 import net.mamoe.mirai.japt.Events
 import net.mamoe.mirai.message.GroupMessage
-import net.mamoe.mirai.message.data.MessageUtils
-import net.mamoe.mirai.message.data.QuoteReplyToSend
 
 @CompileStatic
 class QQApplication implements Application {
@@ -36,14 +35,30 @@ class QQApplication implements Application {
     }
 
     @Override
+    @CompileStatic(TypeCheckingMode.SKIP)
     void run() {
-        this.bot = BotFactoryJvm.newBot((Integer)parser.getValue("bot.qq",123456)[0],parser.getHeadValue("bot.password"))
+        println()
+        this.bot = BotFactoryJvm.newBot((Long)parser.getValue("bot.qq",123456)[0],parser.getHeadValue("bot.password"))
         this.bot.login()
         this.logger.info("The QQ Bot has registered...")
         Events.subscribeAlways(GroupMessage.class){
             GroupMessage event ->
-                if(event.getMessage().contains("at")){
-                    final QuoteReplyToSend quote = MessageUtils.quote(event.getMessage(), event.getSender());
+                long id = event.sender.group.id
+                if(id == (parser.getValue("bot.group",123456)[0] as Long)){
+                    String message = event.message.toString()
+                    if(message.startsWith("tw:")){
+                        message = message.substring(message.indexOf("tw:")+"tw:".length())
+                        if("register".equals(message)){
+                            if(server.getPlayer(event.sender.id)==null) {
+                                server.executor.registerPlayer("Unknown IP : QQ", event.sender.id)
+                                event.sender.group.sendMessage("${event.sender.id} : has registered in the game")
+                            }else{
+                                event.sender.group.sendMessage("Do not join again!")
+                            }
+                            //event.sender.sendMessage("${event.sender.id} : has registered in the game")
+
+                        }
+                    }
                 }
         }
         bot.join()

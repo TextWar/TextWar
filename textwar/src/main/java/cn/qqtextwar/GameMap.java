@@ -53,7 +53,7 @@ public class GameMap{
 
     public Vector randomVector(){
         Vector vector = vectors.get(random.nextInt(vectors.size()-1));
-        while (blocks.get(vector)!=null&&!blocks.get(vector).isCross()){
+        while (!blocks.get(vector).isCross()){
             vector = vectors.get(random.nextInt(vectors.size()-1));
         }
         return vector;

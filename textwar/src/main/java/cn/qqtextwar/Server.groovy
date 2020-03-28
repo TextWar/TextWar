@@ -155,12 +155,98 @@ class Server {
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         this.application = app
-        this.application.init(this)
-        new Threads.ApplicationRunThread(this).run()
+        new Threads.ApplicationRunThread(this).start()
     }
 
     static Server testServer(Application app){
-        new Server(app,true).start0()
+        Server server = new Server(app,true).start0()
+        server.logger.debug("testing....")
+        server.gameMap = new GameMap("{\n" +
+                "  \"author\": \"someone behind the screen\",\n" +
+                "  \"hashmap\": [\n" +
+                "    \"*aa\",\n" +
+                "    \"bb\",\n" +
+                "    \"cc\",\n" +
+                "    \"dd\"\n" +
+                "  ],\n" +
+                "  \"map\": [\n" +
+                "    [\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      1,\n" +
+                "      1\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      1,\n" +
+                "      1\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      0,\n" +
+                "      1,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      1,\n" +
+                "      1\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      1,\n" +
+                "      1\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      2,\n" +
+                "      2,\n" +
+                "      1,\n" +
+                "      1,\n" +
+                "      1,\n" +
+                "      1,\n" +
+                "      0,\n" +
+                "      0\n" +
+                "    ],\n" +
+                "    [\n" +
+                "      3,\n" +
+                "      3,\n" +
+                "      3,\n" +
+                "      3,\n" +
+                "      3,\n" +
+                "      0,\n" +
+                "      0,\n" +
+                "      0\n" +
+                "    ]\n" +
+                "  ],\n" +
+                "  \"name\": \"some\",\n" +
+                "  \"type\": 1,\n" +
+                "  \"version\": \"b1\"\n" +
+                "}")
+        server.logger.debug("Create a Map")
+        server
     }
 
     //启动的方法组合顺序
@@ -222,20 +308,23 @@ class Server {
         if(this.state.get() == CLOSED){
             throw new CloseException("the Server has closed")
         }
-        this.logger.info("the server is closing...")
-        this.state.compareAndSet(this.state.get(),CLOSED)
-        if(throwable!=null) {
-            this.logger.error(throwable.toString())
-            throwable.stackTrace.each {
-                this.logger.error("at "+it)
+        if(this.logger != null){
+            this.logger.info("the server is closing...")
+            this.state.compareAndSet(this.state.get(),CLOSED)
+            if(throwable!=null) {
+                this.logger.error(throwable.toString())
+                throwable.stackTrace.each {
+                    this.logger.error("at "+it)
+                }
+                if(throwable.cause!=null){
+                    this.logger.error(throwable.cause.toString())
+                    throwable.cause.stackTrace.each {
+                        this.logger.error("at "+it)
+                    }
+                }
             }
-            this.logger.error(throwable.cause.toString())
-            throwable.cause.stackTrace.each {
-                this.logger.error("at "+it)
-            }
-
+            this.logger.info("the Server has closed state: 3 - CLOSED")
         }
-        this.logger.info("the Server has closed state: 3 - CLOSED")
         System.exit(0)
     }
 
@@ -245,7 +334,7 @@ class Server {
         Mob.registerMob(1001,Slime.class,"")
     }
 
-    /** 用于创建玩家对象，首次创建要从数据获得数据 */
+    /** 用于创建玩家对象，*/
     Player createPlayer(String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
@@ -259,8 +348,8 @@ class Server {
 
     /** 创建玩家，并注册到地图 */
     Player registerPlayer(String ip,long qq,GameMap map){
-        Player player = createPlayer(ip,qq,map)
-        map.addEntity(player)
+        Player player = createPlayer(ip,qq,map).addInto(map) as Player
+        if(test)logger.debug(map.toString())
         return player
     }
 

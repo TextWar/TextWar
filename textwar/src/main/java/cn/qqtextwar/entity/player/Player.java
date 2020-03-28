@@ -36,6 +36,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
 
     private int xp;
 
+
     private Inventory inventory;
 
     private int money;
@@ -50,6 +51,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         this.inventory = new Inventory();
         this.money = money;
         this.server = server;
+        this.ip = ip;
     }
 
 

@@ -21,6 +21,7 @@ public class Threads {
         @Override
         public void run() {
             try {
+                server.getApplication().init(server);
                 server.getApplication().run();
             }catch (Throwable e){
                 server.close0(e);

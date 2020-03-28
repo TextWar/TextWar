@@ -2,10 +2,8 @@ package cn.qqtextwar.tests;
 
 import cn.qqtextwar.GameMap;
 import cn.qqtextwar.Server;
-import cn.qqtextwar.core.QQApplication;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.math.Vector;
-import org.junit.Test;
 
 public class Test01 {
 
@@ -100,10 +98,10 @@ public class Test01 {
                         .addInto(map)
                         .as(Player.class);
 
-                Player player2 = new Player("",Server.getServer(),new Vector(2,3),1003883838,100,100,100)
-                        .addInto(map)
-                        .as(Player.class);
+//                Player player2 = new Player("",Server.getServer(),new Vector(2,3),1003883838,100,100,100)
+//                        .addInto(map)
+//                        .as(Player.class);
                 System.out.println(map);
-                System.out.println(player1.haveObstacle(player2,map));
+                //System.out.println(player1.haveObstacle(player2,map));
         }
 }

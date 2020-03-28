@@ -1,6 +1,7 @@
 package cn.qqtextwar.command;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.entity.player.Player;
 
 public class RegisterCommand {
 
@@ -10,8 +11,8 @@ public class RegisterCommand {
         this.server = server;
     }
 
-    public void execute(String ip, long qq){
+    public Player execute(String ip, long qq){
         //TODO 未来的数据库连接
-        server.registerPlayer(ip,qq,server.getGameMap());
+        return server.registerPlayer(ip,qq,server.getGameMap());
     }
 }
