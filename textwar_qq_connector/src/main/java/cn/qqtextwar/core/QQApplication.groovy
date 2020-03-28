@@ -7,7 +7,6 @@ import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.BotFactoryJvm
-import net.mamoe.mirai.event.events.FriendEvent
 import net.mamoe.mirai.japt.Events
 import net.mamoe.mirai.message.GroupMessage
 
@@ -45,7 +44,7 @@ class QQApplication implements Application {
         long group = (parser.getValue("bot.group",123456)[0] as Long)
         def groupObj = bot.groups.get(group)
         if(groupObj == null){
-            server.logger.error("No Such Group ${group}")
+            this.logger.error("No Such Group ${group}")
             server.close0(null)
         }else{
             groupObj.sendMessage("TextWar Game @CopyRight TextWar Dev has started!Version Beta 1")
