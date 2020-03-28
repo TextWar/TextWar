@@ -17,7 +17,16 @@
     </properties>
     <artifactId>textwar-qq-connector</artifactId>
 
-
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <url>https://maven.aliyun.com/repository/jcenter</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>http://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.spockframework</groupId>
@@ -82,7 +91,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>cn.qqtextwar.Main</mainClass>
+                                    <mainClass>cn.qqtextwar.core.Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
