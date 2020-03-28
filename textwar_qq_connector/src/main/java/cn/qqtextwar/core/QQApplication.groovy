@@ -3,6 +3,7 @@ package cn.qqtextwar.core
 import cn.qqtextwar.Server
 import cn.qqtextwar.api.Application
 import cn.qqtextwar.log.ServerLogger
+import cn.qqtextwar.utils.Translate
 import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import net.mamoe.mirai.Bot
@@ -23,15 +24,26 @@ class QQApplication implements Application {
 
     private ServerLogger logger
 
+    @CompileStatic(TypeCheckingMode.SKIP)
     @Override
     void init(Server server) {
         this.server = server
+        Translate.getType("en").putAll(
+                [
+                        "cr" : "TextWar Game @CopyRight TextWar Dev has started!Version Beta 1",
+                        "registered" : "#{id} : has registered in the game",
+                        "add" : "I think you should add me",
+                        "again_warn" : "Do not join again!",
+                        "illegal_cmd" : "illegal command",
+                        "use_register" : "please login use: /register"
+                ]
+        )
         this.logger = new ServerLogger()
         this.logger.info("You are using the qq application to run the TextWar")
         this.logger.info("Use the mirai 0.30.1")
-
         this.server.getRegister().register(CONFIG)
         this.parser = new QQConfigParser(server.getRegister().getConfig(CONFIG))
+
     }
 
     @Override
@@ -47,7 +59,7 @@ class QQApplication implements Application {
             this.logger.error("No Such Group ${group}")
             server.close0(null)
         }else{
-            groupObj.sendMessage("TextWar Game @CopyRight TextWar Dev has started!Version Beta 1")
+            groupObj.sendMessage(server.translate("cr"))
         }
 
         Events.subscribeAlways(GroupMessage.class){
@@ -60,26 +72,26 @@ class QQApplication implements Application {
                         if("register".equals(message)){
                             if(server.getPlayer(event.sender.id)==null) {
                                 server.executor.registerPlayer("Unknown IP : QQ", event.sender.id)
-                                event.sender.group.sendMessage("${event.sender.id} : has registered in the game")
+                                event.sender.group.sendMessage(server.translate("registered").replace("#{id}","${event.sender.id} "))
                                 if(bot.friends.contains(event.sender.id)){
-                                    event.sender.sendMessage("${event.sender.id} : has registered in the game")
+                                    event.sender.sendMessage(server.translate("registered").replace("#{id}","${event.sender.id} "))
                                 }else{
-                                    event.sender.group.sendMessage("I think you should add me")
+                                    event.sender.group.sendMessage(server.translate("add"))
                                 }
                             }else{1
-                                event.sender.group.sendMessage("Do not join again!")
+                                event.sender.group.sendMessage(server.translate("again_warn"))
                             }
                         }else{
                             String[] things = message.split(" ")
                             if(things.length == 0){
-                                event.sender.group.sendMessage("illegal command")
+                                event.sender.group.sendMessage(server.translate("illegal_cmd"))
                             }else{
                                 if(server.getPlayer(event.sender.id) != null){
                                     String[] args = new String[things.length-1]
                                     System.arraycopy(things,1,args,0,args.length)
                                     event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,things))
                                 }else{
-                                    event.group.sendMessage("please login use: /register")
+                                    event.group.sendMessage(server.translate("use_register"))
                                 }
                             }
                         }

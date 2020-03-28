@@ -9,7 +9,7 @@ import groovy.transform.CompileStatic
 class MoveAction extends Action{
 
     MoveAction() {
-        super(["w","a","s","d","W","A","S","D"],"player moving: w is up,s is down,a is left,d is right")
+        super(["w","a","s","d","W","A","S","D"],"move_cmd")
     }
 
     @Override
@@ -17,19 +17,19 @@ class MoveAction extends Action{
         try{
             if("w" == command.toLowerCase()){
                 player.up(server.gameMap).update()
-                return "${player.id}: move up 1"
+                return "${server.translate("move_up")}".replace("#{id}","${player.id}")
             }
             if("s" == command.toLowerCase()){
                 player.down(server.gameMap).update()
-                return "${player.id}: move down 1"
+                return "${server.translate("move_down")}".replace("#{id}","${player.id}")
             }
             if("a" == command.toLowerCase()){
                 player.left(server.gameMap).update()
-                return "${player.id}: move left 1"
+                return "${server.translate("move_left")}".replace("#{id}","${player.id}")
             }
             if("d" == command.toLowerCase()){
                 player.right(server.gameMap).update()
-                return "${player.id}: move right 1"
+                return "${server.translate("move_right")}".replace("#{id}","${player.id}")
             }
         }catch(Exception e){
             if(e instanceof MoveException){

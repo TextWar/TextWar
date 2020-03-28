@@ -7,7 +7,7 @@ class HelpCommand extends Command{
 
 
     HelpCommand() {
-        super(["/help"],"help command")
+        super(["/help"],"help_cmd")
     }
 
     @Override

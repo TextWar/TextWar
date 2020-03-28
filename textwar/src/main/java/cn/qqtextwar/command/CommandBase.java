@@ -16,7 +16,7 @@ public abstract class CommandBase {
 
     private Server server;
 
-    private String description;
+    protected String description;
 
     private List<String> command;
 
@@ -35,9 +35,18 @@ public abstract class CommandBase {
 
     public void initServer(Server server){
         this.server = server;
+        this.description = translate(server,description);
     }
 
     public Server getServer() {
         return server;
+    }
+
+    public static String translate(Server server,String key){
+        return server.translate(key);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

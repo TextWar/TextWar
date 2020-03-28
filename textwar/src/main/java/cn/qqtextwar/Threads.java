@@ -76,7 +76,7 @@ public class Threads {
                         server.updateMap(new File(server.getBaseFile(),FileRegister.getIMAGE()).toString(),server.getGameMap());
                     }
                 }
-                logger.info("The map thread has closed");
+                logger.info(server.translate("map_thread_closed"));
             }catch (Exception e){
                 server.close0(e);
                 e.printStackTrace();

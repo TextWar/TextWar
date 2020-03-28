@@ -33,8 +33,9 @@ public class CommandExecutor {
     private Map<String,CommandBase> commands = new HashMap<>();
 
     public void registerCommand(CommandBase base){
-        base.getCommand().forEach((x)->commands.put(x,base));
         base.initServer(server);
+        base.getCommand().forEach((x)->commands.put(x,base));
+
     }
 
     //注册玩家时的命令

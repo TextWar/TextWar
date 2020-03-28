@@ -14,6 +14,7 @@ import cn.qqtextwar.ex.CloseException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
+import cn.qqtextwar.utils.Translate
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
@@ -131,12 +132,14 @@ class Server {
 
     private boolean test
 
+    private Translate translater
+
     /** 服务端构造方法，请不要直接使用它 */
     private Server(Application app,boolean test){
         if(!server){
             server = this
         }else{
-            throw new ServerException("the server has started!")
+            throw new ServerException(translate("start_exception"))
         }
         this.test = test
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
@@ -144,6 +147,7 @@ class Server {
         this.register.register()
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
         ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
+        this.translater = new Translate(parser.getHeadValue("server.translate"))
         this.difficulty = (Integer)parser.getValue(GAME_DIFFICULTY,1)[0]
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
@@ -266,9 +270,9 @@ class Server {
         if(!test){
             this.rpcRunner = new RPCRunner()
             rpcRunner.start(ip,port)
-            this.logger.info("Map thread is starting...")
+            this.logger.info(translate("map_starting"))
             mapThread.start()
-            this.logger.info("Map thread has started")
+            this.logger.info(translate("map_started"))
         }
         this.state.compareAndSet(state.get(),START)
         this
@@ -285,8 +289,8 @@ class Server {
     /** 服务端只能开启一次 */
     static start(Application app){
         Server server = new Server(app,false).start0()
-        server.logger.info("Server has started..")
-        server.logger.info("The TextWar game's server core v1.0.0 CopyRight @TextWar")
+        server.logger.info(server.translate("server_started"))
+        server.logger.info(server.translate("copyright"))
     }
 
 
@@ -306,7 +310,7 @@ class Server {
     /** 服务端只能关闭一次*/
     void close0(Throwable throwable){
         if(this.state.get() == CLOSED){
-            throw new CloseException("the Server has closed")
+            throw new CloseException(translate("closed"))
         }
         if(this.logger != null){
             this.logger.info("the server is closing...")
@@ -323,7 +327,7 @@ class Server {
                     }
                 }
             }
-            this.logger.info("the Server has closed state: 3 - CLOSED")
+            this.logger.info(translate("closed_info"))
         }
         System.exit(0)
     }
@@ -522,6 +526,13 @@ class Server {
 
     boolean isTest(){
         return test
+    }
+
+    Translate getTranslater(){
+        return translater
+    }
+    String translate(String key){
+        translater.translate(key)
     }
 
     static Server getServer(){

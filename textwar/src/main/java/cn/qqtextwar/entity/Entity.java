@@ -216,6 +216,9 @@ public abstract class Entity {
         }
         Block block = map.getBlocks().get(v);
         if(block.isCross()){
+            if(map.getMapData()[(int)v.getY()][(int)v.getX()] != block.getId()){
+                throw new MoveException("You could not cross this place,there is a people");
+            }
             this.vector = v;
         }else{
             throw new MoveException("You could not cross this block id: "+block.getId());

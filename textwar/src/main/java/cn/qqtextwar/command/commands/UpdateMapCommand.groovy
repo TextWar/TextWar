@@ -8,7 +8,7 @@ import cn.qqtextwar.entity.player.Player
 class UpdateMapCommand extends Command {
 
     UpdateMapCommand() {
-        super(["/update"],"a command for updating the map")
+        super(["/update"],"update_cmd")
     }
 
     @Override
