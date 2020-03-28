@@ -47,7 +47,10 @@ class QQApplication implements Application {
         if(groupObj == null){
             server.logger.error("No Such Group ${group}")
             server.close0(null)
+        }else{
+            groupObj.sendMessage("TextWar Game @CopyRight TextWar Dev has started!Version Beta 1")
         }
+
         Events.subscribeAlways(GroupMessage.class){
             GroupMessage event ->
                 long id = event.sender.group.id
@@ -80,8 +83,8 @@ class QQApplication implements Application {
                                     event.group.sendMessage("please login use: tw:register")
                                 }
                             }
-
                         }
+                        if(server.isTest())groupObj.sendMessage(server.gameMap.toString())
                     }
                 }
         }

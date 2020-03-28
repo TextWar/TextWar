@@ -14,19 +14,19 @@ class MoveAction extends Action{
     @Override
     String execute(Player player, String command) {
         if("w" == command.toLowerCase()){
-            player.up(server.gameMap)
+            player.up(server.gameMap).update()
             return "${player.id}: move up 1"
         }
         if("s" == command.toLowerCase()){
-            player.down(server.gameMap)
+            player.down(server.gameMap).update()
             return "${player.id}: move down 1"
         }
         if("a" == command.toLowerCase()){
-            player.left(server.gameMap)
+            player.left(server.gameMap).update()
             return "${player.id}: move left 1"
         }
         if("d" == command.toLowerCase()){
-            player.right(server.gameMap)
+            player.right(server.gameMap).update()
             return "${player.id}: move right 1"
         }
         return ""

@@ -520,6 +520,10 @@ class Server {
         return logger
     }
 
+    boolean isTest(){
+        return test
+    }
+
     static Server getServer(){
         return server
     }

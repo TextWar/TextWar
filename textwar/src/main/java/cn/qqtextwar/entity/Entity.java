@@ -214,37 +214,33 @@ public abstract class Entity {
         if(v.getY()<0){
             throw new MoveException("out of bounds of the map");
         }
-        Block block = map.getBlocks().get(vector);
-        if(block!=null){
-            if(block.isCross()){
-                this.vector = block.getVector();
-            }else{
-                throw new MoveException("You could not cross this block id: "+block.getId());
-            }
-        }else{
+        Block block = map.getBlocks().get(v);
+        if(block.isCross()){
             this.vector = v;
+        }else{
+            throw new MoveException("You could not cross this block id: "+block.getId());
         }
         return new Movement(this,map);
     }
 
-    public void up(GameMap map){
-        move(new Vector(0,-1),map);
+    public Movement up(GameMap map){
+        return move(new Vector(0,-1),map);
     }
 
-    public void down(GameMap map){
-        move(new Vector(0,1),map);
+    public Movement down(GameMap map){
+        return move(new Vector(0,1),map);
     }
 
-    public void left(GameMap map){
-        move(new Vector(-1,0),map);
+    public Movement left(GameMap map){
+        return move(new Vector(-1,0),map);
     }
 
     public void update(GameMap map){
         map.updateEntity(this);
     }
 
-    public void right(GameMap map){
-        move(new Vector(1,0),map);
+    public Movement right(GameMap map){
+        return move(new Vector(1,0),map);
     }
 
     /**
