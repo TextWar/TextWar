@@ -9,7 +9,7 @@ import groovy.transform.CompileStatic
 class MoveAction extends Action{
 
     MoveAction() {
-        super(["w","a","s","d","W","A","S","D"],"player moving")
+        super(["w","a","s","d","W","A","S","D"],"player moving: w is up,s is down,a is left,d is right")
     }
 
     @Override

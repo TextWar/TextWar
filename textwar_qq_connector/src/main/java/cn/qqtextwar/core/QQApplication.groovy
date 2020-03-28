@@ -55,8 +55,8 @@ class QQApplication implements Application {
                 long id = event.sender.group.id
                 if(id == group){
                     String message = event.message.toString()
-                    if(message.startsWith("tw:")){
-                        message = message.substring(message.indexOf("tw:")+"tw:".length()).trim()
+                    if(message.startsWith("/")){
+                        message = message.substring(message.indexOf("/")+"/".length()).trim()
                         if("register".equals(message)){
                             if(server.getPlayer(event.sender.id)==null) {
                                 server.executor.registerPlayer("Unknown IP : QQ", event.sender.id)
@@ -66,7 +66,7 @@ class QQApplication implements Application {
                                 }else{
                                     event.sender.group.sendMessage("I think you should add me")
                                 }
-                            }else{
+                            }else{1
                                 event.sender.group.sendMessage("Do not join again!")
                             }
                         }else{
@@ -79,7 +79,7 @@ class QQApplication implements Application {
                                     System.arraycopy(things,1,args,0,args.length)
                                     event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,things))
                                 }else{
-                                    event.group.sendMessage("please login use: tw:register")
+                                    event.group.sendMessage("please login use: /register")
                                 }
                             }
                         }

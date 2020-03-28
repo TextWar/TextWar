@@ -4,6 +4,7 @@ import cn.qqtextwar.CommandSender;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.command.actions.MoveAction;
 import cn.qqtextwar.command.commands.ExitCommand;
+import cn.qqtextwar.command.commands.HelpCommand;
 import cn.qqtextwar.command.commands.UpdateMapCommand;
 import cn.qqtextwar.entity.player.Player;
 
@@ -26,6 +27,7 @@ public class CommandExecutor {
         registerCommand(new MoveAction());
         registerCommand(new UpdateMapCommand());
         registerCommand(new ExitCommand());
+        registerCommand(new HelpCommand());
     }
 
     private Map<String,CommandBase> commands = new HashMap<>();
