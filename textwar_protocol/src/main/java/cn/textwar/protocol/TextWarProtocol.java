@@ -42,8 +42,6 @@ public class TextWarProtocol {
                 .append(DATA_LENGTH).append(MIDDLE).append(json.length).append(CRLF).append(CRLF)
                 .append(new String(json))
                 .toString();
-        System.out.println(json.length);
-        System.out.println(Arrays.toString(json));
         return builder.getBytes();
     }
 
