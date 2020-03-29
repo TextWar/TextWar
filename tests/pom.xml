@@ -15,10 +15,6 @@
     <dependencies>
         <dependency>
             <groupId>cn.textwar</groupId>
-            <artifactId>textwar</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.textwar</groupId>
             <artifactId>textwar-qq-connector</artifactId>
             <version>1.0</version>
         </dependency>

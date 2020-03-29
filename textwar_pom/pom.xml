@@ -9,6 +9,16 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>../textwar</module>
+        <module>../textwar_client_connector</module>
+        <module>../textwar_console</module>
+        <module>../textwar_qq_connector</module>
+        <module>../textwar_plugin</module>
+        <module>../textwar_protocol</module>
+        <module>../tests</module>
+    </modules>
+
     <repositories>
         <repository>
             <id>kotlin-eap</id>

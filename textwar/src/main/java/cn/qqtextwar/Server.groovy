@@ -15,7 +15,6 @@ import cn.qqtextwar.entity.impl.SkeletonMan
 import cn.qqtextwar.entity.Mob
 import cn.qqtextwar.entity.impl.Slime
 import cn.qqtextwar.entity.player.Player
-import cn.textwar.plugin.event.EventExecutor
 import cn.qqtextwar.ex.CloseException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
@@ -139,8 +138,6 @@ class Server {
 
     private CommandExecutor executor
 
-    private EventExecutor eventExecutor
-
     private boolean test
 
     private Translate translater
@@ -166,7 +163,6 @@ class Server {
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
         this.random = new Random()
-        this.eventExecutor = new EventExecutor()
         this.mapThread = new MapThread(this)
         this.executor = new CommandExecutor(this)
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
@@ -493,10 +489,6 @@ class Server {
 
     CommandExecutor getExecutor() {
         return executor
-    }
-
-    EventExecutor getEventExecutor() {
-        return eventExecutor
     }
 
     FileRegister getRegister() {
