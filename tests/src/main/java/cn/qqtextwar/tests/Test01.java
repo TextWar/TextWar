@@ -94,9 +94,9 @@ public class Test01 {
                         "  \"version\": \"b1\"\n" +
                         "}");
 
-                Player player1 = new Player("",Server.getServer(),new Vector(1,0),1003883838,100,100,100)
-                        .addInto(map)
-                        .as(Player.class);
+                //Player player1 = new Player("",Server.getServer(),new Vector(1,0),1003883838,100,100,100)
+                        //.addInto(map)
+                        //.as(Player.class);
 
 //                Player player2 = new Player("",Server.getServer(),new Vector(2,3),1003883838,100,100,100)
 //                        .addInto(map)

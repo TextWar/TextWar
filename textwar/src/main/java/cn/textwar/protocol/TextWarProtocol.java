@@ -2,14 +2,16 @@ package cn.textwar.protocol;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.Arrays;
 import java.util.Base64;
 
 /**
+ * TextWar采用类http的方式定义协议
  * TextWar协议总体结构
  * [TextWar]\r\n
  * Time-Stamp:  xxx\r\n
  * Data-Length: xxx\r\n\r\n
- * {data json}
+ * {data json base64}
  *
  * @author TextWar-Dev
  */
@@ -27,22 +29,54 @@ public class TextWarProtocol {
 
     private JSONObject jsonObject;
 
+
     public TextWarProtocol(){
         this.jsonObject = new JSONObject();
     }
 
-    public byte[] toProtocol(){
-        String json = jsonObject.toJSONString();
-        return Base64.getEncoder().encode(new StringBuilder()
+    public byte[] encode(){
+        byte[] json =  Base64.getEncoder().encode(jsonObject.toJSONString().getBytes());
+        String builder = new StringBuilder()
                 .append(HEAD).append(CRLF)
                 .append(TIME_STAMP).append(MIDDLE).append(System.currentTimeMillis()).append(CRLF)
-                .append(DATA_LENGTH).append(MIDDLE).append(jsonObject.toJSONString().getBytes().length).append(CRLF).append(CRLF)
-                .append(json)
-                .toString().getBytes());
+                .append(DATA_LENGTH).append(MIDDLE).append(json.length).append(CRLF).append(CRLF)
+                .append(new String(json))
+                .toString();
+        System.out.println(json.length);
+        System.out.println(Arrays.toString(json));
+        return builder.getBytes();
     }
 
-    public void addJSONCode(String key,Object value){
+    public String getJson(){
+        return jsonObject.toJSONString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        byte[] bytes = encode();
+        int n = 0;
+        for(byte b : bytes){
+            String code = Integer.toString(b,16).toUpperCase();
+            builder.append(code.length() == 1?"0"+code:code).append(" ");
+            n++;
+            if(n%10 == 0){
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
+    }
+
+
+    public TextWarProtocol addJSONCode(String key, Object value){
         jsonObject.put(key, value);
+        return this;
+    }
+
+    public TextWarProtocol addAll(String json){
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        this.jsonObject.putAll(jsonObject);
+        return this;
     }
 
 }
