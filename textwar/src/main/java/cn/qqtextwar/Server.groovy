@@ -215,6 +215,23 @@ class Server {
     }
 
 
+    /** 如果没启动rpc，就默认获得服务端map文件夹的地图 */
+    @Action
+    Server initMap(){
+        if(!rpcRunner){
+            File file = register.getConfig(FileRegister.MAP)
+            if(parser.getValue("server.map.random",true)[0]){
+                File[] maps = file.listFiles()
+                File map = maps[random(maps.length-1)]
+                this.gameMap = new GameMap(map.text)
+            }else{
+                String name = parser.getHeadValue("server.map.name")
+                File child = new File(file,name)
+                this.gameMap = new GameMap(child.text)
+            }
+        }
+        this
+    }
 
     //游戏第下一回合，
     //需要重新获得地图，

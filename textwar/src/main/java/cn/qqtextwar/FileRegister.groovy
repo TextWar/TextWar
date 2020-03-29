@@ -22,6 +22,8 @@ class FileRegister {
 
     static final String IMAGE = "image"
 
+    static final String MAP = "map"
+
     /**
      * 这里存储注册的全部文件
      */
@@ -45,7 +47,8 @@ class FileRegister {
                 MAIN_CONFIG
         ]
         dirs = [
-                IMAGE
+                IMAGE,
+                MAP
         ]
     }
 
@@ -56,6 +59,7 @@ class FileRegister {
         dirs.each {
             File file = new File(baseFile,it)
             file.mkdirs()
+            files.put(IMAGE,file)
         }
     }
 

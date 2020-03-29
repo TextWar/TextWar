@@ -58,4 +58,9 @@ public class ServerConfigParser extends DSLParser {
     public void born(Closure closure){
         closure.call();
     }
+
+    @DSLMethod
+    public void map(Closure closure){
+        closure.call();
+    }
 }
