@@ -8,7 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/textwar_qq_connector/textwar-qq-connector.iml" filepath="$PROJECT_DIR$/textwar_qq_connector/textwar-qq-connector.iml" />
       <module fileurl="file://$PROJECT_DIR$/textwar_client_connector/textwar_client_connector.iml" filepath="$PROJECT_DIR$/textwar_client_connector/textwar_client_connector.iml" />
       <module fileurl="file://$PROJECT_DIR$/textwar_console/textwar_console.iml" filepath="$PROJECT_DIR$/textwar_console/textwar_console.iml" />
+      <module fileurl="file://$PROJECT_DIR$/textwar_plugin/textwar_plugin.iml" filepath="$PROJECT_DIR$/textwar_plugin/textwar_plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/textwar_pom/textwar_pom.iml" filepath="$PROJECT_DIR$/textwar_pom/textwar_pom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/textwarplugins/textwarplugins.iml" filepath="$PROJECT_DIR$/textwarplugins/textwarplugins.iml" />
     </modules>
   </component>
 </project>

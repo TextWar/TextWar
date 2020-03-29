@@ -15,7 +15,7 @@ import cn.qqtextwar.entity.impl.SkeletonMan
 import cn.qqtextwar.entity.Mob
 import cn.qqtextwar.entity.impl.Slime
 import cn.qqtextwar.entity.player.Player
-import cn.qqtextwar.event.EventExecutor
+import cn.textwar.plugin.event.EventExecutor
 import cn.qqtextwar.ex.CloseException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector

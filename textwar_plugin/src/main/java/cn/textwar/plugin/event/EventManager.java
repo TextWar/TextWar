@@ -1,4 +1,4 @@
-package cn.qqtextwar.event;
+package cn.textwar.plugin.event;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

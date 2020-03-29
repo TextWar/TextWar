@@ -1,5 +1,5 @@
 
-package cn.qqtextwar.plugins;
+package cn.textwar.plugin;
 
 
 import cn.qqtextwar.Server;

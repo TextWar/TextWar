@@ -1,4 +1,4 @@
-package cn.qqtextwar.plugins;
+package cn.textwar.plugin;
 
 public class PluginClassLoader {
 }

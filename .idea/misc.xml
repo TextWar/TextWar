@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/textwar_pom/pom.xml" />
         <option value="$PROJECT_DIR$/textwar_qq_connector/pom.xml" />
         <option value="$PROJECT_DIR$/tests/pom.xml" />
+        <option value="$PROJECT_DIR$/textwarplugins/pom.xml" />
+        <option value="$PROJECT_DIR$/textwar_plugin/pom.xml" />
       </list>
     </option>
   </component>
