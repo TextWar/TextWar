@@ -2,6 +2,7 @@ package cn.qqtextwar;
 
 import cn.qqtextwar.blocks.Block;
 import cn.qqtextwar.entity.Entity;
+import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.ex.MapDataException;
 import cn.qqtextwar.math.Vector;
 import com.alibaba.fastjson.JSONArray;
@@ -59,7 +60,29 @@ public class GameMap{
         return vector;
     }
 
-    //玩家移动时，需要判断一下方块可穿过
+    public GameMap interceptForPlayer(Player player,int rad){
+        JSONObject object = new JSONObject();
+        object.put("hashmap",getHashMap());
+        object.put("type",getType());
+        object.put("name",getName());
+        object.put("author","system");
+        object.put("version",getVersion());
+        int x1 = this.getXBound((int)(player.getX() - rad));
+        int y1 = this.getYBound((int)(player.getY() - rad));
+        int x2 = this.getXBound((int)(player.getX() + rad));
+        int y2 = this.getYBound((int)(player.getY() + rad));
+        JSONArray array = new JSONArray();
+        for(int i = y1;i<=y2;i++){
+            JSONArray line = new JSONArray();
+            for(int j = x1;j<x2;j++){
+                line.add(mapData[j][i]);
+            }
+            array.add(line);
+        }
+        object.put("map",array);
+        return new GameMap(object.toJSONString());
+    }
+    //玩家移动时1，需要判断一下方块可穿过
     //这里默认方块都是可穿过的，因为在先前就可以判断
     public synchronized void addEntity(Entity e){
         if(!entityVector.containsKey(e.getUuid())){

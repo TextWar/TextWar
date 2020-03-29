@@ -410,6 +410,7 @@ class Server {
         }
     }
 
+
     @RPC
     String getAreaMap(String picturePath,Player player,Vector[] entity,GameMap map){
         if(rpcRunner){
