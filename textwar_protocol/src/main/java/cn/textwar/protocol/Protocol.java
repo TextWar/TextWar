@@ -71,11 +71,12 @@ public class Protocol {
                 }
 
             }else{
+                json[jsonIndex] = (byte) b;
+                jsonIndex++;
                 if(jsonIndex >= length){
                     break;
                 }
-                json[jsonIndex] = (byte) b;
-                jsonIndex++;
+
             }
 
             before = b;

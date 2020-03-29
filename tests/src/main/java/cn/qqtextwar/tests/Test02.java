@@ -15,5 +15,6 @@ public class Test02 {
         Socket socket1 = socket.accept();
         Protocol protocol = new Protocol();
         System.out.println(protocol.decode(socket1.getInputStream()).getJson());
+        System.out.println(protocol.decode(socket1.getInputStream()).getJson());
     }
 }

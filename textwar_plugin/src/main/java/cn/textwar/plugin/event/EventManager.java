@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventManager {
 
-    EventPriority priority();
+    EventPriority priority() default EventPriority.NORMAL;
 }
