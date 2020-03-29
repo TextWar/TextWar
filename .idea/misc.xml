@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/tests/pom.xml" />
         <option value="$PROJECT_DIR$/textwarplugins/pom.xml" />
         <option value="$PROJECT_DIR$/textwar_plugin/pom.xml" />
+        <option value="$PROJECT_DIR$/textwar_protocol/pom.xml" />
       </list>
     </option>
   </component>

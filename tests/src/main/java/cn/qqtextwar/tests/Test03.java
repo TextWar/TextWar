@@ -1,6 +1,6 @@
 package cn.qqtextwar.tests;
 
-import cn.textwar.protocol.TextWarProtocol;
+import protocol.TextWarProtocol;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
