@@ -2,7 +2,6 @@ package cn.textwar.protocol;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.Arrays;
 import java.util.Base64;
 
 /**
