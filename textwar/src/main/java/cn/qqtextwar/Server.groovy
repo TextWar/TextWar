@@ -1,6 +1,12 @@
 package cn.qqtextwar
 
 import cn.qqtextwar.Threads.MapThread
+import cn.qqtextwar.annotations.Action
+import cn.qqtextwar.annotations.EntityCreater
+import cn.qqtextwar.annotations.InternalInit
+import cn.qqtextwar.annotations.RPC
+import cn.qqtextwar.annotations.Register
+import cn.qqtextwar.annotations.Testing
 import cn.qqtextwar.api.Application
 import cn.qqtextwar.command.CommandExecutor
 import cn.qqtextwar.dsl.ServerConfigParser
@@ -142,6 +148,7 @@ class Server {
     private Queue<String> imageFiles = new LinkedBlockingQueue<>()
 
     /** 服务端构造方法，请不要直接使用它 */
+    @InternalInit
     private Server(boolean test,Application... app){
         if(!server){
             server = this
@@ -172,21 +179,23 @@ class Server {
         }
     }
 
+    @Action
     void putImage(String image){
         imageFiles.offer(image)
     }
 
+    @Action
     String consumeImage(){
         imageFiles.poll()
     }
 
-    static Server testServer(Application... app){
-        Server server = new Server(true,app).start0()
-        server.logger.debug("testing....")
-        server.gameMap = new GameMap(Server.class.getResourceAsStream("test.json").text)
-        server.logger.debug("Create a Map")
-        server
+    @Action
+    void logOut(Player player){
+        players.remove(player.id)
+        gameMap.removeEntity(player)
     }
+
+
 
     //启动的方法组合顺序
     // 1. 开启数据库链接，RPC
@@ -199,22 +208,13 @@ class Server {
     // 8. 游戏开始
     // 9. 游戏结束，初始化全部对象。
     /** 服务端对象的启动方法，请不要直接调用，否则会出现不可预料的错误 */
+    @Action
     private Server start0(){
         this.state.compareAndSet(state.get(),START)
         this
     }
 
-    /** 开启图片获取端，用于qq-connector */
-    Server rpcMap(){
-        String ip = this.parser.getHeadValue("server.rpc.ip")
-        String port = this.parser.getHeadValue("server.rpc.port")
-        this.rpcRunner = new RPCRunner()
-        rpcRunner.start(ip,port)
-        this.logger.info(translate("map_starting"))
-        mapThread.start()
-        this.logger.info(translate("map_started"))
-        this
-    }
+
 
     //游戏第下一回合，
     //需要重新获得地图，
@@ -225,6 +225,7 @@ class Server {
     //回合+1
     //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
+    @Action
     static Server start(Application... app){
         Server server = new Server(false,app).start0()
         server.logger.info(server.translate("server_started"))
@@ -234,6 +235,7 @@ class Server {
 
 
     /** 服务端只能关闭一次，同时改变状态使所有线程关闭 */
+    @Action
     static stop(){
         try{
             if(server){
@@ -247,6 +249,7 @@ class Server {
     }
 
     /** 服务端只能关闭一次*/
+    @Action
     void close0(Throwable throwable){
         if(this.state.get() == CLOSED){
             throw new CloseException(translate("closed"))
@@ -271,13 +274,30 @@ class Server {
         System.exit(0)
     }
 
+
+
+    /** 这里通过数据库初始化信息 */
+    @InternalInit
+    void initPlayers(){
+
+    }
+    /** 同上 */
+    @InternalInit
+    void initFreaks(){
+
+    }
+
+    //负责创建实体
+
     /** 负责注册全部的怪物，会在createMobs里使用，会根据这个表随机创建怪物 */
+    @Register
     static void registerMobs(){
         Mob.registerMob(1000,SkeletonMan.class,"")
         Mob.registerMob(1001,Slime.class,"")
     }
 
     /** 用于创建玩家对象，*/
+    @EntityCreater
     Player createPlayer(Application app,String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
@@ -290,6 +310,7 @@ class Server {
     }
 
     /** 创建玩家，并注册到地图 */
+    @EntityCreater
     Player registerPlayer(Application app,String ip,long qq,GameMap map){
         Player player = createPlayer(app,ip,qq,map).addInto(map) as Player
         if(test)logger.debug(map.toString())
@@ -298,6 +319,7 @@ class Server {
 
 
     /** 创建Mob，并注册到地图 */
+    @EntityCreater
     List<Mob> registerMobs(GameMap map,int n){
         List<Mob> mobs = createRandomMobs(map,n)
         for(Mob mob : mobs){
@@ -306,36 +328,9 @@ class Server {
         return mobs
     }
 
-    /** 这里通过数据库初始化信息 */
-    void initPlayers(){
-
-    }
-    /** 同上 */
-    void initFreaks(){
-
-    }
-
-    /** 更新地图计数 */
-
-    void wantUpdate(){
-        mapThread.wantUpdate()
-    }
-
-    Player getPlayer(long qq){
-        return players[qq]
-    }
-
-    void logOut(Player player){
-        players.remove(player.id)
-        gameMap.removeEntity(player)
-    }
-
-    /** 线程安全的随机表，在创建怪物时使用 */
-    synchronized int random(int round){
-        random.nextInt(round)
-    }
 
     /** 通过地图创建单个怪物 */
+    @EntityCreater
     Mob createMob(GameMap map,Class<? extends Registered> clz){
         Registered registered = clz.newInstance(map.randomVector(),difficulty)
         if(registered instanceof Mob){
@@ -348,6 +343,7 @@ class Server {
     }
 
     /** n为创建的数量，创建多个怪物，根据怪物表 */
+    @EntityCreater
     List<Mob> createRandomMobs(GameMap map,int n){
         List<Mob> mobs = new ArrayList<>()
         (1..n).each {
@@ -357,8 +353,10 @@ class Server {
         return mobs
     }
 
+    //RPC 如果不开启mapRPC，则无法使用
 
     /** 向rpc服务端发出指令，以更新图片，传入修改过的map对象 */
+    @RPC
     String updateMap(String image,GameMap map){
         if(rpcRunner){
             String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.toJson())
@@ -370,6 +368,7 @@ class Server {
 
     // Todo Map
     /**获得最新的Map，只有开始第一回合或者下一回合调用  */
+    @RPC
     GameMap getMap(int type){
         if(rpcRunner){
             return new GameMap(rpcRunner.execute(GET_MAP,String.class,type))
@@ -377,15 +376,15 @@ class Server {
         return null
     }
 
-
-
     /** 初始化全部怪物的图片，在开启时调用 */
+    @RPC
     void updatePicture(int id,String file){
         if(rpcRunner){
             rpcRunner.execute(UPDATE_PIC,id,file)
         }
     }
 
+    @RPC
     void preparePicture(){
         Mob.idMapping.each{
             int x,Class y->
@@ -394,6 +393,7 @@ class Server {
         }
     }
 
+    @RPC
     String getAreaMap(String picturePath,Player player,Vector[] entity,GameMap map){
         if(rpcRunner){
             int x1 = map.getXBound((int)(player.getX() - 5))
@@ -421,7 +421,33 @@ class Server {
         return ""
     }
 
+    /** 更新地图计数 */
+    @RPC
+    void wantUpdate(){
+        mapThread.wantUpdate()
+    }
 
+    /** 开启图片获取端，用于qq-connector */
+    @RPC
+    Server rpcMap(){
+        String ip = this.parser.getHeadValue("server.rpc.ip")
+        String port = this.parser.getHeadValue("server.rpc.port")
+        this.rpcRunner = new RPCRunner()
+        rpcRunner.start(ip,port)
+        this.logger.info(translate("map_starting"))
+        mapThread.start()
+        this.logger.info(translate("map_started"))
+        this
+    }
+
+    @Testing
+    static Server testServer(Application... app){
+        Server server = new Server(true,app).start0()
+        server.logger.debug("testing....")
+        server.gameMap = new GameMap(Server.class.getResourceAsStream("test.json").text)
+        server.logger.debug("Create a Map")
+        server
+    }
 
     File getBaseFile() {
         return baseFile
@@ -470,11 +496,21 @@ class Server {
     Translate getTranslater(){
         return translater
     }
+
     String translate(String key){
         translater.translate(key)
     }
 
+    Player getPlayer(long qq){
+        return players[qq]
+    }
+
     static Server getServer(){
         return server
+    }
+
+    /** 线程安全的随机表，在创建怪物时使用 */
+    synchronized int random(int round){
+        random.nextInt(round)
     }
 }
