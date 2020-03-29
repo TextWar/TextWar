@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 public class PluginServer extends ConnectServer {
 
     public PluginServer(Server server, EventExecutor eventExecutor, Connecting connecting){
-        super(server,connecting,10);
+        super(server,connecting,10,500);
         server.getRegister().register("plugin.cfg");
         PluginConfigParser parser = new PluginConfigParser(server.getRegister().getConfig("plugin.cfg"));
         eventExecutor.registerEvents(new PluginListener(this),null);

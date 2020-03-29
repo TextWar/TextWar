@@ -1,13 +1,13 @@
 package cn.qqtextwar.tests;
 
-
 import cn.textwar.protocol.Protocol;
 import cn.textwar.protocol.TextWarProtocol;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class Test03 {
+public class Test04 {
+
     public static void main(String[] args) {
         new Thread(()->{
             try {
@@ -16,9 +16,8 @@ public class Test03 {
                 socket11.connect(new InetSocketAddress("127.0.0.1",8765));
                 Protocol protocol = new Protocol();
                 while (true) {
-                    TextWarProtocol protocol1;
-                    while((protocol1 = protocol.decode(socket11.getInputStream()))==null);
-                    System.out.println(protocol1);
+                    TextWarProtocol protocol1 = protocol.decode(socket11.getInputStream());
+                    System.out.println(protocol1.getJsonObject());
                     Thread.sleep(500);
                 }
             }catch (Exception e){

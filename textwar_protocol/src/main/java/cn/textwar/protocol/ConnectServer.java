@@ -1,21 +1,24 @@
 package cn.textwar.protocol;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.log.ServerLogger;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import static cn.qqtextwar.Server.CLOSED;
 
 public class ConnectServer extends Thread {
 
     private Executor executor;
 
-    private List<OutputStream> streamList;
+    private Queue<OutputStream> streamList;
 
     private Server server;
 
@@ -24,16 +27,41 @@ public class ConnectServer extends Thread {
 
     private Connecting connecting;
 
-    public ConnectServer(Server server,Connecting runnable,int threads){
+    private ServerLogger logger;
+
+    private int time;
+
+    public ConnectServer(Server server,Connecting runnable,int threads,int time){
         this.server = server;
-        this.streamList = new ArrayList<>();
+        this.streamList = new LinkedBlockingQueue<>();
         this.connecting = runnable;
         this.executor = Executors.newFixedThreadPool(threads);
+        this.logger = new ServerLogger();
+        this.time = time;
+    }
+
+    public Queue<OutputStream> getStreamList() {
+        return streamList;
+    }
+
+    public int getTime() {
+        return time;
     }
 
     public void setPort(int port) {
         this.port = port;
     }
+
+    public synchronized void callMessage(TextWarProtocol protocol){
+        this.getStreamList().forEach(x->{
+            try {
+                x.write(protocol.encode());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     @Override
     public void run() {
@@ -41,8 +69,9 @@ public class ConnectServer extends Thread {
                 ServerSocket server = new ServerSocket(port)
         ){
 
-            while (true){
+            while (this.server == null || !(this.server.getState().get() == CLOSED)){
                 Socket socket = server.accept();
+                logger.info("New Client : "+socket.getInetAddress());
                 streamList.add(socket.getOutputStream());
                 executor.execute(new ClientThread(socket,this.server,this,connecting));
             }
@@ -52,6 +81,8 @@ public class ConnectServer extends Thread {
     }
     public class ClientThread implements Runnable{
 
+        private ServerLogger logger;
+
         private Socket socket;
 
         private Protocol protocol;
@@ -60,7 +91,7 @@ public class ConnectServer extends Thread {
 
         private Connecting runnable;
 
-        private ConnectServer cs;
+        private final ConnectServer cs;
 
         ClientThread(Socket socket,Server server,ConnectServer cs,Connecting runnable){
             this.socket = socket;
@@ -68,6 +99,28 @@ public class ConnectServer extends Thread {
             this.server = server;
             this.runnable = runnable;
             this.cs = cs;
+            this.logger = new ServerLogger();
+        }
+
+        public TextWarProtocol whenGetProtocol(){
+            try {
+                TextWarProtocol tw = null;
+                while (isConnected() && (tw = this.getProtocol().decode(this.getSocket().getInputStream())) == null) ;
+                return tw;
+            }catch (IOException e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public boolean isConnected(){
+            try {
+                this.socket.sendUrgentData(0xFF);
+                return true;
+            }catch (Exception e){
+                System.out.println("11");
+                return false;
+            }
         }
 
         public Socket getSocket() {
@@ -88,14 +141,19 @@ public class ConnectServer extends Thread {
         @Override
         public void run() {
             try {
-                while (this.server.getState().get() != Server.CLOSED) {
-                    connecting.connecting(this,cs);
+                while ((this.server == null && isConnected()) || (this.server.getState().get() != CLOSED && isConnected() )) {
+                    runnable.connecting(this,cs);
+                    Thread.sleep(cs.getTime());
                 }
-            }catch (IOException e){
-                e.printStackTrace();
+            }catch (Exception e){
+                System.out.println("exited..");
             }finally {
                 try {
+                    synchronized (cs) {
+                        cs.streamList.remove(socket.getOutputStream());
+                    }
                     socket.close();
+                    logger.info(socket.getInetAddress()+": exited");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
