@@ -183,90 +183,7 @@ class Server {
     static Server testServer(Application... app){
         Server server = new Server(true,app).start0()
         server.logger.debug("testing....")
-        server.gameMap = new GameMap("{\n" +
-                "  \"author\": \"someone behind the screen\",\n" +
-                "  \"hashmap\": [\n" +
-                "    \"*aa\",\n" +
-                "    \"bb\",\n" +
-                "    \"cc\",\n" +
-                "    \"dd\"\n" +
-                "  ],\n" +
-                "  \"map\": [\n" +
-                "    [\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      1,\n" +
-                "      1\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      1,\n" +
-                "      1\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      0,\n" +
-                "      1,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      1,\n" +
-                "      1\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      1,\n" +
-                "      1\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      2,\n" +
-                "      2,\n" +
-                "      1,\n" +
-                "      1,\n" +
-                "      1,\n" +
-                "      1,\n" +
-                "      0,\n" +
-                "      0\n" +
-                "    ],\n" +
-                "    [\n" +
-                "      3,\n" +
-                "      3,\n" +
-                "      3,\n" +
-                "      3,\n" +
-                "      3,\n" +
-                "      0,\n" +
-                "      0,\n" +
-                "      0\n" +
-                "    ]\n" +
-                "  ],\n" +
-                "  \"name\": \"some\",\n" +
-                "  \"type\": 1,\n" +
-                "  \"version\": \"b1\"\n" +
-                "}")
+        server.gameMap = new GameMap(Server.class.getResourceAsStream("test.json").text)
         server.logger.debug("Create a Map")
         server
     }
@@ -283,16 +200,19 @@ class Server {
     // 9. 游戏结束，初始化全部对象。
     /** 服务端对象的启动方法，请不要直接调用，否则会出现不可预料的错误 */
     private Server start0(){
+        this.state.compareAndSet(state.get(),START)
+        this
+    }
+
+    /** 开启图片获取端，用于qq-connector */
+    Server rpcMap(){
         String ip = this.parser.getHeadValue("server.rpc.ip")
         String port = this.parser.getHeadValue("server.rpc.port")
-        if(!test){
-            this.rpcRunner = new RPCRunner()
-            rpcRunner.start(ip,port)
-            this.logger.info(translate("map_starting"))
-            mapThread.start()
-            this.logger.info(translate("map_started"))
-        }
-        this.state.compareAndSet(state.get(),START)
+        this.rpcRunner = new RPCRunner()
+        rpcRunner.start(ip,port)
+        this.logger.info(translate("map_starting"))
+        mapThread.start()
+        this.logger.info(translate("map_started"))
         this
     }
 
@@ -305,10 +225,11 @@ class Server {
     //回合+1
     //所有怪物clear 一回合结束
     /** 服务端只能开启一次 */
-    static start(Application... app){
+    static Server start(Application... app){
         Server server = new Server(false,app).start0()
         server.logger.info(server.translate("server_started"))
         server.logger.info(server.translate("copyright"))
+        server
     }
 
 
