@@ -48,6 +48,9 @@ public class TextWarProtocol {
         return jsonObject.toJSONString();
     }
 
+    public JSONObject getJsonObject(){
+        return jsonObject;
+    }
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
