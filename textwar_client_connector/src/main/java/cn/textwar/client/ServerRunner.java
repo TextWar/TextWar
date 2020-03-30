@@ -6,6 +6,6 @@ import cn.qqtextwar.Server;
 public class ServerRunner {
 
     public static void main(String[] args) {
-        Server.start().initMap();
+        Server.start(new ClientApplication()).initMap();
     }
 }

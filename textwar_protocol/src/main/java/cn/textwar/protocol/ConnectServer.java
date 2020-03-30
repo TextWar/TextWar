@@ -1,7 +1,9 @@
 package cn.textwar.protocol;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.log.LogFormat;
 import cn.qqtextwar.log.ServerLogger;
+import org.fusesource.jansi.Ansi;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -165,14 +167,14 @@ public abstract class ConnectServer extends Thread {
                     Thread.sleep(cs.getTime());
                 }
             }catch (Exception e){
-                System.out.println("exited..");
+                System.out.println(LogFormat.fg(Ansi.Color.BLUE)+"exited.."+LogFormat.fg(Ansi.Color.DEFAULT));
             }finally {
                 try {
                     synchronized (cs) {
                         cs.streamList.remove(socket.getOutputStream());
                     }
                     socket.close();
-                    logger.info(socket.getInetAddress()+": exited");
+                    logger.info(LogFormat.fg(Ansi.Color.BLUE)+socket.getInetAddress()+": exited"+LogFormat.fg(Ansi.Color.DEFAULT));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
