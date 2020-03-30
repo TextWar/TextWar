@@ -34,6 +34,7 @@ You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
 #### Project Structure
 
+- [PHPTextWarClient](https://github.com/TextWar/TextWar-PHP-Client)
 - [PythonTextWarMapEditor](https://github.com/TextWar/Textwar-MapEditor)
 - [PythonTextWarMapGenerator](https://github.com/TextWar/textwar-py)
 - [TextWarPom](textwar_pom)
