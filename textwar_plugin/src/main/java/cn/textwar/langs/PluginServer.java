@@ -32,7 +32,7 @@ public class PluginServer extends ConnectServer {
 
     public static PluginServer newServer(Server server,EventExecutor eventExecutor){
         return new PluginServer(server,eventExecutor,(thread,connectServer)->{
-            TextWarProtocol tw = thread.getProtocol().decode(thread.getSocket().getInputStream());
+            TextWarProtocol tw = thread.whenGetProtocol();
             String type = (String) tw.getJsonObject().get("type");
             PluginServer ps = (PluginServer)connectServer;
             thread.getSocket().getOutputStream().write(
