@@ -18,8 +18,12 @@ public class PluginServer extends ConnectServer {
         this.setPort((int)parser.getValue("plugin.port",8760)[0]);
     }
 
+    @Override
+    public void registerHandlers(HandlerExecutor executor) {
+        
+    }
 
-    public static PluginServer newServer(Server server,EventExecutor eventExecutor){
+    public static PluginServer newServer(Server server, EventExecutor eventExecutor){
         return new PluginServer(server,eventExecutor,(thread,connectServer)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             String type = (String) tw.getJsonObject().get("type");
