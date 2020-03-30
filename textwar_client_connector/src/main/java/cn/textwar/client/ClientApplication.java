@@ -31,7 +31,7 @@ public class ClientApplication implements Application {
     public void run() {
         PluginServer.newServer(server,eventExecutor).start();
         new ClientServer(server,(thread,sc)->{
-            TextWarProtocol tw = thread.getProtocol().decode(thread.getSocket().getInputStream());
+            TextWarProtocol tw = thread.whenGetProtocol();
             JSONObject json = tw.getJsonObject();
             sc.getHandlerExecutor().callHandler((String) json.get("type"),json);
         },(int)parser.getValue("client.port",100)[0],(int)parser.getValue("client.maxPlayer",8765)[0])
