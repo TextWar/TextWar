@@ -20,7 +20,7 @@ public class PluginServer extends ConnectServer {
 
     @Override
     public void registerHandlers(HandlerExecutor executor) {
-        
+
     }
 
     public static PluginServer newServer(Server server, EventExecutor eventExecutor){
