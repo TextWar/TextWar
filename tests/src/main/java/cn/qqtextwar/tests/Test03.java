@@ -15,12 +15,16 @@ public class Test03 {
                 Socket socket11 = new Socket();
                 socket11.connect(new InetSocketAddress("127.0.0.1",8765));
                 Protocol protocol = new Protocol();
-                while (true) {
-                    TextWarProtocol protocol1;
-                    while((protocol1 = protocol.decode(socket11.getInputStream()))==null);
-                    System.out.println(protocol1);
-                    Thread.sleep(500);
-                }
+                socket11.getOutputStream().write(new TextWarProtocol().encode());
+                TextWarProtocol protocol1;
+                while ((protocol1 = protocol.decode(socket11.getInputStream()))==null);
+                System.out.println(protocol1.getJson());
+//                while (true) {
+//                    TextWarProtocol protocol1;
+//                    while((protocol1 = protocol.decode(socket11.getInputStream()))==null);
+//                    System.out.println(protocol1);
+//                    Thread.sleep(500);
+//                }
             }catch (Exception e){
                 e.printStackTrace();
             }

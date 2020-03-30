@@ -33,8 +33,9 @@ public class ClientApplication implements Application {
         new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.getProtocol().decode(thread.getSocket().getInputStream());
             JSONObject json = tw.getJsonObject();
-            System.out.println(json);
-        },(int)parser.getValue("client.port",100)[0],(int)parser.getValue("client.maxPlayer",8765)[0]).start();
+            sc.getHandlerExecutor().callHandler((String) json.get("type"),json);
+        },(int)parser.getValue("client.port",100)[0],(int)parser.getValue("client.maxPlayer",8765)[0])
+                .start();
     }
 
     @Override

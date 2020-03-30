@@ -17,7 +17,7 @@ public class Test04 {
                 Protocol protocol = new Protocol();
                 while (true) {
                     TextWarProtocol protocol1 = protocol.decode(socket11.getInputStream());
-                    System.out.println(protocol1.getJsonObject());
+                    System.out.println(protocol1);
                     Thread.sleep(500);
                 }
             }catch (Exception e){
