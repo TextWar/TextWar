@@ -1,4 +1,4 @@
-package cn.textwar.langs;
+package cn.textwar.protocol;
 
 import com.alibaba.fastjson.JSONObject;
 

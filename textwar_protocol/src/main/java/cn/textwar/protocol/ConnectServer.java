@@ -14,7 +14,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import static cn.qqtextwar.Server.CLOSED;
 
-public class ConnectServer extends Thread {
+public abstract class ConnectServer extends Thread {
+
+    protected HandlerExecutor handlerExecutor;
 
     private Executor executor;
 
@@ -38,7 +40,11 @@ public class ConnectServer extends Thread {
         this.executor = Executors.newFixedThreadPool(threads);
         this.logger = new ServerLogger();
         this.time = time;
+        this.handlerExecutor = new HandlerExecutor();
+        this.registerHandlers(handlerExecutor);
     }
+
+    public abstract void registerHandlers(HandlerExecutor executor);
 
     public Queue<OutputStream> getStreamList() {
         return streamList;
@@ -79,6 +85,11 @@ public class ConnectServer extends Thread {
             e.printStackTrace();
         }
     }
+
+    public HandlerExecutor getHandlerExecutor() {
+        return handlerExecutor;
+    }
+
     public class ClientThread implements Runnable{
 
         private ServerLogger logger;
