@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -92,6 +94,8 @@ public abstract class ConnectServer extends Thread {
 
     public class ClientThread implements Runnable{
 
+        private Map<String,Object> properties;
+
         private ServerLogger logger;
 
         private Socket socket;
@@ -111,6 +115,11 @@ public abstract class ConnectServer extends Thread {
             this.runnable = runnable;
             this.cs = cs;
             this.logger = new ServerLogger();
+            this.properties = new ConcurrentHashMap<>();
+        }
+
+        public Map<String, Object> getProperties() {
+            return properties;
         }
 
         public TextWarProtocol whenGetProtocol(){
