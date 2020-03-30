@@ -5,8 +5,6 @@ import cn.textwar.plugin.event.EventExecutor;
 import cn.textwar.protocol.ConnectServer;
 import cn.textwar.protocol.Connecting;
 import cn.textwar.protocol.TextWarProtocol;
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
