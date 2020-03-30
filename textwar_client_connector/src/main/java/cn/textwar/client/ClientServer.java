@@ -14,6 +14,6 @@ public class ClientServer extends ConnectServer {
 
     @Override
     public void registerHandlers(HandlerExecutor executor) {
-        
+
     }
 }

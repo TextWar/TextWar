@@ -129,7 +129,6 @@ public abstract class ConnectServer extends Thread {
                 this.socket.sendUrgentData(0xFF);
                 return true;
             }catch (Exception e){
-                System.out.println("11");
                 return false;
             }
         }
