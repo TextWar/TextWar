@@ -16,6 +16,7 @@ import cn.qqtextwar.entity.Mob
 import cn.qqtextwar.entity.impl.Slime
 import cn.qqtextwar.entity.player.Player
 import cn.qqtextwar.ex.CloseException
+import cn.qqtextwar.ex.PlayerException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
@@ -372,7 +373,7 @@ class Server {
     @RPC
     String updateMap(String image,GameMap map){
         if(rpcRunner){
-            String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.toJson())
+            String file = rpcRunner.execute(UPDATE_MAP,String.class,image,map.toJson().toJSONString())
             map.setFile(file)
             return file
         }
@@ -512,7 +513,11 @@ class Server {
     }
 
     Player getPlayer(long qq){
-        return players[qq]
+        if(players.containsKey(qq)){
+            return players[qq]
+        }else {
+            throw new PlayerException("No such player: "+qq)
+        }
     }
 
     static Server getServer(){

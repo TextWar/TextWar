@@ -1,5 +1,6 @@
 package cn.textwar.protocol;
 
+import cn.qqtextwar.Server;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -8,11 +9,43 @@ import java.util.List;
 //在使用Handler时
 public abstract class Handler {
 
+    public static final String STATE = "state";
+
+    public static final String DATA = "data";
+
+    public static final String MESSAGE = "message";
+
+    public static final String DEFAULT_SUCCESS_MESSAGE = "success";
+    public static final int SUCCESS = 200;
+
+    public static final int ERROR = 500;
+
+
+    public Handler(List<String> types) {
+        this.types = types;
+    }
+
     private List<String> types;
 
-    public abstract JSONObject execute(String type, JSONObject jsonObject);
+    public JSONObject executeOption(Server server,String type, JSONObject jsonObject){
+        try{
+            return execute(server,type,jsonObject);
+        }catch (Exception e){
+            return createResponse(ERROR,e.getMessage(),new JSONObject());
+        }
+    }
+
+    public abstract JSONObject execute(Server server,String type, JSONObject jsonObject);
 
     public List<String> getTypes() {
         return types;
+    }
+
+    public JSONObject createResponse(int state,String message,JSONObject data){
+        JSONObject object = new JSONObject();
+        object.put(STATE,state);
+        object.put(MESSAGE,message);
+        object.put(DATA,data);
+        return object;
     }
 }

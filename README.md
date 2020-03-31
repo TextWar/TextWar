@@ -88,7 +88,9 @@ such as
 
 #### Work
 
-![work](readme_image/frame.jpg)
+- Draw By MoYang
+- Design By MagicLu550
+![work](readme_image/TextWar_Frame.png)
 
 #### LICENSE
 - [GPL v3](LICENSE)

@@ -1,5 +1,6 @@
 package cn.textwar.protocol;
 
+import cn.qqtextwar.Server;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.Map;
@@ -17,9 +18,9 @@ public class HandlerExecutor {
         handler.getTypes().forEach((type)->handlers.put(type,handler));
     }
 
-    public JSONObject callHandler(String type,JSONObject object){
-        return this.handlers.get(type).execute(
-                type,object
+    public JSONObject callHandler(String type, JSONObject object, Server server){
+        return this.handlers.get(type).executeOption(
+                server,type,object
         );
     }
 

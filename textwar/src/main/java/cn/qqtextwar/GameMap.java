@@ -173,7 +173,7 @@ public class GameMap{
             System.out.println("illegal game map");
         }
     }
-    public String toJson(){
+    public JSONObject toJson(){
         JSONObject object = new JSONObject();
         object.put("hashmap",hashMap);
         object.put("type",type);
@@ -181,7 +181,7 @@ public class GameMap{
         object.put("author",author);
         object.put("version",version);
         object.put("map",toJsonArray(mapData));
-        return object.toJSONString();
+        return object;
     }
 
     private JSONArray toJsonArray(Long[][] mapData){
