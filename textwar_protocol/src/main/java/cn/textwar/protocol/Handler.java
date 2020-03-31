@@ -1,6 +1,7 @@
 package cn.textwar.protocol;
 
 import cn.qqtextwar.Server;
+import cn.textwar.protocol.plugin.EventExecutor;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -27,15 +28,15 @@ public abstract class Handler {
 
     private List<String> types;
 
-    public JSONObject executeOption(Server server,String type, JSONObject jsonObject){
+    public JSONObject executeOption(Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
         try{
-            return execute(server,type,jsonObject);
+            return execute(server,type,jsonObject,eventExecutor);
         }catch (Exception e){
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }
 
-    public abstract JSONObject execute(Server server,String type, JSONObject jsonObject);
+    public abstract JSONObject execute(Server server,String type, JSONObject jsonObject,EventExecutor eventExecutor);
 
     public List<String> getTypes() {
         return types;

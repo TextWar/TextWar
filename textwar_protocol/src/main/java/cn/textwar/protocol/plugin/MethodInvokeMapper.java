@@ -6,41 +6,32 @@ the GNU open source license before using the software. To understand
 the appropriateness, if infringement, will be handled in accordance
 with the law, @Copyright Jsmod2 China,more can see <a href="http://jsmod2.cn">that<a>
  */
-package cn.textwar.plugin.event;
+package cn.textwar.protocol.plugin;
+
+import java.lang.reflect.Method;
+
 
 /**
- * Event's priority
+ * 存储优先级和方法对象的映射
  *
- * use event:1->6
- * 1 lowest
- * 2 low
- * 3 normal
- * 4 high
- * 5 highest
- * 6 monitor
  * @author magiclu550
  */
+public class MethodInvokeMapper {
 
-public enum EventPriority {
+    private EventPriority priority;
 
-    LOWEST(0),
+    private Method method;
 
-    LOW(1),
-
-    NORMAL(2),
-
-    HIGH(3),
-
-    HIGHEST(4),
-    MONITOR(5);
-
-    private int slot;
-
-    EventPriority(int slot){
-        this.slot = slot;
+    public MethodInvokeMapper(EventPriority priority, Method method){
+        this.priority = priority;
+        this.method = method;
     }
 
-    public int getSlot() {
-        return slot;
+    public EventPriority getPriority() {
+        return priority;
+    }
+
+    public Method getMethod() {
+        return method;
     }
 }

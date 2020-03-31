@@ -2,6 +2,7 @@ package cn.textwar.client.handlers
 
 import cn.qqtextwar.Server
 import cn.textwar.protocol.Handler
+import cn.textwar.protocol.plugin.EventExecutor
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
 
@@ -22,7 +23,7 @@ class MapHandler extends Handler {
     }
 
     @Override
-    JSONObject execute(Server server,String type, JSONObject jsonObject) {
+    JSONObject execute(Server server,String type, JSONObject jsonObject,EventExecutor eventExecutor) {
         //TODO 未来rad为玩家能见度
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){

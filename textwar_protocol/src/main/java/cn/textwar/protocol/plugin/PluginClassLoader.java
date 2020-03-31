@@ -1,4 +1,4 @@
-package cn.textwar.plugin;
+package cn.textwar.protocol.plugin;
 
 public class PluginClassLoader {
 }

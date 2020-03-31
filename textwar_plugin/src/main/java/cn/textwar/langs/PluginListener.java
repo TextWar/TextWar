@@ -1,9 +1,9 @@
 package cn.textwar.langs;
 
-import cn.textwar.plugin.event.Event;
-import cn.textwar.plugin.event.EventManager;
-import cn.textwar.plugin.event.Listener;
-import cn.textwar.plugin.event.NativeListener;
+import cn.textwar.protocol.plugin.Event;
+import cn.textwar.protocol.plugin.EventManager;
+import cn.textwar.protocol.plugin.Listener;
+import cn.textwar.protocol.plugin.NativeListener;
 import cn.textwar.protocol.TextWarProtocol;
 
 @NativeListener

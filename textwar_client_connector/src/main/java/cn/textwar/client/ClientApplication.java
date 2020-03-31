@@ -3,7 +3,7 @@ package cn.textwar.client;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.textwar.langs.PluginServer;
-import cn.textwar.plugin.event.EventExecutor;
+import cn.textwar.protocol.plugin.EventExecutor;
 import cn.textwar.protocol.TextWarProtocol;
 import com.alibaba.fastjson.JSONObject;
 
@@ -33,7 +33,7 @@ public class ClientApplication implements Application {
         new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             JSONObject json = tw.getJsonObject();
-            thread.getSocket().getOutputStream().write(new TextWarProtocol().addAll(sc.getHandlerExecutor().callHandler((String) json.get("type"),json,server).toJSONString()).encode());
+            thread.getSocket().getOutputStream().write(new TextWarProtocol().addAll(sc.getHandlerExecutor().callHandler((String) json.get("type"),json,server,eventExecutor).toJSONString()).encode());
         },(int)parser.getValue("client.port",100)[0],(int)parser.getValue("client.maxPlayer",8765)[0])
                 .start();
     }

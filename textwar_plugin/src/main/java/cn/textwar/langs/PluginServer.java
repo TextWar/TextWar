@@ -1,7 +1,7 @@
 package cn.textwar.langs;
 
 import cn.qqtextwar.Server;
-import cn.textwar.plugin.event.EventExecutor;
+import cn.textwar.protocol.plugin.EventExecutor;
 import cn.textwar.protocol.*;
 
 
@@ -30,7 +30,7 @@ public class PluginServer extends ConnectServer {
             thread.getSocket().getOutputStream().write(
                     new TextWarProtocol().addAll(
                             connectServer.getHandlerExecutor()
-                                    .callHandler(type,tw.getJsonObject())
+                                    .callHandler(type,tw.getJsonObject(),server,eventExecutor)
                                     .toJSONString()).encode()
             );
         });

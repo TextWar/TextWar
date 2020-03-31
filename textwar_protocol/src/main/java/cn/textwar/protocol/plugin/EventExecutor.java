@@ -1,8 +1,7 @@
-package cn.textwar.plugin.event;
+package cn.textwar.protocol.plugin;
 
 import cn.qqtextwar.ex.EventException;
 import cn.qqtextwar.ex.PluginException;
-import cn.textwar.plugin.Plugin;
 
 import java.lang.reflect.Method;
 import java.util.*;

@@ -1,5 +1,5 @@
 
-package cn.textwar.plugin;
+package cn.textwar.protocol.plugin;
 
 
 import cn.qqtextwar.Server;

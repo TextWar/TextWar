@@ -1,4 +1,4 @@
-package cn.textwar.plugin.event;
+package cn.textwar.protocol.plugin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
