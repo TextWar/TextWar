@@ -1,6 +1,7 @@
 package cn.textwar.client;
 
 import cn.qqtextwar.Server;
+import cn.textwar.client.handlers.MapHandler;
 import cn.textwar.protocol.ConnectServer;
 import cn.textwar.protocol.Connecting;
 import cn.textwar.protocol.HandlerExecutor;
@@ -14,6 +15,6 @@ public class ClientServer extends ConnectServer {
 
     @Override
     public void registerHandlers(HandlerExecutor executor) {
-
+        executor.registerHandler(new MapHandler());
     }
 }
