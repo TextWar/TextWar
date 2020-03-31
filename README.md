@@ -50,7 +50,7 @@ You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 - com.alibaba:fastjson:1.2.47
 - org.spockframework:spock-core:0.6-groovy-1.8
 - org.codehaus.groovy:groovy-all:2.3.11
-- io.netty:netty-all:4.1.48.Final
+- net.sf.py4j:py4j:0.10.9
 - org.xerial:sqlite-jdbc:3.30.1
 - commons-io:commons-io:2.6
 - org.apache.xmlrpc:xmlrpc-client:3.1.3

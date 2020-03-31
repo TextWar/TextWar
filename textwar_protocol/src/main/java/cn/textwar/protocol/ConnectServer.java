@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static cn.qqtextwar.Server.CLOSED;
 
@@ -28,6 +29,7 @@ public abstract class ConnectServer extends Thread {
 
     private Server server;
 
+    private CountTime counter;
 
     private int port;
 
@@ -37,6 +39,8 @@ public abstract class ConnectServer extends Thread {
 
     private int time;
 
+    private AtomicInteger tasks;
+
     public ConnectServer(Server server,Connecting runnable,int threads,int time){
         this.server = server;
         this.streamList = new LinkedBlockingQueue<>();
@@ -45,6 +49,9 @@ public abstract class ConnectServer extends Thread {
         this.logger = new ServerLogger();
         this.time = time;
         this.handlerExecutor = new HandlerExecutor();
+        this.tasks = new AtomicInteger();
+        this.counter = new CountTime();
+        this.counter.start();
         this.registerHandlers(handlerExecutor);
     }
 
@@ -70,6 +77,10 @@ public abstract class ConnectServer extends Thread {
                 e.printStackTrace();
             }
         });
+    }
+
+    public double getTPS(){
+        return ((double) tasks.get())/((double) counter.integer.get());
     }
 
 
@@ -165,6 +176,7 @@ public abstract class ConnectServer extends Thread {
                 while ((this.server == null && isConnected()) || (this.server.getState().get() != CLOSED && isConnected() )) {
                     runnable.connecting(this,cs);
                     Thread.sleep(cs.getTime());
+                    cs.tasks.addAndGet(1);
                 }
             }catch (Exception e){
                 System.out.println(LogFormat.fg(Ansi.Color.BLUE)+"exited.."+LogFormat.fg(Ansi.Color.DEFAULT));
@@ -175,6 +187,26 @@ public abstract class ConnectServer extends Thread {
                     }
                     socket.close();
                     logger.info(LogFormat.fg(Ansi.Color.BLUE)+socket.getInetAddress()+": exited"+LogFormat.fg(Ansi.Color.DEFAULT));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    class CountTime extends Thread{
+
+        private AtomicInteger integer;
+
+        public CountTime(){
+            this.integer = new AtomicInteger();
+        }
+        @Override
+        public void run() {
+            while (true){
+                integer.addAndGet(1);
+                try{
+                    Thread.sleep(1000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

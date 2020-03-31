@@ -40,6 +40,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="textwar_plugin" />
     <orderEntry type="module" module-name="textwar_protocol" />
+    <orderEntry type="library" name="Maven: net.sf.py4j:py4j:0.10.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:0.6-groovy-1.8" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit-dep:4.9" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.2" level="project" />

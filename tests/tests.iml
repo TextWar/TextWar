@@ -12,6 +12,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="textwar-qq-connector" />
     <orderEntry type="module" module-name="textwar_plugin" />
+    <orderEntry type="library" name="Maven: net.sf.py4j:py4j:0.10.9" level="project" />
     <orderEntry type="module" module-name="textwar" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.16" level="project" />
     <orderEntry type="library" name="Maven: jline:jline:2.14.2" level="project" />
@@ -66,7 +67,6 @@
     <orderEntry type="module" module-name="textwar_protocol" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.47" level="project" />
     <orderEntry type="module" module-name="textwar_client_connector" />
-    <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.48.Final" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.3.11" level="project" />
   </component>
 </module>
