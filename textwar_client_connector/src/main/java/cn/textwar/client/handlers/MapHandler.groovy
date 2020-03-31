@@ -1,6 +1,7 @@
 package cn.textwar.client.handlers
 
 import cn.qqtextwar.Server
+import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
 import cn.textwar.protocol.plugin.EventExecutor
 import com.alibaba.fastjson.JSONObject
@@ -23,12 +24,12 @@ class MapHandler extends Handler {
     }
 
     @Override
-    JSONObject execute(Server server,String type, JSONObject jsonObject,EventExecutor eventExecutor) {
+    JSONObject execute(ConnectServer.ClientThread thread,Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
         //TODO 未来rad为玩家能见度
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){
             return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),5).toJson())
         }
-        throw new UnsupportedOperationException("not support yet")
+        throw new UnsupportedOperationException(DEFAULT_ERROR)
     }
 }

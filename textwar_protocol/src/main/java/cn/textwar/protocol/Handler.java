@@ -10,6 +10,8 @@ import java.util.List;
 //在使用Handler时
 public abstract class Handler {
 
+    public static final String DEFAULT_ERROR = "not support yet";
+
     public static final String STATE = "state";
 
     public static final String DATA = "data";
@@ -28,15 +30,15 @@ public abstract class Handler {
 
     private List<String> types;
 
-    public JSONObject executeOption(Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
+    public JSONObject executeOption(ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
         try{
-            return execute(server,type,jsonObject,eventExecutor);
+            return execute(thread,server,type,jsonObject,eventExecutor);
         }catch (Exception e){
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }
 
-    public abstract JSONObject execute(Server server,String type, JSONObject jsonObject,EventExecutor eventExecutor);
+    public abstract JSONObject execute(ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor);
 
     public List<String> getTypes() {
         return types;

@@ -19,9 +19,9 @@ public class HandlerExecutor {
         handler.getTypes().forEach((type)->handlers.put(type,handler));
     }
 
-    public JSONObject callHandler(String type, JSONObject object, Server server, EventExecutor eventExecutor){
+    public JSONObject callHandler(ConnectServer.ClientThread thread, String type, JSONObject object, Server server, EventExecutor eventExecutor){
         return this.handlers.get(type).executeOption(
-                server,type,object,eventExecutor
+                thread,server,type,object,eventExecutor
         );
     }
 

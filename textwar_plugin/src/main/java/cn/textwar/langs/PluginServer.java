@@ -30,7 +30,7 @@ public class PluginServer extends ConnectServer {
             thread.getSocket().getOutputStream().write(
                     new TextWarProtocol().addAll(
                             connectServer.getHandlerExecutor()
-                                    .callHandler(type,tw.getJsonObject(),server,eventExecutor)
+                                    .callHandler(thread,type,tw.getJsonObject(),server,eventExecutor)
                                     .toJSONString()).encode()
             );
         });
