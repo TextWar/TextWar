@@ -95,6 +95,10 @@ such as
 #### LICENSE
 - [GPL v3](LICENSE)
 
+#### NOTICE
+
+The communication part and protocol part of this code do not provide encryption algorithms. If you want to encrypt, please modify it yourself or send an issue
+
 #### CopyRight
 
 @CopyRight TextWar Developing Studio
