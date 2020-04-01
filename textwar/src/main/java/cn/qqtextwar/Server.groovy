@@ -21,6 +21,7 @@ import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.utils.Translate
+import cn.textwar.events.EventExecutor
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
@@ -145,6 +146,8 @@ class Server {
 
     private Queue<String> imageFiles = new LinkedBlockingQueue<>()
 
+    private EventExecutor eventExecutor
+
     /** 服务端构造方法，请不要直接使用它 */
     @InternalInit
     private Server(boolean test,Application... app){
@@ -169,6 +172,7 @@ class Server {
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
+        this.eventExecutor = new EventExecutor()
         this.applications = Arrays.asList(app)
         this.threads = Executors.newFixedThreadPool(applications.size())
         applications.each {
@@ -518,6 +522,10 @@ class Server {
         }else {
             throw new PlayerException("No such player: "+qq)
         }
+    }
+
+    EventExecutor getEventExecutor() {
+        return eventExecutor
     }
 
     static Server getServer(){

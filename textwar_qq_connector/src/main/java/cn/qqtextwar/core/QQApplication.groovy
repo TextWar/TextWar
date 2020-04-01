@@ -4,6 +4,7 @@ import cn.qqtextwar.Server
 import cn.qqtextwar.api.Application
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.utils.Translate
+import cn.qqtextwar.utils.Utils
 import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import net.mamoe.mirai.Bot
@@ -99,9 +100,8 @@ class QQApplication implements Application {
                             }else{
                                 if(server.getPlayer(event.sender.id) != null){
                                     if(server.getPlayer(event.sender.id).done(server)){
-                                        String[] args = new String[things.length-1]
-                                        System.arraycopy(things,1,args,0,args.length)
-                                        event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,things))
+                                        String[] args = Utils.getArgs(things)
+                                        event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,args))
                                         server.wantUpdate()
                                         if(!server.isTest()){
                                             //TODO 临时

@@ -10,6 +10,12 @@ class Utils {
         return Server.class.getClassLoader().getResource("/").getPath()+file;
     }
 
+    static String[] getArgs(String[] things){
+        String[] args = new String[things.length-1]
+        System.arraycopy(things,1,args,0,args.length)
+        return args
+    }
+
     static PrintWriter getWriter(OutputStream stream){
         PrintWriter writer = new PrintWriter(stream,true)
         return writer;

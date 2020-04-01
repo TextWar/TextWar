@@ -67,6 +67,7 @@
     <orderEntry type="module" module-name="textwar_protocol" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.47" level="project" />
     <orderEntry type="module" module-name="textwar_client_connector" />
+    <orderEntry type="module" module-name="textwar_console" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.3.11" level="project" />
   </component>
 </module>

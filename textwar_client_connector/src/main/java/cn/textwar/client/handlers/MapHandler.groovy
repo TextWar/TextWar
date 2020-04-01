@@ -3,7 +3,7 @@ package cn.textwar.client.handlers
 import cn.qqtextwar.Server
 import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
-import cn.textwar.protocol.plugin.EventExecutor
+import cn.textwar.events.EventExecutor
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
 

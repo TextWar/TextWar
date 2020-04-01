@@ -2,9 +2,11 @@ package cn.textwar.client;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
+import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
-import cn.textwar.protocol.plugin.EventExecutor;
 import cn.textwar.protocol.TextWarProtocol;
+import cn.textwar.protocol.events.PacketReceiveEvent;
+import cn.textwar.protocol.events.PacketSendEvent;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
@@ -14,14 +16,15 @@ public class ClientApplication implements Application {
 
     private Server server;
 
-    private EventExecutor eventExecutor;
+    private ServerConsole console;
+
 
     private ClientConfigParser parser;
 
     @Override
     public void init(Server server) {
         this.server = server;
-        this.eventExecutor = new EventExecutor();
+        this.console = new ServerConsole(server);
         server.getRegister().register("client.cfg");
         File file = server.getRegister().getConfig("client.cfg");
         this.parser = new ClientConfigParser(file);
@@ -29,11 +32,15 @@ public class ClientApplication implements Application {
 
     @Override
     public void run() {
-        PluginServer.newServer(server,eventExecutor).start();
+        console.start();
+        PluginServer.newServer(server,server.getEventExecutor()).start();
         new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             JSONObject json = tw.getJsonObject();
-            thread.getSocket().getOutputStream().write(new TextWarProtocol().addAll(sc.getHandlerExecutor().callHandler(thread,(String) json.get("type"),json,server,eventExecutor).toJSONString()).encode());
+            server.getEventExecutor().callEvent(new PacketReceiveEvent(tw));
+            TextWarProtocol protocol = new TextWarProtocol().addAll(sc.getHandlerExecutor().callHandler(thread,(String) json.get("type"),json,server,server.getEventExecutor()).toJSONString());
+            server.getEventExecutor().callEvent(new PacketSendEvent(tw));
+            thread.getSocket().getOutputStream().write(protocol.encode());
         },(int)parser.getValue("client.port",100)[0],(int)parser.getValue("client.maxPlayer",8765)[0])
                 .start();
     }

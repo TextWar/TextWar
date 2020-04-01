@@ -1,4 +1,4 @@
-package cn.textwar.protocol.plugin;
+package cn.textwar.events;
 
 import cn.qqtextwar.ex.EventException;
 import cn.qqtextwar.ex.PluginException;
