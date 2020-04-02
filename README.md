@@ -30,7 +30,7 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 <img src="readme_image/map.png" width=500>
 </p>
 
-You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
+
 
 #### Project Structure
 
@@ -85,28 +85,9 @@ such as
                 .as(Mob.class);
         mob.move(new Vector(3,1),map).update();
 ```
+#### WIKI
 
-#### Work
-
-- Draw By MoYang
-- Design By MagicLu550
-![work](readme_image/TextWar_Frame.png)
-
-#### LICENSE
-
-```
-                        TEXT WAR PUBLIC LICENSE V 1.0
-                      @CopyRight TextWar Game Dev Studio
-NOTICE: This is a license licensed by the TextWar team, and you must follow any entries or use rights when using the code.
-            1. Allow closed source, modify, and sell auxiliary products of the game, such as equipment, gold coins, etc.
-            2. The code must not be sold, but it can be used to earn player profits.
-            3. Must indicate team information for source code and links to open source code.
-            4. Author names and team names must not be modified.
-```
-
-#### NOTICE
-
-The communication part and protocol part of this code do not provide encryption algorithms. If you want to encrypt, please modify it yourself or send an issue
+You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
 #### CopyRight
 
