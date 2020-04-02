@@ -23,6 +23,7 @@ import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.sql.SQLiteConnector
 import cn.qqtextwar.utils.Translate
 import cn.textwar.plugins.EventExecutor
+import cn.textwar.plugins.PluginClassLoader
 import cn.textwar.plugins.events.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
@@ -152,6 +153,8 @@ class Server {
 
     private SQLiteConnector database
 
+    private PluginClassLoader pluginLoader
+
     /** 服务端构造方法，请不要直接使用它 */
     @InternalInit
     private Server(boolean test,Application... app){
@@ -181,6 +184,8 @@ class Server {
         this.applications = Arrays.asList(app)
         this.database = new SQLiteConnector(this).create()
         this.threads = Executors.newFixedThreadPool(applications.size())
+        this.pluginLoader = new PluginClassLoader(this)
+        this.pluginLoader.loadPlugins(register.getConfig(FileRegister.PLUGIN))
         applications.each {
             threads.execute(new Threads.ApplicationRunThread(this,it))
         }
@@ -525,6 +530,10 @@ class Server {
 
     String translate(String key){
         translater.translate(key)
+    }
+
+    PluginClassLoader getPluginLoader() {
+        return pluginLoader
     }
 
     Player getPlayer(long qq){
