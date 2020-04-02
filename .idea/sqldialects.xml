@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/textwar/src/main/resources/create_main.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/textwar/src/main/resources/player.sql" dialect="SQLite" />
   </component>
 </project>

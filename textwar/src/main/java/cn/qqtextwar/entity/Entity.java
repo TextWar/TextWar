@@ -295,6 +295,11 @@ public abstract class Entity {
         this.manaPoints -= value;
     }
 
+    public void kill(GameMap map){
+        this.healthPoints = 0;
+        map.removeEntity(this);
+    }
+
     public abstract int initAggressivity(int level);
 
     @Override

@@ -20,6 +20,7 @@ import cn.qqtextwar.ex.PlayerException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
+import cn.qqtextwar.sql.SQLiteConnector
 import cn.qqtextwar.utils.Translate
 import cn.textwar.events.EventExecutor
 import cn.textwar.events.types.MapLoadEvent
@@ -149,6 +150,8 @@ class Server {
 
     private EventExecutor eventExecutor
 
+    private SQLiteConnector database
+
     /** 服务端构造方法，请不要直接使用它 */
     @InternalInit
     private Server(boolean test,Application... app){
@@ -157,6 +160,7 @@ class Server {
         }else{
             throw new ServerException(translate("start_exception"))
         }
+
         this.test = test
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
@@ -175,6 +179,7 @@ class Server {
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         this.eventExecutor = new EventExecutor()
         this.applications = Arrays.asList(app)
+        this.database = new SQLiteConnector(this).create()
         this.threads = Executors.newFixedThreadPool(applications.size())
         applications.each {
             threads.execute(new Threads.ApplicationRunThread(this,it))
