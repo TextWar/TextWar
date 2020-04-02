@@ -1,4 +1,4 @@
-package cn.textwar.events;
+package cn.textwar.plugins;
 
 public class Event {
 

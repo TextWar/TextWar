@@ -1,10 +1,10 @@
 package cn.textwar.console;
 
-import cn.textwar.events.EventManager;
-import cn.textwar.events.Listener;
-import cn.textwar.events.NativeListener;
-import cn.textwar.events.types.MapLoadEvent;
-import cn.textwar.events.types.PlayerJoinEvent;
+import cn.textwar.plugins.EventManager;
+import cn.textwar.plugins.Listener;
+import cn.textwar.plugins.NativeListener;
+import cn.textwar.plugins.events.MapLoadEvent;
+import cn.textwar.plugins.events.PlayerJoinEvent;
 import cn.textwar.protocol.events.PacketReceiveEvent;
 import cn.textwar.protocol.events.PacketSendEvent;
 

@@ -24,6 +24,8 @@ class FileRegister {
 
     static final String MAP = "map"
 
+    static final String PLUGIN = "plugins"
+
     /**
      * 这里存储注册的全部文件
      */
@@ -48,7 +50,8 @@ class FileRegister {
         ]
         dirs = [
                 IMAGE,
-                MAP
+                MAP,
+                PLUGIN
         ]
     }
 

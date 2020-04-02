@@ -1,7 +1,7 @@
-package cn.textwar.events.types;
+package cn.textwar.plugins.events;
 
 import cn.qqtextwar.entity.player.Player;
-import cn.textwar.events.Event;
+import cn.textwar.plugins.Event;
 
 public abstract class PlayerEvent extends Event {
 

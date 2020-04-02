@@ -1,7 +1,7 @@
 package cn.textwar.langs;
 
 import cn.qqtextwar.Server;
-import cn.textwar.events.EventExecutor;
+import cn.textwar.plugins.EventExecutor;
 import cn.textwar.protocol.*;
 
 

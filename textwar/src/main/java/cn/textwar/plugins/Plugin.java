@@ -1,5 +1,4 @@
-
-package cn.textwar.events;
+package cn.textwar.plugins;
 
 
 import cn.qqtextwar.Server;

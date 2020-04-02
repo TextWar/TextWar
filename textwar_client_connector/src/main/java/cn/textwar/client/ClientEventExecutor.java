@@ -1,7 +1,7 @@
 package cn.textwar.client;
 
-import cn.textwar.events.Event;
-import cn.textwar.events.EventExecutor;
+import cn.textwar.plugins.Event;
+import cn.textwar.plugins.EventExecutor;
 import cn.textwar.langs.python.Py4jServer;
 
 

@@ -1,7 +1,7 @@
-package cn.textwar.events.types;
+package cn.textwar.plugins.events;
 
 import cn.qqtextwar.GameMap;
-import cn.textwar.events.Event;
+import cn.textwar.plugins.Event;
 
 public class MapLoadEvent extends Event {
 

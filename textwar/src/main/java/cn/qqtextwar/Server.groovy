@@ -22,8 +22,8 @@ import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.sql.SQLiteConnector
 import cn.qqtextwar.utils.Translate
-import cn.textwar.events.EventExecutor
-import cn.textwar.events.types.MapLoadEvent
+import cn.textwar.plugins.EventExecutor
+import cn.textwar.plugins.events.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic

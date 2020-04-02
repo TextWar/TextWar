@@ -1,4 +1,4 @@
-package cn.textwar.events.types;
+package cn.textwar.plugins.events;
 
 
 import cn.qqtextwar.entity.player.Player;

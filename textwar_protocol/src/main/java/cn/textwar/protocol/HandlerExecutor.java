@@ -1,7 +1,7 @@
 package cn.textwar.protocol;
 
 import cn.qqtextwar.Server;
-import cn.textwar.events.EventExecutor;
+import cn.textwar.plugins.EventExecutor;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.Map;

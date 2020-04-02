@@ -2,7 +2,7 @@ package cn.qqtextwar;
 
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.ServerLogger;
-import cn.textwar.events.types.MapLoadEvent;
+import cn.textwar.plugins.events.MapLoadEvent;
 
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
