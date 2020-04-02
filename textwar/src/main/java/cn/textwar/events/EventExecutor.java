@@ -8,8 +8,23 @@ import java.util.*;
 
 public class EventExecutor {
 
+    private Map<Listener, List<MethodInvokeMapper>> listenerMapper;
 
-    private Map<Listener, List<MethodInvokeMapper>> listenerMapper = new HashMap<>();
+    public EventExecutor(Map<Listener, List<MethodInvokeMapper>> listenerMapper){
+        this.listenerMapper = listenerMapper;
+    }
+
+    public EventExecutor(){
+        this(new HashMap<>());
+    }
+
+    public void setListenerMapper(Map<Listener, List<MethodInvokeMapper>> listenerMapper) {
+        this.listenerMapper = listenerMapper;
+    }
+
+    public Map<Listener, List<MethodInvokeMapper>> getListenerMapper() {
+        return listenerMapper;
+    }
 
     public void registerEvents(final Listener listener, Plugin plugin){
         if(plugin!=null){
@@ -55,7 +70,7 @@ public class EventExecutor {
         }
     }
 
-    public void callEvent(final Event event){
+    public void callEvent(final Event event,final int type){
         try{
             Set<Map.Entry<Listener,List<MethodInvokeMapper>>> set = listenerMapper.entrySet();
             for(Map.Entry<Listener,List<MethodInvokeMapper>> entry:set){

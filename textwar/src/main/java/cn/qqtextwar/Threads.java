@@ -65,7 +65,7 @@ public class Threads {
                     //若为null，则获得，获得不了，则报错，关闭服务端
                     if(server.getGameMap() == null){
                         server.setGameMap(server.getMap((Integer) server.getParser().getValue(TYPE,1)[0]));
-                        server.getEventExecutor().callEvent(new MapLoadEvent(server.getGameMap()));
+                        server.getEventExecutor().callEvent(new MapLoadEvent(server.getGameMap()),1);
                     }
                     while (thread.time.get() == 3 && server.getState().get() != CLOSED){
                         if(people.get() >= 2){

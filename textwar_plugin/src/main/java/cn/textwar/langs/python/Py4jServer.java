@@ -5,18 +5,14 @@ import py4j.ClientServer;
 
 public class Py4jServer {
 
-    public Py4jServer server;
+    private PyPluginLoader loader;
 
-    public void loadPlugins(){
-
-    }
-
-    public static void main(String[] args) {
+    public Py4jServer(){
         ClientServer server = new ClientServer(null);
-        PyPluginLoader pythonPlugin = (PyPluginLoader) server.getPythonServerEntryPoint(new Class[]{PythonPlugin.class});
-
+        this.loader = (PyPluginLoader) server.getPythonServerEntryPoint(new Class[]{PythonPlugin.class});
     }
 
-
-
+    public PyPluginLoader getLoader() {
+        return loader;
+    }
 }

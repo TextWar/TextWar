@@ -538,7 +538,11 @@ class Server {
         return server
     }
 
-    /** 线程安全的随机表，在创建怪物时使用 */
+    void setEventExecutor(EventExecutor eventExecutor) {
+        eventExecutor.listenerMapper = this.eventExecutor.listenerMapper
+        this.eventExecutor = eventExecutor
+    }
+/** 线程安全的随机表，在创建怪物时使用 */
     synchronized int random(int round){
         random.nextInt(round)
     }
