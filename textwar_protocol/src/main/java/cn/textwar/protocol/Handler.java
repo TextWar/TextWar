@@ -44,7 +44,7 @@ public abstract class Handler {
         return types;
     }
 
-    public JSONObject createResponse(int state,String message,JSONObject data){
+    public static JSONObject createResponse(int state,String message,JSONObject data){
         JSONObject object = new JSONObject();
         object.put(STATE,state);
         object.put(MESSAGE,message);

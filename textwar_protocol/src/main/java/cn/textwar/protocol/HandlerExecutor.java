@@ -9,6 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class HandlerExecutor {
 
+    public static int NOT_FOUND = 404;
+
+    public static String NOT_FOUND_MESSAGE = "#{type} handler is not found";
+
     private Map<String, Handler> handlers;
 
     public HandlerExecutor(){
@@ -20,7 +24,8 @@ public class HandlerExecutor {
     }
 
     public JSONObject callHandler(ConnectServer.ClientThread thread, String type, JSONObject object, Server server, EventExecutor eventExecutor){
-        return this.handlers.get(type).executeOption(
+        Handler handler = this.handlers.get(type);
+        return handler == null?Handler.createResponse(NOT_FOUND,NOT_FOUND_MESSAGE.replace("#{type}",type),new JSONObject()):handler.executeOption(
                 thread,server,type,object,eventExecutor
         );
     }
