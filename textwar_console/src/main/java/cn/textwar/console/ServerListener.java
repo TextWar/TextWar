@@ -3,6 +3,7 @@ package cn.textwar.console;
 import cn.textwar.events.EventManager;
 import cn.textwar.events.Listener;
 import cn.textwar.events.NativeListener;
+import cn.textwar.events.types.MapLoadEvent;
 import cn.textwar.events.types.PlayerJoinEvent;
 import cn.textwar.protocol.events.PacketReceiveEvent;
 import cn.textwar.protocol.events.PacketSendEvent;
@@ -14,6 +15,11 @@ public class ServerListener implements Listener {
 
     public ServerListener(ServerConsole console){
         this.console = console;
+    }
+
+    @EventManager
+    public void onMap(MapLoadEvent e){
+        console.getLogger().info("load map == "+e.getMap().toString());
     }
 
     @EventManager

@@ -22,6 +22,7 @@ import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.utils.Translate
 import cn.textwar.events.EventExecutor
+import cn.textwar.events.types.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
@@ -223,13 +224,18 @@ class Server {
             File file = register.getConfig(FileRegister.MAP)
             if(parser.getValue("server.map.random",true)[0]){
                 File[] maps = file.listFiles()
-                File map = maps[random(maps.length-1)]
+                if(maps == null || maps.length == 0){
+                    this.logger.error("not found the map")
+                    close0(null)
+                }
+                File map = maps[maps.length == 1?0:random(maps.length-1)]
                 this.gameMap = new GameMap(map.text)
             }else{
                 String name = parser.getHeadValue("server.map.name")
                 File child = new File(file,name)
                 this.gameMap = new GameMap(child.text)
             }
+            eventExecutor.callEvent(new MapLoadEvent(gameMap))
         }
         this
     }

@@ -59,7 +59,7 @@ class FileRegister {
         dirs.each {
             File file = new File(baseFile,it)
             file.mkdirs()
-            files.put(IMAGE,file)
+            files.put(it,file)
         }
     }
 

@@ -60,7 +60,9 @@ public class GameMap{
         return vector;
     }
 
-    public GameMap interceptForPlayer(Player player,int rad){
+
+
+    public GameMap interceptForPlayer(Player player, int rad){
         JSONObject object = new JSONObject();
         object.put("hashmap",getHashMap());
         object.put("type",getType());
@@ -296,6 +298,24 @@ public class GameMap{
         return hashMap;
     }
 
+    public void setHashMap(List<String> hashMap) {
+        this.hashMap = hashMap;
+    }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setMapData(Long[][] mapData) {
+        this.mapData = mapData;
+    }
 
 }

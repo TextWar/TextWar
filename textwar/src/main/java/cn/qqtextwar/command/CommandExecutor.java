@@ -8,6 +8,7 @@ import cn.qqtextwar.command.commands.ExitCommand;
 import cn.qqtextwar.command.commands.HelpCommand;
 import cn.qqtextwar.command.commands.UpdateMapCommand;
 import cn.qqtextwar.entity.player.Player;
+import cn.qqtextwar.ex.ServerException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +66,9 @@ public class CommandExecutor {
     //控制台执行用
     public void doCommand(CommandSender sender,String name,String[] args){
         CommandBase cmd = commands.get(name);
+        if(cmd == null){
+            throw new ServerException("No such command");
+        }
         if(cmd instanceof Command){
             Command command = (Command)cmd;
             command.execute(sender,command,args);
