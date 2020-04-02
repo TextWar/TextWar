@@ -235,7 +235,7 @@ class Server {
                 File child = new File(file,name)
                 this.gameMap = new GameMap(child.text)
             }
-            eventExecutor.callEvent(new MapLoadEvent(gameMap))
+            eventExecutor.callEvent(new MapLoadEvent(gameMap),1)
         }
         this
     }
