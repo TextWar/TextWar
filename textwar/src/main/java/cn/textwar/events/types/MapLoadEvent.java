@@ -8,7 +8,7 @@ public class MapLoadEvent extends Event {
     private GameMap map;
 
     public MapLoadEvent(GameMap map) {
-        super("load_map_event");
+        super(MapLoadEvent.class.getSimpleName());
         this.map = map;
     }
 

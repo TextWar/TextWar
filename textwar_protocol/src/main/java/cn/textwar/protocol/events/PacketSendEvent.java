@@ -8,7 +8,7 @@ public class PacketSendEvent extends Event {
     private TextWarProtocol protocol;
 
     public PacketSendEvent(TextWarProtocol protocol) {
-        super("packet_send_event");
+        super(PacketSendEvent.class.getSimpleName());
         this.protocol = protocol;
     }
 

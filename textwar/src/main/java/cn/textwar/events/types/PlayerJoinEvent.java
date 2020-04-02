@@ -8,7 +8,7 @@ public class PlayerJoinEvent extends Event {
     private Player player;
 
     public PlayerJoinEvent(Player player) {
-        super("player_join_event");
+        super(PlayerJoinEvent.class.getSimpleName());
         this.player = player;
     }
 
