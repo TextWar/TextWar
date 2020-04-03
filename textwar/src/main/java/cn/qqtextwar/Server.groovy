@@ -28,6 +28,7 @@ import cn.textwar.plugins.events.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
+import org.fusesource.jansi.AnsiConsole
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -266,6 +267,9 @@ class Server {
     /** 服务端只能开启一次 */
     @Action
     static Server start(Application... app){
+        if(System.getProperties().getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1){
+            AnsiConsole.systemInstall()
+        }
         Server server = new Server(false,app).start0()
         server.logger.info(server.translate("server_started"))
         server.logger.info(server.translate("copyright"))
