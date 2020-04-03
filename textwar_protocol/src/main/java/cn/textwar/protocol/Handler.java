@@ -1,6 +1,7 @@
 package cn.textwar.protocol;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.api.Application;
 import cn.textwar.plugins.EventExecutor;
 import com.alibaba.fastjson.JSONObject;
 
@@ -19,9 +20,15 @@ public abstract class Handler {
     public static final String MESSAGE = "message";
 
     public static final String DEFAULT_SUCCESS_MESSAGE = "success";
+
+    // 成功
     public static final int SUCCESS = 200;
 
+    // 发生异常
     public static final int ERROR = 500;
+
+    // 找不到Handler
+    public static int NOT_FOUND = 404;
 
 
     public Handler(List<String> types) {
@@ -30,15 +37,15 @@ public abstract class Handler {
 
     private List<String> types;
 
-    public JSONObject executeOption(ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
+    public JSONObject executeOption(Application application,ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
         try{
-            return execute(thread,server,type,jsonObject,eventExecutor);
+            return execute(application,thread,server,type,jsonObject,eventExecutor);
         }catch (Exception e){
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }
 
-    public abstract JSONObject execute(ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor);
+    public abstract JSONObject execute(Application application,ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor);
 
     public List<String> getTypes() {
         return types;

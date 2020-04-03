@@ -58,7 +58,6 @@
             <scope>compile</scope>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>2.3.11</version>
         </dependency>
         <dependency>
             <groupId>net.mamoe</groupId>

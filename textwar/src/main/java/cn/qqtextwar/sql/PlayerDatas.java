@@ -11,15 +11,17 @@ public class PlayerDatas {
 
     private String name;
 
-    private int health;
+    private double health;
 
-    private int mana;
+    private double mana;
 
     private Date joinTime;
 
-    private int inventoryId;
+    private long inventoryId;
 
     private String password;
+
+    private int level;
 
     public void setId(long id) {
         this.id = id;
@@ -29,11 +31,11 @@ public class PlayerDatas {
         this.name = name;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
-    public void setMana(int mana) {
+    public void setMana(double mana) {
         this.mana = mana;
     }
 
@@ -41,11 +43,61 @@ public class PlayerDatas {
         this.joinTime = joinTime;
     }
 
-    public void setInventoryId(int inventoryId) {
+    public void setInventoryId(long inventoryId) {
         this.inventoryId = inventoryId;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public double getMana() {
+        return mana;
+    }
+
+    public Date getJoinTime() {
+        return joinTime;
+    }
+
+    public long getInventoryId() {
+        return inventoryId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerDatas{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", health=" + health +
+                ", mana=" + mana +
+                ", joinTime=" + joinTime +
+                ", inventoryId=" + inventoryId +
+                ", password='" + password + '\'' +
+                ", level=" + level +
+                '}';
     }
 }

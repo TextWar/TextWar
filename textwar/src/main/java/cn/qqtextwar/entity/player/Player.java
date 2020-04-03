@@ -24,6 +24,8 @@ import java.util.Map;
 //TODO 这边要对玩家做一个id-Vector的映射，来标记python端的截图和id
 public class Player extends Entity implements Skillable, CommandSender, Hitable {
 
+    private String name;
+
     private LocalDateTime operationTime;
 
     private Application application;
@@ -115,6 +117,14 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
     public int initAggressivity(int level) {
         //TODO 设置攻击力
         return 0;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getIp() {

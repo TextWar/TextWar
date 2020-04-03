@@ -1,6 +1,7 @@
 package cn.textwar.client.handlers
 
 import cn.qqtextwar.Server
+import cn.qqtextwar.api.Application
 import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
 import cn.textwar.plugins.EventExecutor
@@ -24,7 +25,7 @@ class MapHandler extends Handler {
     }
 
     @Override
-    JSONObject execute(ConnectServer.ClientThread thread,Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
+    JSONObject execute(Application application,ConnectServer . ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
         //TODO 未来rad为玩家能见度
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){

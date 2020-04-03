@@ -12,6 +12,8 @@ interface ProtocolVar {
 
     Range<Integer> DYNAMIC_BLOCK = 0x7D0..<0xBB8
 
+    Range<Integer> BLOCK = 0..<0x3EB
+
     Range<Integer> NPC_ID = 0xBB8..<0x2710
 
     long PLAYER_MIN_ID = 0x2710

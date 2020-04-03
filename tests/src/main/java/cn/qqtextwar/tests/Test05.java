@@ -8,6 +8,6 @@ public class Test05 {
         new ClientServer(null,(thread, sc)->{
             System.out.println(thread.whenGetProtocol().getJson());
             System.out.println(sc.getTPS());
-        },100,8765,500).start();
+        },(a,b)->{},100,8765,500).start();
     }
 }

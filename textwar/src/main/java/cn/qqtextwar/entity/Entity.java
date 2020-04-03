@@ -271,11 +271,11 @@ public abstract class Entity {
         this.level = level;
     }
 
-    protected final void setHealthPoints(double healthPoints) {
+    public final void setHealthPoints(double healthPoints) {
         this.healthPoints = healthPoints;
     }
 
-    protected final void setManaPoints(double manaPoints) {
+    public final void setManaPoints(double manaPoints) {
         this.manaPoints = manaPoints;
     }
 

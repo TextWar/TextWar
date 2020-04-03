@@ -182,7 +182,7 @@ class Server {
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         this.eventExecutor = new EventExecutor()
         this.applications = Arrays.asList(app)
-        this.database = new SQLiteConnector(this).create()
+        this.database = new SQLiteConnector(this).createDefault()
         this.threads = Executors.newFixedThreadPool(applications.size())
         this.pluginLoader = new PluginClassLoader(this)
         this.pluginLoader.loadPlugins(register.getConfig(FileRegister.PLUGIN))
@@ -203,8 +203,13 @@ class Server {
 
     @Action
     void logOut(Player player){
-        players.remove(player.id)
+        removePlayer(player)
         gameMap.removeEntity(player)
+    }
+
+    @Action
+    void removePlayer(Player player){
+        players.remove(player.id)
     }
 
 
@@ -544,6 +549,10 @@ class Server {
         }
     }
 
+    Player getPlayerReturnNull(long qq){
+        return players[qq]
+    }
+
     EventExecutor getEventExecutor() {
         return eventExecutor
     }
@@ -555,6 +564,10 @@ class Server {
     void setEventExecutor(EventExecutor eventExecutor) {
         eventExecutor.listenerMapper = this.eventExecutor.listenerMapper
         this.eventExecutor = eventExecutor
+    }
+
+    SQLiteConnector getDatabase() {
+        return database
     }
 /** 线程安全的随机表，在创建怪物时使用 */
     synchronized int random(int round){

@@ -41,7 +41,9 @@ public abstract class ConnectServer extends Thread {
 
     private AtomicInteger tasks;
 
-    public ConnectServer(Server server,Connecting runnable,int threads,int time){
+    private Connecting whenOut;
+
+    public ConnectServer(Server server,Connecting runnable,Connecting whenOut,int threads,int time){
         this.server = server;
         this.streamList = new LinkedBlockingQueue<>();
         this.connecting = runnable;
@@ -52,6 +54,7 @@ public abstract class ConnectServer extends Thread {
         this.tasks = new AtomicInteger();
         this.counter = new CountTime();
         this.counter.start();
+        this.whenOut = whenOut;
         this.registerHandlers(handlerExecutor);
     }
 
@@ -94,7 +97,7 @@ public abstract class ConnectServer extends Thread {
                 Socket socket = server.accept();
                 logger.info("New Client : "+socket.getInetAddress());
                 streamList.add(socket.getOutputStream());
-                executor.execute(new ClientThread(socket,this.server,this,connecting));
+                executor.execute(new ClientThread(socket,this.server,this,connecting,whenOut));
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -121,11 +124,14 @@ public abstract class ConnectServer extends Thread {
 
         private final ConnectServer cs;
 
-        ClientThread(Socket socket,Server server,ConnectServer cs,Connecting runnable){
+        private Connecting whenOut;
+
+        ClientThread(Socket socket,Server server,ConnectServer cs,Connecting runnable,Connecting whenOut){
             this.socket = socket;
             this.protocol = new Protocol();
             this.server = server;
             this.runnable = runnable;
+            this.whenOut = whenOut;
             this.cs = cs;
             this.logger = new ServerLogger();
             this.properties = new ConcurrentHashMap<>();
@@ -181,6 +187,11 @@ public abstract class ConnectServer extends Thread {
             }catch (Exception e){
                 System.out.println(LogFormat.fg(Ansi.Color.BLUE)+"exited.."+LogFormat.fg(Ansi.Color.DEFAULT));
             }finally {
+                try {
+                    whenOut.connecting(this, cs);
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
                 try {
                     synchronized (cs) {
                         cs.streamList.remove(socket.getOutputStream());

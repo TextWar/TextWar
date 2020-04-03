@@ -1,6 +1,7 @@
 package cn.textwar.langs;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.api.Application;
 import cn.textwar.plugins.EventExecutor;
 import cn.textwar.protocol.*;
 
@@ -10,8 +11,8 @@ import cn.textwar.protocol.*;
 public class PluginServer extends ConnectServer {
 
 
-    public PluginServer(Server server, EventExecutor eventExecutor, Connecting connecting){
-        super(server,connecting,10,500);
+    public PluginServer(Server server, EventExecutor eventExecutor, Connecting connecting,Connecting whenOut){
+        super(server,connecting,whenOut,10,500);
         server.getRegister().register("plugin.cfg");
         PluginConfigParser parser = new PluginConfigParser(server.getRegister().getConfig("plugin.cfg"));
         eventExecutor.registerEvents(new PluginListener(this),null);
@@ -23,17 +24,17 @@ public class PluginServer extends ConnectServer {
 
     }
 
-    public static PluginServer newServer(Server server, EventExecutor eventExecutor){
+    public static PluginServer newServer(Application application,Server server, EventExecutor eventExecutor){
         return new PluginServer(server,eventExecutor,(thread,connectServer)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             String type = (String) tw.getJsonObject().get("type");
             thread.getSocket().getOutputStream().write(
                     new TextWarProtocol().addAll(
                             connectServer.getHandlerExecutor()
-                                    .callHandler(thread,type,tw.getJsonObject(),server,eventExecutor)
+                                    .callHandler(application,thread,type,tw.getJsonObject(),server,eventExecutor)
                                     .toJSONString()).encode()
             );
-        });
+        },(thread,connectServer)->{});
     }
 
 

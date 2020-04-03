@@ -43,7 +43,7 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 - [TextWarConsole](textwar_console)
 - [TextWarPlugin](textwar_plugin)
 - [TextWarProtocol](textwar_protocol)
-- [TextWarQQConnector](textwar_qq_connector)
+- [TextWarQQConnector](textwar_qq_connector) This version has stopped the next maintenance
 
 #### Project Dependency
 

@@ -201,11 +201,13 @@ public class GameMap{
             Long[] map = mapData[i];
             for(int j = 0;j<map.length;j++){
                 long number = map[j];
-                Vector vector = new Vector(j,i);
-                Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
-                blocks.put(vector,block);
-                if(block.isCross()){
-                    vectors.add(vector);
+                if(number < ProtocolVar.PLAYER_MIN_ID && ProtocolVar.BLOCK.contains((int)number)){
+                    Vector vector = new Vector(j,i);
+                    Block block = new Block(vector,number, canCross(hashMap.get((int)number)));
+                    blocks.put(vector,block);
+                    if(block.isCross()){
+                        vectors.add(vector);
+                    }
                 }
             }
         }

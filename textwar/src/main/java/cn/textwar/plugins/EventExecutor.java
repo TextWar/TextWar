@@ -91,8 +91,10 @@ public class EventExecutor {
                 invoker.sort(Comparator.comparing(MethodInvokeMapper::getPriority));
                 for(MethodInvokeMapper method:invoker){
                     try {
+
                         method.getMethod().invoke(listener, event);
                     }catch (Exception e){
+
                         e.printStackTrace();
                     }
                 }
