@@ -79,7 +79,6 @@ public class GameMap{
             for(int j = x1;j<=x2;j++){
                 line.add(mapData[i][j]);
             }
-            System.out.println(line);
             array.add(line);
         }
         object.put("map",array);

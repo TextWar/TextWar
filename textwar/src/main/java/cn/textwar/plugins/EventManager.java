@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface EventManager {
 
     EventPriority priority() default EventPriority.NORMAL;
+
+    int type() default 0;
 }

@@ -10,13 +10,16 @@ import java.lang.reflect.Method;
  */
 public class MethodInvokeMapper {
 
+    private int type;
+
     private EventPriority priority;
 
     private Method method;
 
-    public MethodInvokeMapper(EventPriority priority, Method method){
+    public MethodInvokeMapper(EventPriority priority, Method method,int type){
         this.priority = priority;
         this.method = method;
+        this.type = type;
     }
 
     public EventPriority getPriority() {
@@ -25,5 +28,9 @@ public class MethodInvokeMapper {
 
     public Method getMethod() {
         return method;
+    }
+
+    public int getType() {
+        return type;
     }
 }

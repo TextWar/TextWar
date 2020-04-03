@@ -4,6 +4,7 @@ import cn.textwar.plugins.EventManager;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.NativeListener;
 import cn.textwar.plugins.events.MapLoadEvent;
+import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.plugins.events.PlayerJoinEvent;
 import cn.textwar.protocol.events.PacketReceiveEvent;
 import cn.textwar.protocol.events.PacketSendEvent;
@@ -36,6 +37,11 @@ public class ServerListener implements Listener {
 
     @EventManager
     public void onPlayerJoin(PlayerJoinEvent e){
-        console.getLogger().info(e.getPlayer().getId()+" : "+e.getPlayer().getIp()+"/ join in the game ");
+        console.getLogger().info(e.getPlayer().getName()+" : "+e.getPlayer().getIp()+"/ join in the game ");
+    }
+
+    @EventManager
+    public void onPlayerExit(PlayerExitEvent e){
+        console.getLogger().info(e.getPlayer().getName()+" : "+e.getPlayer().getIp()+"/ exit the game");
     }
 }

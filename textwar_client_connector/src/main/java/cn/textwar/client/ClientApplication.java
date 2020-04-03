@@ -2,8 +2,10 @@ package cn.textwar.client;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
+import cn.qqtextwar.entity.player.Player;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
+import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.protocol.TextWarProtocol;
 import cn.textwar.protocol.events.PacketReceiveEvent;
 import cn.textwar.protocol.events.PacketSendEvent;
@@ -45,7 +47,11 @@ public class ClientApplication implements Application {
             synchronized (this){
                 Long id = (Long) thread.getProperties().get("id");
                 if(id != null){
-                    thread.getServer().logOut(server.getPlayer(id));
+                    Player player = server.getPlayer(id);
+                    server.getEventExecutor().callEvent(new PlayerExitEvent(player),0);
+                    thread.getServer().logOut(player);
+                    server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
+
                 }
             }
         },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],500)

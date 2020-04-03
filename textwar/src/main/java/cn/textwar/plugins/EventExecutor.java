@@ -45,7 +45,7 @@ public class EventExecutor {
     private void addMethod(Method method,Listener listenerInstance){
         EventManager manager = method.getDeclaredAnnotation(EventManager.class);
         if (manager != null) {
-            MethodInvokeMapper mapper = new MethodInvokeMapper(manager.priority(), method);
+            MethodInvokeMapper mapper = new MethodInvokeMapper(manager.priority(), method,manager.type());
             List<MethodInvokeMapper> methodMappers = listenerMapper.get(listenerInstance);
             if(methodMappers!=null){
                 methodMappers.add(mapper);
@@ -91,8 +91,9 @@ public class EventExecutor {
                 invoker.sort(Comparator.comparing(MethodInvokeMapper::getPriority));
                 for(MethodInvokeMapper method:invoker){
                     try {
-
-                        method.getMethod().invoke(listener, event);
+                        if(method.getType() == type){
+                            method.getMethod().invoke(listener, event);
+                        }
                     }catch (Exception e){
 
                         e.printStackTrace();
