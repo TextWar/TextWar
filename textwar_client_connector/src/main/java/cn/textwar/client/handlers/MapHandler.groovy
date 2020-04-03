@@ -15,6 +15,7 @@ import groovy.transform.CompileStatic
  *     "type" : "map",
  *     "action" : "update",
  *     "player" : 12331222, //这里会根据玩家找到其附近的方块
+ *     "rad" : 5
  * }
  */
 @CompileStatic
@@ -29,7 +30,7 @@ class MapHandler extends Handler {
         //TODO 未来rad为玩家能见度
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){
-            return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),5).toJson())
+            return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),(Integer)jsonObject["rad"]).toJson())
         }
         throw new UnsupportedOperationException(DEFAULT_ERROR)
     }

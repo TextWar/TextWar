@@ -17,19 +17,18 @@ import com.alibaba.fastjson.JSONObject
  *     "type" : "player",
  *     "action" : "register",
  *     "name" : "xming",
- *     "password" : 12345
+ *     "password" : 12345,
+ *     "rad"    : 10
  * }
  * {
  *     "type" : "player",
  *     "action" : "login",
  *     "name" : "xming",
- *     "password" : 12345
+ *     "password" : 12345,
+ *     "rad"    : 5
  * }
  *
  */
-//TODO 第一次注册，自动生成id，和name绑定，将账号密码等插入数据库
-//TODO 获得账号，从数据库获得密码
-//TODO 之后比较，来判断密码正确
 class PlayerHandler extends Handler{
 
 
@@ -61,7 +60,7 @@ class PlayerHandler extends Handler{
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),1)
                 //TODO rad未来为能见度
                 thread.properties.put("id",p.id) //存储id
-                return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,5).toJson())
+                return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,(Integer)jsonObject["rad"]).toJson())
             }
 
         }

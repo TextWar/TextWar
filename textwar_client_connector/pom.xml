@@ -13,6 +13,12 @@
     <version>1.0</version>
     <artifactId>textwar_client_connector</artifactId>
 
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <url>https://maven.aliyun.com/repository</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <scope>compile</scope>
@@ -100,28 +106,6 @@
                         <phase>package</phase> <!-- bind to the packaging phase -->
                         <goals>
                             <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <id>scala-compile-first</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
