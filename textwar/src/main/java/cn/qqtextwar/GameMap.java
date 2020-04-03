@@ -69,16 +69,17 @@ public class GameMap{
         object.put("name",getName());
         object.put("author","system");
         object.put("version",getVersion());
-        int x1 = this.getXBound((int)(player.getX() - rad));
-        int y1 = this.getYBound((int)(player.getY() - rad));
-        int x2 = this.getXBound((int)(player.getX() + rad));
-        int y2 = this.getYBound((int)(player.getY() + rad));
+        int x1 = this.getXBound((int)(player.getVector().getX() - rad));
+        int y1 = this.getYBound((int)(player.getVector().getY() - rad));
+        int x2 = this.getXBound((int)(player.getVector().getX() + rad));
+        int y2 = this.getYBound((int)(player.getVector().getY() + rad));
         JSONArray array = new JSONArray();
         for(int i = y1;i<=y2;i++){
             JSONArray line = new JSONArray();
-            for(int j = x1;j<x2;j++){
-                line.add(mapData[j][i]);
+            for(int j = x1;j<=x2;j++){
+                line.add(mapData[i][j]);
             }
+            System.out.println(line);
             array.add(line);
         }
         object.put("map",array);
