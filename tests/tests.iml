@@ -10,7 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="textwar-qq-connector" />
+    <orderEntry type="module" module-name="textwar_qq_connector" />
     <orderEntry type="module" module-name="textwar_plugin" />
     <orderEntry type="library" name="Maven: net.sf.py4j:py4j:0.10.9" level="project" />
     <orderEntry type="module" module-name="textwar" />
