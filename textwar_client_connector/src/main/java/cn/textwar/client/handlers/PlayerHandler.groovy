@@ -61,7 +61,7 @@ class PlayerHandler extends Handler{
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),1)
                 //TODO rad未来为能见度
                 thread.properties.put("id",p.id) //存储id
-                return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}",server.gameMap.interceptForPlayer(p,5).toJson())
+                return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,5).toJson())
             }
 
         }
