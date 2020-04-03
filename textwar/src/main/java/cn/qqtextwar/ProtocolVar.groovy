@@ -8,11 +8,11 @@ import groovy.transform.CompileStatic
 @CompileStatic
 interface ProtocolVar {
 
-    Range<Integer> MOB_ID = 0x3EB..<0x7D0
+    Range<Integer> MOB_ID = 0x3E8..<0x7D0
 
     Range<Integer> DYNAMIC_BLOCK = 0x7D0..<0xBB8
 
-    Range<Integer> BLOCK = 0..<0x3EB
+    Range<Integer> BLOCK = 0..<0x3E8
 
     Range<Integer> NPC_ID = 0xBB8..<0x2710
 
