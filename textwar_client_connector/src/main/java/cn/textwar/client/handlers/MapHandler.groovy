@@ -27,7 +27,6 @@ class MapHandler extends Handler {
 
     @Override
     JSONObject execute(Application application,ConnectServer . ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
-        //TODO 未来rad为玩家能见度
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){
             return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),(Integer)jsonObject["rad"]).toJson())
