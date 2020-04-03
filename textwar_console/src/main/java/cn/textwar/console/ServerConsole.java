@@ -17,10 +17,16 @@ public class ServerConsole extends Thread implements CommandSender {
 
     private ConsoleReader reader;
 
+    private ConsoleConfigParser parser;
+
     public ServerConsole(Server server){
         this.server = server;
         this.server.getEventExecutor().registerNativeEvents(new ServerListener(this));
         this.logger = new ServerLogger();
+        this.server.getRegister().register("console.cfg");
+        this.parser = new ConsoleConfigParser(server.getRegister().getConfig("console.cfg"));
+        boolean start = (Boolean)this.parser.getValue("console.startManager",false)[0];
+        if(start)GroovyRun.runManager(server, cn.textwar.console.Utils.getProcessId());
         try {
             this.reader = new ConsoleReader();
         }catch (IOException e){

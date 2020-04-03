@@ -10,9 +10,6 @@ import java.io.File;
 public interface PyPluginLoader {
 
     @PythonMethod
-    void loadPlugins(String baseDir);
-
-    @PythonMethod
     void refreshPlugin();
 
     @PythonMethod
