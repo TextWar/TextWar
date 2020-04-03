@@ -35,7 +35,9 @@ public class ClientApplication implements Application {
     @Override
     public void run() {
         console.start();
-        PluginServer.newServer(this,server,server.getEventExecutor()).start();
+        if((Boolean) parser.getValue("client.startPluginServer",false)[0]) {
+            PluginServer.newServer(this, server, server.getEventExecutor()).start();
+        }
         new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             JSONObject json = tw.getJsonObject();

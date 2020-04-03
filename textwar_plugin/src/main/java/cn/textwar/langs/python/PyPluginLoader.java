@@ -1,5 +1,7 @@
 package cn.textwar.langs.python;
 
+import cn.textwar.plugins.Event;
+
 import java.io.File;
 
 /**
@@ -20,9 +22,9 @@ public interface PyPluginLoader {
     void load_plugin(String file);
 
     @PythonMethod
-    void call_event(String name,int before,Object... args);
+    void call_event(String name, int before, Event e);
 
-    default void loadPlugin(String base,String file){
+    default void loadPlugin(String base, String file){
         load_plugin(new File(base,file).toString());
     }
 
@@ -38,7 +40,7 @@ public interface PyPluginLoader {
         load_plugin(f);
     }
 
-    default void callEvent(String name,int before,Object... args){
-        call_event(name,before,args);
+    default void callEvent(String name,int before,Event e){
+        call_event(name,before,e);
     }
 }

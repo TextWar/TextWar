@@ -12,6 +12,7 @@ public class ClientServer extends ConnectServer {
     public ClientServer(Server server, Connecting runnable,Connecting whenOut, int threads,int port,int time) {
         super(server, runnable,whenOut, threads,time);
         this.setPort(port);
+        if(server != null) server.getLogger().info("the server port: "+getPort());
     }
 
     @Override

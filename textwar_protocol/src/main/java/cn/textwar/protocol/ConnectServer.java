@@ -82,6 +82,10 @@ public abstract class ConnectServer extends Thread {
         });
     }
 
+    public int getPort() {
+        return port;
+    }
+
     public double getTPS(){
         return ((double) tasks.get())/((double) counter.integer.get());
     }
