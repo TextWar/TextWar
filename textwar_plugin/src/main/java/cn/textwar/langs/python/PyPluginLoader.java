@@ -10,37 +10,22 @@ import java.io.File;
 public interface PyPluginLoader {
 
     @PythonMethod
-    void load_plugins(String baseDir);
+    void loadPlugins(String baseDir);
 
     @PythonMethod
-    void refresh_plugin();
+    void refreshPlugin();
 
     @PythonMethod
-    void unload_plugin(String pluginName);
+    void unloadPlugin(String pluginName);
 
     @PythonMethod
-    void load_plugin(String file);
+    void loadPlugin(String file);
 
     @PythonMethod
-    void call_event(String name, int before, Event e);
+    void callEvent(String name, int before, Event e);
 
     default void loadPlugin(String base, String file){
-        load_plugin(new File(base,file).toString());
+        loadPlugin(new File(base,file).toString());
     }
 
-    default void loadPlugins(String baseDir){
-        load_plugins(baseDir);
-    }
-
-    default void refreshPlugin(){
-        refresh_plugin();
-    }
-
-    default void unloadPlugin(String f){
-        load_plugin(f);
-    }
-
-    default void callEvent(String name,int before,Event e){
-        call_event(name,before,e);
-    }
 }
