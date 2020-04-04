@@ -30,6 +30,8 @@ public abstract class Handler {
     // 找不到Handler
     public static int NOT_FOUND = 404;
 
+    public static int CLOSE = 100;
+
 
     public Handler(List<String> types) {
         this.types = types;

@@ -9,6 +9,7 @@
         <module name="textwar_plugin" />
         <module name="textwar_protocol" />
         <module name="textwar" />
+        <module name="textwar-qq-connector" />
         <module name="tests" />
         <module name="textwar_console" />
         <module name="textwar_client_connector" />
@@ -18,6 +19,7 @@
     <bytecodeTargetLevel>
       <module name="tests" target="1.8" />
       <module name="textwar" target="1.8" />
+      <module name="textwar-qq-connector" target="1.8" />
       <module name="textwar_client" target="1.8" />
       <module name="textwar_client_connector" target="1.8" />
       <module name="textwar_console" target="1.8" />
@@ -25,6 +27,7 @@
       <module name="textwar_pom" target="1.5" />
       <module name="textwar_protocol" target="1.8" />
       <module name="textwar_qq_connector" target="1.8" />
+      <module name="textwar_starter" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

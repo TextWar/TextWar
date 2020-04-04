@@ -28,12 +28,14 @@ import cn.textwar.plugins.events.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
+import groovy.transform.TypeCheckingMode
 import org.fusesource.jansi.AnsiConsole
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.stream.Collectors
 
 /**
  * TextWar游戏的服务端对象，为单例模式，只能通过
@@ -75,6 +77,9 @@ class Server {
 
     /** 服务端即将关闭的状态 **/
     public static final int CLOSED = 3
+
+    public static final int RELOAD = 4
+
 
     /** 从python端更新地图图片的pkey */
     static final String UPDATE_MAP = "update_map"
@@ -164,32 +169,36 @@ class Server {
         }else{
             throw new ServerException(translate("start_exception"))
         }
-
-        this.test = test
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
         this.register.register()
-        this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
-        ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
-        this.translater = new Translate(parser.getHeadValue("server.translate"))
-        this.difficulty = (Integer)parser.getValue(GAME_DIFFICULTY,1)[0]
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
         this.random = new Random()
+        this.eventExecutor = new EventExecutor()
+        this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
+        ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
+        this.database = new SQLiteConnector(this).createDefault()
+        this.init(test,app.toList())
+    }
+
+    private init(boolean test,List<Application> app){
+        this.test = test
+        this.applications = app
+        this.translater = new Translate(parser.getHeadValue("server.translate"))
+        this.difficulty = (Integer)parser.getValue(GAME_DIFFICULTY,1)[0]
         this.mapThread = new MapThread(this)
-        this.executor = new CommandExecutor(this)
         this.playerHealth = (Integer)parser.getValue(PLAYER_HP,100)[0]
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
-        this.eventExecutor = new EventExecutor()
-        this.applications = Arrays.asList(app)
-        this.database = new SQLiteConnector(this).createDefault()
         this.threads = Executors.newFixedThreadPool(applications.size())
-        this.pluginLoader = new PluginClassLoader(this)
-        this.pluginLoader.loadPlugins(register.getConfig(FileRegister.PLUGIN))
+        this.applications = app
         applications.each {
             threads.execute(new Threads.ApplicationRunThread(this,it))
         }
+        this.executor = new CommandExecutor(this)
+        this.pluginLoader = new PluginClassLoader(this)
+        this.pluginLoader.loadPlugins(register.getConfig(FileRegister.PLUGIN))
     }
 
     @Action
@@ -230,6 +239,27 @@ class Server {
     private Server start0(){
         this.state.compareAndSet(state.get(),START)
         this
+    }
+
+    @Action
+    void reload(){
+        applications.each {
+            it.reload()
+        }
+        if(!rpcRunner){
+            players.each { logOut(it.value) }
+            freaksMap.each { gameMap.removeEntity(it.value) }
+            initMap() //重置地图
+        }
+    }
+
+    @Action
+    void clearAll(){
+        this.eventExecutor.clear() //只删除插件的Listener
+        this.imageFiles.clear()
+        this.pluginLoader.plugins.clear()
+        this.pluginLoader.pluginInfos.clear()
+        this.executor.commands.clear()
     }
 
 

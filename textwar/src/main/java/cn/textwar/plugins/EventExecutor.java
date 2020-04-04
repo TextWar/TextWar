@@ -112,5 +112,13 @@ public class EventExecutor {
         return clz.isInstance(event);
     }
 
+    public void clear(){
+        Set<Map.Entry<Listener, List<MethodInvokeMapper>>> entries = listenerMapper.entrySet();
+        for (Map.Entry<Listener, List<MethodInvokeMapper>> entry : entries){
+            if(entry.getKey().getClass().getAnnotation(NativeListener.class) == null){
+                listenerMapper.remove(entry.getKey());
+            }
+        }
+    }
 
 }

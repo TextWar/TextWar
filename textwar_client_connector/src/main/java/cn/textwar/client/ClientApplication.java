@@ -23,6 +23,8 @@ public class ClientApplication implements Application {
 
     private ClientConfigParser parser;
 
+    private ClientServer clientServer;
+
     @Override
     public void init(Server server) {
         this.server = server;
@@ -38,7 +40,7 @@ public class ClientApplication implements Application {
         if((Boolean) parser.getValue("client.startPluginServer",false)[0]) {
             PluginServer.newServer(this, server, server.getEventExecutor()).start();
         }
-        new ClientServer(server,(thread,sc)->{
+        this.clientServer = new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.whenGetProtocol();
             JSONObject json = tw.getJsonObject();
             server.getEventExecutor().callEvent(new PacketReceiveEvent(tw),1);
@@ -56,12 +58,17 @@ public class ClientApplication implements Application {
 
                 }
             }
-        },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],500)
-                .start();
+        },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],500);
+        clientServer.start();
     }
 
     @Override
     public void sendMessage(long qq, String message) {
+        //TODO 完成发送信息的功能
+    }
 
+    @Override
+    public void reload() {
+        clientServer.reload();
     }
 }

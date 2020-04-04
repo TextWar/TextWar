@@ -18,18 +18,18 @@ public class ServerListener implements Listener {
         this.console = console;
     }
 
-    @EventManager
+    @EventManager(type = 1)
     public void onMap(MapLoadEvent e){
         console.getLogger().info("load map == "+e.getMap().toString());
     }
 
-    @EventManager
+    @EventManager(type = 1)
     public void onSend(PacketSendEvent e){
         console.getLogger().info("Send Packet - "+e.getProtocol().getJson());
         console.getLogger().info("Send Packet Data - "+e.getProtocol());
     }
 
-    @EventManager
+    @EventManager(type = 1)
     public void onReceive(PacketReceiveEvent e){
         console.getLogger().info("Receive Packet - "+e.getProtocol().getJson());
         console.getLogger().info("Receive Packet Data - "+e.getProtocol());

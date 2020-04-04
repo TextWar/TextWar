@@ -3,6 +3,7 @@ package cn.textwar.protocol;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.log.LogFormat;
 import cn.qqtextwar.log.ServerLogger;
+import com.alibaba.fastjson.JSONObject;
 import org.fusesource.jansi.Ansi;
 
 import java.io.IOException;
@@ -84,6 +85,10 @@ public abstract class ConnectServer extends Thread {
 
     public int getPort() {
         return port;
+    }
+
+    public void reload(){
+        callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,"close the server",new JSONObject()).toJSONString()));
     }
 
     public double getTPS(){
