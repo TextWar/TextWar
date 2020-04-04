@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - oraclejdk8
 script:
   - sh textwar_pom/build.sh
   - sh textwar/build.sh
