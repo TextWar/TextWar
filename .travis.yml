@@ -1,6 +1,5 @@
 language: java
 script:
-  - ls
   - sh textwar_pom/build.sh
   - sh textwar/build.sh
   - sh textwar_protocol/build.sh
