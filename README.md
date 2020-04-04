@@ -1,5 +1,5 @@
 <p align="center">
-<img src="readme_image/logo.png" width=500 height=200>
+<img src="readme_image/logo.png" width=500>
 </p>
 
 ![build](https://travis-ci.org/TextWar/TextWar.svg?branch=master)
