@@ -1,9 +1,11 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
+ <div>
+  <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
+ <img src="https://badges.gitter.im/mytextwar/community.svg)](https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
+  <div>
+
 </p>
-
-![build](https://travis-ci.org/TextWar/TextWar.svg?branch=master)
-
 # TextWar
 ### A Simple game for chatting software
 
