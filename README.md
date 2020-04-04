@@ -1,6 +1,6 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
- <div>
+ <div align="center">
   <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
   <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
    <img src="https://badges.gitter.im/mytextwar/community.svg" >
@@ -8,6 +8,7 @@
   <div>
 
 </p>
+
 # TextWar
 ### A Simple game for chatting software
 
