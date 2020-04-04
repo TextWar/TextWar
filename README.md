@@ -5,10 +5,11 @@
   <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
    <img src="https://badges.gitter.im/mytextwar/community.svg" >
   </a>
-  <div>
+  </div>
 
 </p>
-
+<div align="center">
+ 
 # TextWar
 ### A Simple game for chatting software
 
@@ -37,6 +38,36 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 </p>
 
 
+#### Project Tests
+
+- [Tests](tests)
+
+#### API
+
+We will support the api for the TextWar plugins.
+
+such as
+
+```groovy
+ GameMap map = new GameMap(EXAMPLE_MAP);
+        Player player = new Player(new Vector(0,0),192992929,1,1,1)
+                .addInto(map)
+                .as(Player.class);
+        player.move(new Vector(1,2),map).update();
+        Mob mob = new Slime(new Vector(1,1),0)
+                .addInto(map)
+                .as(Mob.class);
+        mob.move(new Vector(3,1),map).update();
+```
+#### WIKI
+
+You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
+
+#### CopyRight
+
+@CopyRight TextWar Developing Studio
+
+</div>
 
 #### Project Structure
 
@@ -69,35 +100,6 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 - org.jetbrains:annotations:13.0
 - org.jetbrains.kotlin:kotlin-stdlib:1.3.70
 - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5
-
-#### Project Tests
-
-- [Tests](tests)
-
-#### API
-
-We will support the api for the TextWar plugins.
-
-such as
-
-```groovy
- GameMap map = new GameMap(EXAMPLE_MAP);
-        Player player = new Player(new Vector(0,0),192992929,1,1,1)
-                .addInto(map)
-                .as(Player.class);
-        player.move(new Vector(1,2),map).update();
-        Mob mob = new Slime(new Vector(1,1),0)
-                .addInto(map)
-                .as(Mob.class);
-        mob.move(new Vector(3,1),map).update();
-```
-#### WIKI
-
-You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
-
-#### CopyRight
-
-@CopyRight TextWar Developing Studio
 
 
 
