@@ -2,7 +2,9 @@
 <img src="readme_image/banner.png" width=500>
  <div>
   <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
- <img src="https://badges.gitter.im/mytextwar/community.svg)](https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
+  <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
+   <img src="https://badges.gitter.im/mytextwar/community.svg" >
+  </a>
   <div>
 
 </p>
