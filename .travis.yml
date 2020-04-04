@@ -1,8 +1,8 @@
 language: java
 script:
-  - sh textwar_pom/build.sh
-  - sh textwar/build.sh
-  - sh textwar_protocol/build.sh
-  - sh textwar_plugin/build.sh
-  - sh textwar_console/build.sh
-  - sh textwar_client_connector/build.sh
+  - mvn package -f textwar_pom/pom.xml
+  - mvn package -f textwar/pom.xml
+  - mvn package -f textwar_protocol/pom.xml
+  - mvn package -f textwar_plugin/pom.xml
+  - mvn package -f textwar_console/pom.xml
+  - mvn package -f textwar_client_connector/pom.xml
