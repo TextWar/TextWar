@@ -59,42 +59,6 @@ such as
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
-#### Project Tests
-
-- [Tests](tests)
-
-#### Project Structure
-
-- [PHPTextWarClient](https://github.com/TextWar/TextWar-PHP-Client)
-- [PythonTextWarMapEditor](https://github.com/TextWar/Textwar-MapEditor)
-- [PythonTextWarMapGenerator](https://github.com/TextWar/textwar-py)
-- [TextWarPom](textwar_pom)
-- [TextWarCore](textwar)
-- [TextWarClientConnector](textwar_client_connector)
-- [TextWarConsole](textwar_console)
-- [TextWarPlugin](textwar_plugin)
-- [TextWarProtocol](textwar_protocol)
-- [TextWarQQConnector](textwar_qq_connector) This version has stopped the next maintenance
-
-#### Project Dependency
-
-- com.alibaba:fastjson:1.2.47
-- org.spockframework:spock-core:0.6-groovy-1.8
-- org.codehaus.groovy:groovy-all:2.3.11
-- net.sf.py4j:py4j:0.10.9
-- org.xerial:sqlite-jdbc:3.30.1
-- commons-io:commons-io:2.6
-- org.apache.xmlrpc:xmlrpc-client:3.1.3
-- org.apache.logging.log4j:log4j-core:2.11.1
-- jline:jline:2.14.2
-- org.yaml:snakeyaml:1.16
-- net.mamoe:mirai-core-qqandroid-jvm:0.30.1
-- net.mamoe:mirai-core-jvm:0.30.0
-- net.mamoe:mirai-japt:1.1.1
-- org.jetbrains:annotations:13.0
-- org.jetbrains.kotlin:kotlin-stdlib:1.3.70
-- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5
-
 #### CopyRight
 
 @CopyRight TextWar Developing Studio
