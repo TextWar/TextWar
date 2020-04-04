@@ -59,12 +59,6 @@ such as
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
-#### CopyRight
-
-@CopyRight TextWar Developing Studio
-
-</div>
-
 #### Project Tests
 
 - [Tests](tests)
@@ -100,6 +94,14 @@ You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 - org.jetbrains:annotations:13.0
 - org.jetbrains.kotlin:kotlin-stdlib:1.3.70
 - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5
+
+#### CopyRight
+
+@CopyRight TextWar Developing Studio
+
+</div>
+
+
 
 
 
