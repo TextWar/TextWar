@@ -38,10 +38,6 @@ You should get the [Map generator](https://github.com/TextWar/textwar-py) to run
 </p>
 
 
-#### Project Tests
-
-- [Tests](tests)
-
 #### API
 
 We will support the api for the TextWar plugins.
@@ -68,6 +64,10 @@ You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 @CopyRight TextWar Developing Studio
 
 </div>
+
+#### Project Tests
+
+- [Tests](tests)
 
 #### Project Structure
 
