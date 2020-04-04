@@ -11,6 +11,7 @@
 <div align="center">
  
 # TextWar
+### Logo is deigned by MagicLu
 ### A Simple game for chatting software
 
 This game is based on Unicode character design, 
