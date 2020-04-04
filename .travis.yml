@@ -1,8 +1,8 @@
 language: java
 script:
-  - mvn install compile package -f textwar_pom/pom.xml
-  - mvn install compile package -f textwar/pom.xml
-  - mvn install compile package -f textwar_protocol/pom.xml
-  - mvn install compile package -f textwar_plugin/pom.xml
-  - mvn install compile package -f textwar_console/pom.xml
-  - mvn install compile package -f textwar_client_connector/pom.xml
+  - mvn compile package install -f textwar_pom/pom.xml
+  - mvn compile package install -f textwar/pom.xml
+  - mvn compile package install -f textwar_protocol/pom.xml
+  - mvn compile package install -f textwar_plugin/pom.xml
+  - mvn compile package install -f textwar_console/pom.xml
+  - mvn compile package install -f textwar_client_connector/pom.xml
