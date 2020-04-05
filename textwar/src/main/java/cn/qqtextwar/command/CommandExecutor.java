@@ -7,6 +7,7 @@ import cn.qqtextwar.command.actions.MoveAction;
 import cn.qqtextwar.command.commands.*;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.ex.ServerException;
+import cn.textwar.plugins.events.CommandExecuteEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,7 @@ public class CommandExecutor {
     }
 
     public String doCommandOrAction(String name,long qq,String[] args){
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args),0);
         Player player = server.getPlayer(qq);
         CommandBase cmd = commands.get(name);
         if(cmd!=null){
@@ -60,6 +62,7 @@ public class CommandExecutor {
         }else{
             player.sendMessage("No such command");
         }
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args),1);
         return "";
     }
 

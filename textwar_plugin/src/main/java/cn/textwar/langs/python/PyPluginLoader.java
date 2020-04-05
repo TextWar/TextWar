@@ -28,6 +28,9 @@ public interface PyPluginLoader {
     @PythonMethod
     Map getActions();
 
+    @PythonMethod
+    Map commandExecuter();
+
     default void loadPlugin(String base, String file){
         loadPlugin(new File(base,file).toString());
     }
