@@ -1,6 +1,7 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
  <div align="center">
+ <img src="https://img.shields.io/github/issues/TextWar/TextWar">
  <img src="https://img.shields.io/github/forks/TextWar/TextWar">
    <img src="https://img.shields.io/github/stars/TextWar/TextWar">
   <img src="https://coveralls.io/repos/github/TextWar/TextWar/badge.svg?branch=master">
