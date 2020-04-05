@@ -14,7 +14,10 @@ import java.util.Map;
 public interface PyPluginLoader {
 
     @PythonMethod
-    void refreshPlugins(Server server);
+    void getServer(Server server);
+
+    @PythonMethod
+    void refreshPlugins();
 
     @PythonMethod
     void unloadPlugin(String pluginName);
