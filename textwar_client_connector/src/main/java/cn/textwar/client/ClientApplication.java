@@ -49,7 +49,6 @@ public class ClientApplication implements Application, Listener {
             CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
         }).start();
         CommandUtils.sleep(1000);
-        eventExecutor.getPython().getLoader().getOut(ServerLogger.getLogger());
         eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
         eventExecutor.getPython().getLoader().refreshPlugins(this.server);
         this.server.setExecutor(new ClientCommandExecutor(this.server,eventExecutor));
