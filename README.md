@@ -1,6 +1,8 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
  <div align="center">
+ <img src="https://img.shields.io/github/forks/TextWar/TextWar">
+   <img src="https://img.shields.io/github/stars/TextWar/TextWar">
   <img src="https://coveralls.io/repos/github/TextWar/TextWar/badge.svg?branch=master">
   <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
   <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
