@@ -55,7 +55,7 @@ public class ClientApplication implements Application, Listener {
     public void run() {
         console.start();
         if((Boolean) parser.getValue("client.startPluginServer",false)[0]) {
-            PluginServer.newServer(this, server, server.getEventExecutor()).start();
+            PluginServer.newServer(this, server, server.getEventExecutor(),eventExecutor.getPython()).start();
         }
         this.clientServer = new ClientServer(server,(thread,sc)->{
             TextWarProtocol tw = thread.whenGetProtocol();
