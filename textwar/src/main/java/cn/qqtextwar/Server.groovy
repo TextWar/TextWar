@@ -192,12 +192,12 @@ class Server {
         this.playerMana = (Integer)parser.getValue(PLAYER_MANA,100)[0]
         this.playerMoney = (Integer)parser.getValue(PLAYER_MONEY,100)[0]
         this.threads = Executors.newFixedThreadPool(applications.size())
+        this.executor = new CommandExecutor(this)
+        this.pluginLoader = new PluginClassLoader(this)
         this.applications = app
         applications.each {
             threads.execute(new Threads.ApplicationRunThread(this,it))
         }
-        this.executor = new CommandExecutor(this)
-        this.pluginLoader = new PluginClassLoader(this)
         this.pluginLoader.loadPlugins(register.getConfig(FileRegister.PLUGIN))
     }
 

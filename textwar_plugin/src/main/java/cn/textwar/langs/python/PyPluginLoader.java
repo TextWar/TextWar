@@ -1,6 +1,7 @@
 package cn.textwar.langs.python;
 
 import cn.qqtextwar.entity.player.Player;
+import cn.qqtextwar.log.ServerLogger;
 import cn.textwar.plugins.Event;
 
 import java.io.File;
@@ -12,10 +13,13 @@ import java.util.Map;
 public interface PyPluginLoader {
 
     @PythonMethod
-    void refreshPlugin();
+    void refreshPlugins();
 
     @PythonMethod
     void unloadPlugin(String pluginName);
+
+    @PythonMethod
+    void setPluginsDir(String file);
 
     @PythonMethod
     void loadPlugin(String file);
@@ -28,6 +32,9 @@ public interface PyPluginLoader {
 
     @PythonMethod
     Map getActions();
+
+    @PythonMethod
+    void getOut(ServerLogger logger);
 
     @PythonMethod
     void commandExecutor(String name, String[] args, Player player);

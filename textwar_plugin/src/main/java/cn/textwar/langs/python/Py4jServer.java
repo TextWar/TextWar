@@ -7,12 +7,19 @@ public class Py4jServer {
 
     private PyPluginLoader loader;
 
+    private ClientServer server;
+
     public Py4jServer(){
-        ClientServer server = new ClientServer(null);
-        this.loader = (PyPluginLoader) server.getPythonServerEntryPoint(new Class[]{PythonPlugin.class});
+        this.server = new ClientServer(null);
+        this.server.startServer();
+        this.loader = (PyPluginLoader) server.getPythonServerEntryPoint(new Class[]{PyPluginLoader.class});
     }
 
     public PyPluginLoader getLoader() {
         return loader;
+    }
+
+    public ClientServer getClientServer() {
+        return server;
     }
 }

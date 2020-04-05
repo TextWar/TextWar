@@ -11,8 +11,8 @@ public class ClientEventExecutor extends EventExecutor {
 
     private Py4jServer server;
 
-    public ClientEventExecutor(){
-        this.server = new Py4jServer();
+    public ClientEventExecutor(Py4jServer server){
+        this.server = server;
     }
 
     @Override

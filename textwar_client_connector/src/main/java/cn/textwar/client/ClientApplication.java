@@ -2,10 +2,11 @@ package cn.textwar.client;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
-import cn.qqtextwar.command.CommandExecutor;
 import cn.qqtextwar.entity.player.Player;
+import cn.qqtextwar.log.ServerLogger;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
+import cn.textwar.langs.python.Py4jServer;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.plugins.events.PlayerMessageEvent;
@@ -17,7 +18,6 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
 import java.net.Socket;
-import java.util.Arrays;
 
 // tcp 连接
 public class ClientApplication implements Application, Listener {
@@ -41,17 +41,18 @@ public class ClientApplication implements Application, Listener {
         server.getRegister().createDir("python");
         File file = server.getRegister().getConfig("client.cfg");
         this.parser = new ClientConfigParser(file);
-        this.eventExecutor = new ClientEventExecutor();
+        this.eventExecutor = new ClientEventExecutor(new Py4jServer());
         this.server.setEventExecutor(eventExecutor);
-        File python = this.server.getRegister().getConfig("python");
-        File[] files = python.listFiles();
-        if(files!=null){
-            Arrays.stream(files).forEach((x)->
-                    eventExecutor.getPython().getLoader().loadPlugin(x.toString())
-            );
-        }
-        this.server.setExecutor(new CommandExecutor(server));
-
+        this.server.getLogger().info("the python plugins are loading...");
+        new Thread(()->{
+            this.server.getLogger().info("The Python Plugin Thread has started");
+            CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
+        }).start();
+        CommandUtils.sleep(1000);
+        eventExecutor.getPython().getLoader().getOut(ServerLogger.getLogger());
+        eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
+        eventExecutor.getPython().getLoader().refreshPlugins();
+        this.server.setExecutor(new ClientCommandExecutor(this.server,eventExecutor));
     }
 
     @Override
