@@ -2,6 +2,9 @@ language: java
 jdk:
   - openjdk8
 script:
+  - overalls -project=github.com/TextWar/TextWar -covermode=count -ignore='.git,_vendor'
+  - goveralls -coverprofile=overalls.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
   - mvn clean compile package install -f textwar_pom/pom.xml
   - mvn clean compile package install -f textwar/pom.xml
   - mvn clean compile package install -f textwar_protocol/pom.xml
