@@ -104,7 +104,6 @@ class QQApplication implements Application {
                                         event.group.sendMessage(server.executor.doCommandOrAction(things[0],event.sender.id,args))
                                         server.wantUpdate()
                                         if(!server.isTest()){
-                                            //TODO 临时
                                             String image = server.consumeImage()
 
                                             if(image != null){

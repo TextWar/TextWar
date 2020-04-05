@@ -7,8 +7,7 @@ import cn.textwar.plugins.EventExecutor;
 import cn.textwar.protocol.*;
 
 
-//TODO 指令交互的实现
-//TODO 其他函数的实现
+
 public class PluginServer extends ConnectServer {
 
 

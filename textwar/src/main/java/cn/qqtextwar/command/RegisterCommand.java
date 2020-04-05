@@ -13,7 +13,6 @@ public class RegisterCommand {
     }
 
     public Player execute(Application application,String ip, long qq){
-        //TODO 未来的数据库连接
         return server.registerPlayer(application,ip,qq,server.getGameMap());
     }
 }
