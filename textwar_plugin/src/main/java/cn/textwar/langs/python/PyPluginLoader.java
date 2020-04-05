@@ -30,7 +30,7 @@ public interface PyPluginLoader {
     Map getActions();
 
     @PythonMethod
-    void commandExecuter(String name, String[] args, Player player);
+    void commandExecutor(String name, String[] args, Player player);
 
     default void loadPlugin(String base, String file){
         loadPlugin(new File(base,file).toString());

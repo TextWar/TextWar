@@ -22,7 +22,7 @@ public class ClientEventExecutor extends EventExecutor {
             server.getLoader().callEvent(event.getEventName(), type,event);
             if(event instanceof CommandExecuteEvent){
                 if(((CommandExecuteEvent) event).getSender() instanceof Player) {
-                    server.getLoader().commandExecuter(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
+                    server.getLoader().commandExecutor(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
                 }
             }
         }catch (Exception e){

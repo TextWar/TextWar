@@ -8,12 +8,15 @@ import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
+import cn.textwar.plugins.events.PlayerMessageEvent;
+import cn.textwar.protocol.Handler;
 import cn.textwar.protocol.TextWarProtocol;
 import cn.textwar.protocol.events.PacketReceiveEvent;
 import cn.textwar.protocol.events.PacketSendEvent;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.Arrays;
 
 // tcp 连接
@@ -72,16 +75,60 @@ public class ClientApplication implements Application, Listener {
                     server.getEventExecutor().callEvent(new PlayerExitEvent(player),0);
                     thread.getServer().logOut(player);
                     server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
-
+                    //退出的时候的，注销玩家的Socket信息
+                    ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
                 }
             }
         },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],500);
         clientServer.start();
     }
 
+    /**
+     * 这个是服务端的身份私聊发送给特定客户端信息
+     */
     @Override
     public void sendMessage(long qq, String message) {
-        //TODO 完成发送信息的功能
+        try {
+            Player player = server.getPlayer(qq);
+            server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),0);
+            Socket socket = clientServer.getPlayerSocketMap().get(player.getIp());
+            TextWarProtocol protocol = new TextWarProtocol();
+            JSONObject messageJson = new JSONObject();
+            messageJson.put("id", qq);
+            messageJson.put("action", "sendToPlayer");
+            messageJson.put("message", message);
+            protocol.addAll(Handler.createResponse(Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
+            socket.getOutputStream().write(protocol.encode());
+            server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),1);
+        }catch (Exception e){
+            server.getLogger().error(e.getMessage());
+        }
+    }
+
+    /**
+     * 这个是以玩家的身份，即id所指定的身份，发送信息，最终是广播到服务端的
+     * 客户端需要接收，并将其显示在公共区域即可
+     *
+     */
+    @Override
+    public void playerChat(long qq, String message) {
+        Player player = server.getPlayer(qq);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",qq);
+        jsonObject.put("action","playerChat");
+        jsonObject.put("message",message);
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
+    }
+
+    /**
+     * 服务端直接广播信息
+     */
+    @Override
+    public void broadcast(String message) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action","broadcast");
+        jsonObject.put("message",message);
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
     }
 
     @Override

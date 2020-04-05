@@ -14,6 +14,14 @@ public interface Application extends Cloneable{
 
     void sendMessage(long qq,String message);
 
+    default void playerChat(long qq,String message){
+
+    }
+
+    default void broadcast(String message){
+
+    }
+
     default void reload(){
 
     }

@@ -321,6 +321,14 @@ class Server {
         }
     }
 
+    @Action
+    void broadcast(String message){
+        applications.each {
+            it.broadcast(message)
+        }
+    }
+
+
     /** 服务端只能关闭一次*/
     @Action
     void close0(Throwable throwable){

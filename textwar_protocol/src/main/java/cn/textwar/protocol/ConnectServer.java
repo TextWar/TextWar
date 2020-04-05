@@ -83,6 +83,10 @@ public abstract class ConnectServer extends Thread {
         });
     }
 
+    public void whenJoin(Socket socket){
+
+    }
+
     public int getPort() {
         return port;
     }
@@ -104,6 +108,7 @@ public abstract class ConnectServer extends Thread {
 
             while (this.server == null || !(this.server.getState().get() == CLOSED)){
                 Socket socket = server.accept();
+                whenJoin(socket);
                 logger.info("New Client : "+socket.getInetAddress());
                 streamList.add(socket.getOutputStream());
                 executor.execute(new ClientThread(socket,this.server,this,connecting,whenOut));
