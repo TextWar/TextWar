@@ -1,6 +1,9 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
  <div align="center">
+ <a href="http://hits.dwyl.com/TextWar/TextWar">
+ <img src="http://hits.dwyl.com/TextWar/TextWar.svg">
+ </a>
  <img src="https://img.shields.io/github/issues/TextWar/TextWar">
  <img src="https://img.shields.io/github/forks/TextWar/TextWar">
    <img src="https://img.shields.io/github/stars/TextWar/TextWar">
