@@ -1,12 +1,17 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
+<div align="center">
+ <img src="https://img.shields.io/github/forks/TextWar/TextWar?style=social">
+ <img src="https://img.shields.io/github/stars/TextWar/TextWar?style=social">
+</diV>
  <div align="center">
+ 
+ <img src="https://img.shields.io/github/languages/code-size/TextWar/TextWar">
+ <img src="https://img.shields.io/github/languages/count/TextWar/TextWar">
  <a href="http://hits.dwyl.com/TextWar/TextWar">
  <img src="http://hits.dwyl.com/TextWar/TextWar.svg">
  </a>
  <img src="https://img.shields.io/github/issues/TextWar/TextWar">
- <img src="https://img.shields.io/github/forks/TextWar/TextWar">
-   <img src="https://img.shields.io/github/stars/TextWar/TextWar">
   <img src="https://coveralls.io/repos/github/TextWar/TextWar/badge.svg?branch=master">
   <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
   <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
