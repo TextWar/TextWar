@@ -2,6 +2,7 @@ package cn.textwar.client;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
+import cn.qqtextwar.command.CommandExecutor;
 import cn.qqtextwar.entity.player.Player;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
@@ -46,7 +47,7 @@ public class ClientApplication implements Application, Listener {
                     eventExecutor.getPython().getLoader().loadPlugin(x.toString())
             );
         }
-
+        this.server.setExecutor(new CommandExecutor(server));
 
     }
 

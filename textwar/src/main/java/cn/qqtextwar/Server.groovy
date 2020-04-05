@@ -600,6 +600,11 @@ class Server {
         this.eventExecutor = eventExecutor
     }
 
+    void setExecutor(CommandExecutor executor) {
+        executor.commands = this.executor.commands
+        this.executor = executor
+    }
+
     SQLiteConnector getDatabase() {
         return database
     }

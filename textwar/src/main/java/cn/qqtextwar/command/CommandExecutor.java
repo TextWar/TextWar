@@ -42,6 +42,10 @@ public class CommandExecutor {
 
     }
 
+    public void setCommands(Map<String, CommandBase> commands) {
+        this.commands = commands;
+    }
+
     //注册玩家时的命令
     public void registerPlayer(String ip, long qq, Application application){
         this.command.execute(application,ip,qq);
