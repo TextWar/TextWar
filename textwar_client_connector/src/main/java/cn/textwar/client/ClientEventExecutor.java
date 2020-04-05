@@ -1,8 +1,10 @@
 package cn.textwar.client;
 
+import cn.qqtextwar.entity.player.Player;
 import cn.textwar.plugins.Event;
 import cn.textwar.plugins.EventExecutor;
 import cn.textwar.langs.python.Py4jServer;
+import cn.textwar.plugins.events.CommandExecuteEvent;
 
 
 public class ClientEventExecutor extends EventExecutor {
@@ -18,8 +20,17 @@ public class ClientEventExecutor extends EventExecutor {
         try {
             super.callEvent(event, type);
             server.getLoader().callEvent(event.getEventName(), type,event);
+            if(event instanceof CommandExecuteEvent){
+                if(((CommandExecuteEvent) event).getSender() instanceof Player) {
+                    server.getLoader().commandExecuter(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
+                }
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public Py4jServer getPython() {
+        return server;
     }
 }

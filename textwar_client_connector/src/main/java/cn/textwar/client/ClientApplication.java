@@ -5,6 +5,7 @@ import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.player.Player;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
+import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.protocol.TextWarProtocol;
 import cn.textwar.protocol.events.PacketReceiveEvent;
@@ -12,9 +13,10 @@ import cn.textwar.protocol.events.PacketSendEvent;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
+import java.util.Arrays;
 
 // tcp 连接
-public class ClientApplication implements Application {
+public class ClientApplication implements Application, Listener {
 
     private Server server;
 
@@ -25,13 +27,27 @@ public class ClientApplication implements Application {
 
     private ClientServer clientServer;
 
+    private ClientEventExecutor eventExecutor;
+
     @Override
     public void init(Server server) {
         this.server = server;
         this.console = new ServerConsole(server);
         server.getRegister().register("client.cfg");
+        server.getRegister().createDir("python");
         File file = server.getRegister().getConfig("client.cfg");
         this.parser = new ClientConfigParser(file);
+        this.eventExecutor = new ClientEventExecutor();
+        this.server.setEventExecutor(eventExecutor);
+        File python = this.server.getRegister().getConfig("python");
+        File[] files = python.listFiles();
+        if(files!=null){
+            Arrays.stream(files).forEach((x)->
+                    eventExecutor.getPython().getLoader().loadPlugin(x.toString())
+            );
+        }
+
+
     }
 
     @Override

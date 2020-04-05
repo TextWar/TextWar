@@ -1,5 +1,6 @@
 package cn.textwar.langs.python;
 
+import cn.qqtextwar.entity.player.Player;
 import cn.textwar.plugins.Event;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public interface PyPluginLoader {
     Map getActions();
 
     @PythonMethod
-    Map commandExecuter();
+    void commandExecuter(String name, String[] args, Player player);
 
     default void loadPlugin(String base, String file){
         loadPlugin(new File(base,file).toString());

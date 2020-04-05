@@ -1,18 +1,21 @@
 package cn.textwar.plugins.events;
 
 
-import cn.textwar.plugins.Event;
+import cn.qqtextwar.CommandSender;
 
-public class CommandExecuteEvent extends Event {
+public class CommandExecuteEvent extends CommandEvent {
 
     private String commandName;
 
     private String[] args;
 
-    public CommandExecuteEvent(String name,String[] args) {
+    private CommandSender sender;
+
+    public CommandExecuteEvent(String name,String[] args,CommandSender sender) {
         super(CommandExecuteEvent.class.getSimpleName());
         this.commandName = name;
         this.args = args;
+        this.sender = sender;
     }
 
     public String getCommandName() {
@@ -21,5 +24,9 @@ public class CommandExecuteEvent extends Event {
 
     public String[] getArgs() {
         return args;
+    }
+
+    public CommandSender getSender() {
+        return sender;
     }
 }

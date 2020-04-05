@@ -60,9 +60,7 @@ class FileRegister {
             register(it)
         }
         dirs.each {
-            File file = new File(baseFile,it)
-            file.mkdirs()
-            files.put(it,file)
+            createDir(it)
         }
     }
 
@@ -70,6 +68,12 @@ class FileRegister {
         File file = new File(baseFile,it)
         if(!file.exists())
             Utils.readClassStream(file,it)
+        files.put(it,file)
+    }
+
+    void createDir(String it){
+        File file = new File(baseFile,it)
+        file.mkdirs()
         files.put(it,file)
     }
 

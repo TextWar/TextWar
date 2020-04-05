@@ -8,6 +8,7 @@ import cn.qqtextwar.command.commands.*;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.ex.ServerException;
 import cn.textwar.plugins.events.CommandExecuteEvent;
+import cn.textwar.plugins.events.FoundCommandEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,27 +48,33 @@ public class CommandExecutor {
     }
 
     public String doCommandOrAction(String name,long qq,String[] args){
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args),0);
         Player player = server.getPlayer(qq);
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,player),0);
         CommandBase cmd = commands.get(name);
         if(cmd!=null){
+            server.getEventExecutor().callEvent(new FoundCommandEvent(cmd),0);
             if(cmd instanceof Action){
                 Action action = (Action) cmd;
-                return action.execute(player,name);
+                String result = action.execute(player,name);
+                server.getEventExecutor().callEvent(new FoundCommandEvent(cmd),1);
+                return result;
             }
             if(cmd instanceof Command){
                 Command command = (Command)cmd;
-                return command.execute(player,command,args);
+                String result = command.execute(player,command,args);
+                server.getEventExecutor().callEvent(new FoundCommandEvent(cmd),1);
+                return result;
             }
         }else{
             player.sendMessage("No such command");
         }
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args),1);
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,player),1);
         return "";
     }
 
     //控制台执行用
     public void doCommand(CommandSender sender,String name,String[] args){
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,sender),0);
         CommandBase cmd = commands.get(name);
         if(cmd == null){
             throw new ServerException("No such command");
@@ -76,6 +83,7 @@ public class CommandExecutor {
             Command command = (Command)cmd;
             command.execute(sender,command,args);
         }
+        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,sender),1);
     }
 
     public Map<String, CommandBase> getCommands() {
