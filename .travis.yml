@@ -9,4 +9,4 @@ script:
   - mvn clean compile package install -f textwar_console/pom.xml
   - mvn clean compile package install -f textwar_client_connector/pom.xml
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
