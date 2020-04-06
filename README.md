@@ -5,9 +5,11 @@
  <img src="https://img.shields.io/github/stars/TextWar/TextWar?style=social">
 </diV>
  <div align="center">
- <img src="https://img.shields.io/github/v/release/TextWar/TextWar?include_prereleases">
+    <img src="https://img.shields.io/github/v/release/TextWar/TextWar?include_prereleases">
  <img src="https://img.shields.io/github/languages/code-size/TextWar/TextWar">
- <img src="https://img.shields.io/github/issues/TextWar/TextWar">
+ <a href="https://github.com/TextWar/TextWar/issues">
+    <img src="https://img.shields.io/github/issues/TextWar/TextWar">
+ </a>
  <img src="https://coveralls.io/repos/github/TextWar/TextWar/badge.svg?branch=master">
  <a href="http://hits.dwyl.com/TextWar/TextWar">
  <img src="http://hits.dwyl.com/TextWar/TextWar.svg">
