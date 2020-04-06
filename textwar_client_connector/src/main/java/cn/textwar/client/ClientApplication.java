@@ -49,10 +49,14 @@ public class ClientApplication implements Application, Listener {
             CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
         }).start();
         CommandUtils.sleep(1000);
-        eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
-        eventExecutor.getPython().getLoader().getServer(server);
-        eventExecutor.getPython().getLoader().refreshPlugins();
-        this.server.setExecutor(new ClientCommandExecutor(this.server,eventExecutor));
+        try {
+            eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
+            eventExecutor.getPython().getLoader().getServer(server);
+            eventExecutor.getPython().getLoader().refreshPlugins();
+            this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
+        }catch (Exception e){
+            this.server.getLogger().info("The python plugin executor is not found");
+        }
     }
 
     @Override
