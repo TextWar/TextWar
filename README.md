@@ -5,8 +5,10 @@
  <img src="https://img.shields.io/github/stars/TextWar/TextWar?style=social">
 </diV>
  <div align="center">
-    <img src="https://img.shields.io/github/v/release/TextWar/TextWar?include_prereleases">
+ <img src="https://img.shields.io/github/v/release/TextWar/TextWar?include_prereleases">
+ <a href="https://github.com/TextWar/TextWar/search?l=java">
  <img src="https://img.shields.io/github/languages/code-size/TextWar/TextWar">
+ </a>
  <a href="https://github.com/TextWar/TextWar/issues">
     <img src="https://img.shields.io/github/issues/TextWar/TextWar">
  </a>
