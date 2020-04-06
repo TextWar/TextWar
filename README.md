@@ -1,7 +1,9 @@
 <p align="center">
 <img src="readme_image/banner.png" width=500>
 <div align="center">
+ <a href="https://github.com/TextWar/TextWar/network/members">
  <img src="https://img.shields.io/github/forks/TextWar/TextWar?style=social">
+ </a>
  <a href="https://github.com/TextWar/TextWar/stargazers">
  <img src="https://img.shields.io/github/stars/TextWar/TextWar?style=social">
  </a>
