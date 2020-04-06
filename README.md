@@ -18,8 +18,9 @@
  <a href="https://gitter.im/mytextwar/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)">
     <img src="https://badges.gitter.im/mytextwar/community.svg" >
    </a>
-  
+  <a href = "https://travis-ci.org/github/TextWar/TextWar/builds/671445536?utm_source=github_status&utm_medium=notification">
   <img src="https://travis-ci.org/TextWar/TextWar.svg?branch=master">
+ </a>
   <a href="https://github.com/TextWar/TextWar/search?l=java">
   <img src="https://img.shields.io/github/languages/count/TextWar/TextWar">
  </a>
