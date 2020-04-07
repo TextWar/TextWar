@@ -13,8 +13,8 @@ public class PluginServer extends ConnectServer {
 
     public PluginServer(Server server, EventExecutor eventExecutor, Connecting connecting, Connecting whenOut, Py4jServer py4jServer){
         super(server,connecting,whenOut,10,500);
-        server.getRegister().register("plugin.groovy");
-        PluginConfigParser parser = new PluginConfigParser(server.getRegister().getConfig("plugin.groovy"));
+        server.getRegister().register("plugin.cfg");
+        PluginConfigParser parser = new PluginConfigParser(server.getRegister().getConfig("plugin.cfg"));
         eventExecutor.registerEvents(new PluginListener(this,py4jServer),null);
         this.setPort((int)parser.getValue("plugin.port",8760)[0]);
     }

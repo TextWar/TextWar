@@ -17,9 +17,9 @@ class FileRegister {
 
     /**
      *
-     * Server.cfg 服务端的主文件，参见resources/server.groovy
+     * Server.cfg 服务端的主文件，参见resources/server.cfg
      */
-    static final String MAIN_CONFIG = "server.groovy"
+    static final String MAIN_CONFIG = "server.cfg"
 
     static final String IMAGE = "image"
 

@@ -15,7 +15,7 @@ import net.mamoe.mirai.message.GroupMessage
 @CompileStatic
 class QQApplication implements Application {
 
-    public static final String CONFIG = "bot.groovy"
+    public static final String CONFIG = "bot.cfg"
 
     private Bot bot
 
