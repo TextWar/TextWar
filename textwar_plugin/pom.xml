@@ -30,7 +30,7 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
         <resources>
             <resource>
