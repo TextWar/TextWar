@@ -18,9 +18,11 @@ abstract class DSLParser {
 
     Map<String,Object[]> entry = [:]
 
+    private String file
 
     DSLParser(File file){
         this(new FileInputStream(file))
+        this.file = file.toString()
     }
 
     DSLParser(InputStream inputStream){
@@ -48,6 +50,7 @@ abstract class DSLParser {
                 entry["${nowName}.${name}"] = args
         }
         this.loadDSLMethod()
+        println file
         this.fileClass.getMethod("run").invoke(fileClass.newInstance())
     }
 
