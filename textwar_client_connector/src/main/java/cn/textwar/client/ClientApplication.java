@@ -3,7 +3,6 @@ package cn.textwar.client;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.player.Player;
-import cn.qqtextwar.log.ServerLogger;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
 import cn.textwar.langs.python.Py4jServer;
