@@ -50,7 +50,6 @@ abstract class DSLParser {
                 entry["${nowName}.${name}"] = args
         }
         this.loadDSLMethod()
-        println "Loading "+file
         this.fileClass.getMethod("run").invoke(fileClass.newInstance())
     }
 
