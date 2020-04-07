@@ -36,9 +36,9 @@ public class ClientApplication implements Application, Listener {
     public void init(Server server) {
         this.server = server;
         this.console = new ServerConsole(server);
-        server.getRegister().register("client.cfg");
+        server.getRegister().register("client.groovy");
         server.getRegister().createDir("python");
-        File file = server.getRegister().getConfig("client.cfg");
+        File file = server.getRegister().getConfig("client.groovy");
         this.parser = new ClientConfigParser(file);
         this.eventExecutor = new ClientEventExecutor(new Py4jServer());
         this.server.setEventExecutor(eventExecutor);

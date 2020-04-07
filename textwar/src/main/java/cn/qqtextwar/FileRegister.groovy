@@ -16,9 +16,10 @@ import groovy.transform.Memoized
 class FileRegister {
 
     /**
-     * Server.cfg 服务端的主文件，参见resources/server.cfg
+     *
+     * Server.cfg 服务端的主文件，参见resources/server.groovy
      */
-    static final String MAIN_CONFIG = "server.cfg"
+    static final String MAIN_CONFIG = "server.groovy"
 
     static final String IMAGE = "image"
 
@@ -65,7 +66,7 @@ class FileRegister {
     }
 
     void register(String it){
-        File file = new File(baseFile,it)
+        File file = new File(new File(baseFile,it).toURI().getPath())
         if(!file.exists())
             Utils.readClassStream(file,it)
         files.put(it,file)

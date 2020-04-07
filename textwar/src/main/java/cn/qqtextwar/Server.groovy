@@ -271,7 +271,7 @@ class Server {
             if(parser.getValue("server.map.random",true)[0]){
                 File[] maps = file.listFiles()
                 if(maps == null || maps.length == 0){
-                    this.logger.error("not found the map")
+                    this.logger.error("the map is not found")
                     close0(null)
                 }
                 File map = maps[maps.length == 1?0:random(maps.length-1)]
