@@ -22,6 +22,7 @@ import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.sql.SQLiteConnector
 import cn.qqtextwar.utils.Translate
+import cn.qqtextwar.utils.Utils
 import cn.textwar.plugins.EventExecutor
 import cn.textwar.plugins.PluginClassLoader
 import cn.textwar.plugins.events.MapLoadEvent
@@ -129,8 +130,7 @@ class Server {
     /** 用于将指定的resources文件复制到服务端根目录下，方便玩家修改，并存储相应的文件对象 */
     private FileRegister register
 
-    /** 随机数器，不要直接使用，请使用线程安全的random方法*/
-    private Random random
+
 
     /** 单例服务端，会在start静态方法时创建  */
     private static Server server
@@ -174,7 +174,6 @@ class Server {
         this.register.register()
         this.round = new AtomicInteger()
         this.state = new AtomicInteger()
-        this.random = new Random()
         this.eventExecutor = new EventExecutor()
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
         ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
@@ -274,7 +273,7 @@ class Server {
                     this.logger.error("the map is not found")
                     close0(null)
                 }
-                File map = maps[maps.length == 1?0:random(maps.length-1)]
+                File map = maps[maps.length == 1?0: Utils.random(maps.length-1)]
                 this.gameMap = new GameMap(map.text)
             }else{
                 String name = parser.getHeadValue("server.map.name")
@@ -428,7 +427,7 @@ class Server {
     List<Mob> createRandomMobs(GameMap map,int n){
         List<Mob> mobs = new ArrayList<>()
         (1..n).each {
-            int round = random(Mob.getMobs().size())
+            int round = Utils.random(Mob.getMobs().size())
             mobs.add(createMob(map,Mob.mobs().get(round)))
         }
         return mobs
@@ -616,8 +615,5 @@ class Server {
     SQLiteConnector getDatabase() {
         return database
     }
-/** 线程安全的随机表，在创建怪物时使用 */
-    synchronized int random(int round){
-        random.nextInt(round)
-    }
+
 }

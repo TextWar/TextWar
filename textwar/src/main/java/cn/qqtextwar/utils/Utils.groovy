@@ -6,6 +6,27 @@ import java.text.DecimalFormat
 
 class Utils {
 
+    /** 随机数器，不要直接使用，请使用线程安全的random方法*/
+    private static Random random
+
+    static {
+        random = new Random()
+    }
+
+    /** 线程安全的随机表，在创建怪物时使用 */
+    static synchronized int random(Random random = this.random,int round){
+        random.nextInt(round)
+    }
+
+    static synchronized Random setRandomSeed(long seed){
+        Random random = new Random()
+        random.seed = seed
+        return random
+    }
+
+    static int random(Random rand,int start,int end){
+        rand.nextInt(end-start)+start
+    }
     static String getClassFileName(String file){
         return Server.class.getClassLoader().getResource("/").getPath()+file;
     }

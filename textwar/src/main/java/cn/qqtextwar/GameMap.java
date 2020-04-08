@@ -25,7 +25,7 @@ public class GameMap{
 
     private String file;
 
-    private volatile Long[][] mapData;
+    protected volatile Long[][] mapData;
 
     private Random random;
 
@@ -50,6 +50,11 @@ public class GameMap{
         this.init(json);
     }
 
+    public GameMap(){
+        this.random = new Random();
+        this.blocks = new HashMap<>();
+        this.entityVector = new HashMap<>();
+    }
 
 
     public Vector randomVector(){
@@ -159,7 +164,7 @@ public class GameMap{
         this.file = file;
     }
 
-    private void init(String json){
+    protected void init(String json){
         try {
             JSONObject object = JSONObject.parseObject(json);
             this.hashMap = ((JSONArray) object.get("hashmap")).toJavaList(String.class);
