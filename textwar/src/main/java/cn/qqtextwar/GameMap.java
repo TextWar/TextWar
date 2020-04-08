@@ -67,6 +67,7 @@ public class GameMap{
 
 
 
+
     public GameMap interceptForPlayer(Player player, int rad){
         JSONObject object = new JSONObject();
         object.put("hashmap",getHashMap());
@@ -323,6 +324,10 @@ public class GameMap{
 
     public void setMapData(Long[][] mapData) {
         this.mapData = mapData;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

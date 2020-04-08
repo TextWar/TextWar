@@ -39,7 +39,7 @@ class Utils {
 
     static PrintWriter getWriter(OutputStream stream){
         PrintWriter writer = new PrintWriter(stream,true)
-        return writer;
+        return writer
     }
 
     static String simpleClassName(Class<?> clz){
