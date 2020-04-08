@@ -95,6 +95,7 @@ For Linux:
 `cd TextWar-Kit/download_env` 
 
 `sh download.sh` to check your java development kit and python 3
+
 `sh get_source.sh` to download the source of the TextWar and compile it to jar file
 
 #### CopyRight
