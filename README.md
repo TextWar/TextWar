@@ -98,6 +98,8 @@ For Linux:
 
 `sh get_source.sh` to download the source of the TextWar and compile it to jar file
 
+`sh start.sh` to start it now.
+
 #### CopyRight
 
 @CopyRight TextWar Developing Studio
