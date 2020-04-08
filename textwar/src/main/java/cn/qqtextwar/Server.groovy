@@ -271,8 +271,9 @@ class Server {
                 File[] maps = file.listFiles()
                 if(maps == null || maps.length == 0){
                     this.logger.warn("the map is not found")
-                    this.logger.info("create a map")
+                    this.logger.info("creating a random map")
                     this.gameMap = new SystemMap()
+                    return this
                 }
                 File map = maps[maps.length == 1?0: Utils.random(maps.length-1)]
                 this.gameMap = new GameMap(map.text)
