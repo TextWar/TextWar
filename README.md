@@ -86,6 +86,17 @@ such as
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
+#### How To Download the binary source?
+
+For Linux:
+
+`git clone https://github.com/TextWar/TextWar-Kit.git`
+
+`cd TextWar-Kit/download_env` 
+
+`sh download.sh` to check your java development kit and python 3
+`sh get_source.sh` to download the source of the TextWar and compile it to jar file
+
 #### CopyRight
 
 @CopyRight TextWar Developing Studio
