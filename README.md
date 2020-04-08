@@ -86,7 +86,7 @@ such as
 
 You can see more in [wiki](https://github.com/TextWar/QQTextWar/wiki)
 
-#### How To Download the binary source?
+#### How To Download the binary file?
 
 For Linux:
 
