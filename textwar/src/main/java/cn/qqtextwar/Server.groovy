@@ -35,7 +35,6 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.stream.Collectors
 
 /**
  * TextWar游戏的服务端对象，为单例模式，只能通过
