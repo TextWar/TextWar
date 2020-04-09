@@ -38,7 +38,7 @@
  
 # TextWar
 ###### Logo is deigned by MagicLu
-### A Simple game for chatting software
+### A Simple opensource game
 
 This game is based on Unicode character design, 
 you can stitch your map by characters, and build your own server and player battle.
