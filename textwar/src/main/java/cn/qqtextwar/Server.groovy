@@ -29,7 +29,6 @@ import cn.textwar.plugins.events.MapLoadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
-import groovy.transform.TypeCheckingMode
 import org.fusesource.jansi.AnsiConsole
 
 import java.util.concurrent.Executor
