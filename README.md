@@ -37,8 +37,8 @@
 <div align="center">
  
 # TextWar
-###### Logo is deigned by MagicLu
-### A Simple game for chatting software
+###### Logo was designed by MagicLu
+### A Simple Opensource Game
 
 This game is based on Unicode character design, 
 you can stitch your map by characters, and build your own server and player battle.
