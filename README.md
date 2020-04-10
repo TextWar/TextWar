@@ -37,7 +37,7 @@
 <div align="center">
  
 # TextWar
-###### Logo is designed by MagicLu
+###### Logo was designed by MagicLu
 ### A Simple Opensource Game
 
 This game is based on Unicode character design, 
