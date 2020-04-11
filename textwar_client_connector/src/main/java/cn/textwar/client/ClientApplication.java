@@ -40,23 +40,30 @@ public class ClientApplication implements Application, Listener {
         server.getRegister().createDir("python");
         File file = server.getRegister().getConfig("client.cfg");
         this.parser = new ClientConfigParser(file);
-        this.eventExecutor = new ClientEventExecutor(new Py4jServer());
-        this.server.setEventExecutor(eventExecutor);
         this.server.getLogger().info("the python plugins are loading...");
-        new Thread(()->{
-            this.server.getLogger().info("The Python Plugin Thread has started");
-            CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
-        }).start();
-        CommandUtils.sleep(1000);
-        try {
-            eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
-            eventExecutor.getPython().getLoader().getServer(server);
-            eventExecutor.getPython().getLoader().refreshPlugins();
-            this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
-            eventExecutor.getPython().setFind(true);
-        }catch (Exception e){
+        String path = parser.getHeadValue("client.pythonPath");
+        File pathFile = new File(path);
+        if(pathFile.exists()){
+            this.eventExecutor = new ClientEventExecutor(new Py4jServer());
+            this.server.setEventExecutor(eventExecutor);
+            new Thread(()->{
+                this.server.getLogger().info("The Python Plugin Thread has started");
+                CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
+            }).start();
+            CommandUtils.sleep(1000);
+            try {
+                eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
+                eventExecutor.getPython().getLoader().getServer(server);
+                eventExecutor.getPython().getLoader().refreshPlugins();
+                this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
+                eventExecutor.getPython().setFind(true);
+            }catch (Exception e){
+                this.server.getLogger().info("The python plugin executor is not found");
+            }
+        }else{
             this.server.getLogger().info("The python plugin executor is not found");
         }
+
     }
 
     @Override

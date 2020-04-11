@@ -17,7 +17,7 @@ public class SystemMap extends GameMap{
             mapData[i] = new Long[arrayWeight];
             Arrays.fill(mapData[i],1L);
         }
-        this.setHashMap(Arrays.asList("a","b"));
+        this.setHashMap(Arrays.asList("*","░"));
         this.setAuthor("system");
         this.setVersion("1.0");
         this.setName("random");

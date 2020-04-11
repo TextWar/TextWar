@@ -43,12 +43,12 @@ public class ClientServer extends ConnectServer {
         if (!playerSocketMap.containsKey(socket.getInetAddress().getHostName())){
             playerSocketMap.put(socket.getInetAddress().getHostName(), socket);
         }else{
+            System.err.println("The Client has existed!: "+socket.getInetAddress().getHostName());
             try {
                 socket.getOutputStream().write(CLOSE.encode());
             }catch (IOException e){
                 e.printStackTrace();
             }
-            throw new ProtocolException("The Client has existed!: "+socket.getInetAddress().getHostName());
         }
     }
 

@@ -19,7 +19,8 @@ public class Test06 {
                         .addJSONCode("type","player")
                         .addJSONCode("action","login")
                         .addJSONCode("name","laolu")
-                        .addJSONCode("password","12345");
+                        .addJSONCode("password","12345")
+                        .addJSONCode("rad",5);
                 socket11.getOutputStream().write(protocol1.encode());
                 System.out.println(protocol.decode(socket11.getInputStream()).getJson());
                 while (true) {
