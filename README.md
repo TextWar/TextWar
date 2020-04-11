@@ -58,11 +58,9 @@ If you want to make and modify maps, use the [MapEditor](https://github.com/Text
 
 You should get the [Map generator](https://github.com/TextWar/textwar-py) to run it.
 
-![editor](readme_image/editor.png)
+#### Demos
 
-<p align="center">
-<img src="readme_image/map.png" width=500>
-</p>
+The Project has not been finished yet.
 
 
 #### API
