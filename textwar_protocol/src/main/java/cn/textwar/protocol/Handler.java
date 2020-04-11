@@ -43,7 +43,6 @@ public abstract class Handler {
         try{
             return execute(application,thread,server,type,jsonObject,eventExecutor);
         }catch (Exception e){
-            e.printStackTrace();
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }
