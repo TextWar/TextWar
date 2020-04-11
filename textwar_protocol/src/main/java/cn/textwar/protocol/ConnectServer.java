@@ -22,6 +22,8 @@ import static cn.qqtextwar.Server.CLOSED;
 
 public abstract class ConnectServer extends Thread {
 
+    public static final TextWarProtocol CLOSE = new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,"close the server",new JSONObject()).toJSONString());
+
     protected HandlerExecutor handlerExecutor;
 
     private Executor executor;
@@ -92,7 +94,7 @@ public abstract class ConnectServer extends Thread {
     }
 
     public void reload(){
-        callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,"close the server",new JSONObject()).toJSONString()));
+        callMessage(CLOSE);
     }
 
     public double getTPS(){

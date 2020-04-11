@@ -19,10 +19,12 @@ public class ClientEventExecutor extends EventExecutor {
     public void callEvent(final Event event,final int type) {
         try {
             super.callEvent(event, type);
-            server.getLoader().callEvent(event.getEventName(), type,event);
-            if(event instanceof CommandExecuteEvent){
-                if(((CommandExecuteEvent) event).getSender() instanceof Player) {
-                    server.getLoader().commandExecutor(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
+            if(server.isFind()){
+                server.getLoader().callEvent(event.getEventName(), type,event);
+                if(event instanceof CommandExecuteEvent){
+                    if(((CommandExecuteEvent) event).getSender() instanceof Player) {
+                        server.getLoader().commandExecutor(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
+                    }
                 }
             }
         }catch (Exception e){

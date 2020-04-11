@@ -1,12 +1,14 @@
 package cn.textwar.client;
 
 import cn.qqtextwar.Server;
+import cn.qqtextwar.ex.ProtocolException;
 import cn.textwar.client.handlers.MapHandler;
 import cn.textwar.client.handlers.PlayerHandler;
 import cn.textwar.protocol.ConnectServer;
 import cn.textwar.protocol.Connecting;
 import cn.textwar.protocol.HandlerExecutor;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,7 +40,16 @@ public class ClientServer extends ConnectServer {
 
     @Override
     public void whenJoin(Socket socket) {
-        playerSocketMap.put(socket.getInetAddress().getHostName(),socket);
+        if (!playerSocketMap.containsKey(socket.getInetAddress().getHostName())){
+            playerSocketMap.put(socket.getInetAddress().getHostName(), socket);
+        }else{
+            try {
+                socket.getOutputStream().write(CLOSE.encode());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            throw new ProtocolException("The Client has existed!: "+socket.getInetAddress().getHostName());
+        }
     }
 
     public Map<String, Socket> getPlayerSocketMap() {

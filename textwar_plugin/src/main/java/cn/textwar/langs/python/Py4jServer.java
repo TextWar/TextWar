@@ -5,6 +5,8 @@ import py4j.ClientServer;
 
 public class Py4jServer {
 
+    private boolean find;
+
     private PyPluginLoader loader;
 
     private ClientServer server;
@@ -21,5 +23,13 @@ public class Py4jServer {
 
     public ClientServer getClientServer() {
         return server;
+    }
+
+    public void setFind(boolean find) {
+        this.find = find;
+    }
+
+    public boolean isFind() {
+        return find;
     }
 }

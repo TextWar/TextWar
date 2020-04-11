@@ -48,8 +48,6 @@ public class SystemMap extends GameMap{
 
     public int getXIndex(int i){
         if(i < 0) {
-            System.out.println(i);
-            System.out.println(mapData.length- Math.abs(i));
             return mapData.length- Math.abs(i);
         }
         return i;

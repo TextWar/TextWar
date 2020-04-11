@@ -53,6 +53,7 @@ public class ClientApplication implements Application, Listener {
             eventExecutor.getPython().getLoader().getServer(server);
             eventExecutor.getPython().getLoader().refreshPlugins();
             this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
+            eventExecutor.getPython().setFind(true);
         }catch (Exception e){
             this.server.getLogger().info("The python plugin executor is not found");
         }

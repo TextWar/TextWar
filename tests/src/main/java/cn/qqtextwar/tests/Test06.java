@@ -22,10 +22,10 @@ public class Test06 {
                         .addJSONCode("password","12345");
                 socket11.getOutputStream().write(protocol1.encode());
                 System.out.println(protocol.decode(socket11.getInputStream()).getJson());
-//                while (true) {
-//
-//                    Thread.sleep(100);
-//                }
+                while (true) {
+
+                    Thread.sleep(100);
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }
