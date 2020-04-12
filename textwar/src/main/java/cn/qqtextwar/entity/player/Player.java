@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class Player extends Entity implements Skillable, CommandSender, Hitable {
 
+    private int admin;
     private String name;
 
     private LocalDateTime operationTime;
@@ -49,8 +50,9 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
 
     private int money;
 
+    private Server server;
 
-    public Player(Application application,String ip, Vector vector, long id, double healthPoints, double manaPoints, int money) {
+    public Player(Server server,Application application,String ip, Vector vector, long id, double healthPoints, double manaPoints, int money) {
         super(vector, id, healthPoints, manaPoints);
         if(id < ProtocolVar.PLAYER_MIN_ID){
             throw new IllegalIdException("the player's id is bigger than 10000");
@@ -60,6 +62,15 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         this.money = money;
         this.ip = ip;
         this.application = application;
+        this.server = server;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public Application getApplication() {
+        return application;
     }
 
     public boolean done(Server server){
@@ -75,6 +86,15 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
                 return false;
             }
         }
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = (admin?1:0);
+        server.getDaoFactory().getPlayerDAO().setAdmin(name,this.admin);
+    }
+
+    public boolean isAdmin(){
+        return this.admin == 1;
     }
 
 

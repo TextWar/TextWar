@@ -6,10 +6,17 @@ import java.util.List;
 
 public abstract class Command extends CommandBase {
 
-    public Command(List<String> command,String desc) {
+    private Permission permission;
+
+    public Command(List<String> command,String desc,Permission permission) {
         super(command,desc);
+        this.permission = permission;
     }
 
-    public abstract String execute(CommandSender player, Command command,String[] args);
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public abstract String execute(CommandSender player, Command command, String[] args);
 
 }

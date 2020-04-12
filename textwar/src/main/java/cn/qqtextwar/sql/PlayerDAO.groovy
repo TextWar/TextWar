@@ -37,6 +37,11 @@ class PlayerDAO {
         return ids.size() == 0?10000:ids.get(0)
     }
 
+
+    void setAdmin(String name,int admin){
+        database.getTable(PLAYER_TABLE).executeInsert(SQL.PLAYER_SET_ADMIN.sql.replace(PLAYER_TABLE_VAR,PLAYER_TABLE),[admin,name])
+    }
+
     //如果已经存在玩家，则比较password和id,成功则将玩家初始化，不成功返回false
     //如果不存在玩家，则插入数据，返回true
     boolean registerPlayer(boolean register,String name,String password,Player player){
@@ -52,6 +57,7 @@ class PlayerDAO {
             data.mana = player.manaPoints
             data.joinTime = new Date()
             data.xp = player.xp
+            data.admin = player.isAdmin()?1:0
             database.insertBean(PLAYER_TABLE,[data])
             return true
         }else if(register){
@@ -68,6 +74,7 @@ class PlayerDAO {
                 player.name = data.name
                 player.xp = data.xp
                 player.id = data.id
+                player.admin = data.admin
                 return true
             }else{
                 throw new PlayerException("username or password is error")

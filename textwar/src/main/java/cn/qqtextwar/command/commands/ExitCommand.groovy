@@ -2,12 +2,13 @@ package cn.qqtextwar.command.commands
 
 import cn.qqtextwar.CommandSender
 import cn.qqtextwar.command.Command
+import cn.qqtextwar.command.Permission
 import cn.qqtextwar.entity.player.Player
 
 class ExitCommand extends Command {
 
     ExitCommand() {
-        super(["/exit"], "exit_cmd")
+        super(["/exit"], "exit_cmd", Permission.ALL)
     }
 
     @Override

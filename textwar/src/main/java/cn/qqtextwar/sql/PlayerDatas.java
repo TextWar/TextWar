@@ -7,6 +7,8 @@ import java.util.Date;
  */
 public class PlayerDatas {
 
+    private int admin;
+
     private int xp;
 
     private long id;
@@ -55,6 +57,14 @@ public class PlayerDatas {
 
     public long getId() {
         return id;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+
+    public int getAdmin() {
+        return admin;
     }
 
     public String getName() {

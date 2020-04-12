@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 class SQLiteConnector {
 
     static final String[] DEFAULT_SQLS = [
-            "CREATE TABLE player(id int,name varchar,health int,mana int,joinTime Date,inventoryId int,password varchar,level int,xp int);"
+            "CREATE TABLE player(id int,name varchar,health int,mana int,joinTime Date,inventoryId int,password varchar,level int,xp int,admin int);"
     ]
 
     private static final String DATABASE = "server.database"

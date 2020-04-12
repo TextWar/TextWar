@@ -2,12 +2,13 @@ package cn.qqtextwar.command.commands
 
 import cn.qqtextwar.CommandSender
 import cn.qqtextwar.command.Command
+import cn.qqtextwar.command.Permission
 
 class HelpCommand extends Command{
 
 
     HelpCommand() {
-        super(["/help"],"help_cmd")
+        super(["/help"],"help_cmd", Permission.ALL)
     }
 
     @Override

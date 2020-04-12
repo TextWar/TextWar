@@ -32,6 +32,7 @@ public class CommandExecutor {
         registerCommand(new HelpCommand());
         registerCommand(new CloseCommand());
         registerCommand(new ReloadCommand());
+        registerCommand(new SetAdminCommand());
     }
 
     private Map<String,CommandBase> commands = new HashMap<>();
@@ -65,6 +66,9 @@ public class CommandExecutor {
             }
             if(cmd instanceof Command){
                 Command command = (Command)cmd;
+                if(command.getPermission().access(player)){
+                    return "do not have permission";
+                }
                 String result = command.execute(player,command,args);
                 server.getEventExecutor().callEvent(new FoundCommandEvent(cmd),1);
                 return result;

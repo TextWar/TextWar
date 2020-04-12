@@ -6,7 +6,8 @@ public enum SQL {
     GET_MAX_ID("SELECT id FROM #{player_table} order by id desc;"),
     PLAYER_SELECT("SELECT * FROM #{player_table} WHERE NAME = ?"),
     PLAYER_LEVEL("INSERT INTO #{player_table} (level) VALUES(?)"),
-    PLAYER_XP("INSERT INTO #{player_table} (xp) VALUES(?)")
+    PLAYER_XP("INSERT INTO #{player_table} (xp) VALUES(?) where name = ?"),//TODO
+    PLAYER_SET_ADMIN("INSERT INTO #{player_table} (admin) VALUES(?) where name = ?")
     ;
 
     private String sql;

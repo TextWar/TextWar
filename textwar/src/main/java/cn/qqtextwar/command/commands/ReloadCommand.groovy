@@ -2,12 +2,13 @@ package cn.qqtextwar.command.commands
 
 import cn.qqtextwar.CommandSender
 import cn.qqtextwar.command.Command
+import cn.qqtextwar.command.Permission
 
 class ReloadCommand extends Command{
 
 
     ReloadCommand() {
-        super(["/reload"], "reloaded")
+        super(["/reload"], "reloaded", Permission.ADMIN)
     }
 
     @Override

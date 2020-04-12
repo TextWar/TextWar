@@ -3,7 +3,7 @@ package cn.textwar.client;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.player.Player;
-import cn.textwar.client.handlers.DAOFactory;
+import cn.qqtextwar.sql.DAOFactory;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
 import cn.textwar.langs.python.Py4jServer;
@@ -38,7 +38,7 @@ public class ClientApplication implements Application, Listener {
     @Override
     public void init(Server server) {
         this.server = server;
-        this.daoFactory = new DAOFactory(server);
+        this.daoFactory = server.getDaoFactory();
         this.console = new ServerConsole(server);
         server.getRegister().register("client.cfg");
         server.getRegister().createDir("python");

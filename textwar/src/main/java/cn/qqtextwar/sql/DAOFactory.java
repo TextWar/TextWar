@@ -1,7 +1,6 @@
-package cn.textwar.client.handlers;
+package cn.qqtextwar.sql;
 
 import cn.qqtextwar.Server;
-import cn.qqtextwar.sql.PlayerDAO;
 
 public class DAOFactory {
 

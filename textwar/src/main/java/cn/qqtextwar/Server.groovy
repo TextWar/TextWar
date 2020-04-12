@@ -20,6 +20,7 @@ import cn.qqtextwar.ex.PlayerException
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
+import cn.qqtextwar.sql.DAOFactory
 import cn.qqtextwar.sql.SQLiteConnector
 import cn.qqtextwar.utils.Translate
 import cn.qqtextwar.utils.Utils
@@ -129,6 +130,7 @@ class Server {
     private FileRegister register
 
 
+    private DAOFactory daoFactory
 
     /** 单例服务端，会在start静态方法时创建  */
     private static Server server
@@ -167,6 +169,7 @@ class Server {
         }else{
             throw new ServerException(translate("start_exception"))
         }
+        this.daoFactory = new DAOFactory(server)
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
         this.register.register()
@@ -381,7 +384,7 @@ class Server {
     Player createPlayer(Application app,String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
-            Player player = new Player(app,ip,vector,qq,100,100,100)
+            Player player = new Player(this,app,ip,vector,qq,100,100,100)
             players[qq] = player
             return player
         }else{
@@ -592,6 +595,10 @@ class Server {
 
     Player getPlayerReturnNull(long qq){
         return players[qq]
+    }
+
+    DAOFactory getDaoFactory() {
+        return daoFactory
     }
 
     EventExecutor getEventExecutor() {
