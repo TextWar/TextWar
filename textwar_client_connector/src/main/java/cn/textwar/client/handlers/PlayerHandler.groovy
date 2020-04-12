@@ -5,6 +5,7 @@ import cn.qqtextwar.api.Application
 import cn.qqtextwar.entity.player.Player
 import cn.qqtextwar.ex.ServerException
 import cn.qqtextwar.sql.PlayerDAO
+import cn.textwar.client.ClientApplication
 import cn.textwar.plugins.events.PlayerJoinEvent
 import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
@@ -31,7 +32,6 @@ import com.alibaba.fastjson.JSONObject
  */
 class PlayerHandler extends Handler{
 
-
     private PlayerDAO dao
 
     PlayerHandler() {
@@ -40,7 +40,7 @@ class PlayerHandler extends Handler{
 
     @Override
     JSONObject execute(Application application,ConnectServer . ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
-        if(dao == null)this.dao = new PlayerDAO(server.database)
+        if(dao == null)this.dao = (application as ClientApplication).daoFactory.playerDAO
         if("player" == type){
             String name = jsonObject.get("name")
             int id = dao.getId(name)

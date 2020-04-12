@@ -2,6 +2,7 @@ package cn.textwar.client;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.ex.ProtocolException;
+import cn.textwar.client.handlers.CommandHandler;
 import cn.textwar.client.handlers.MapHandler;
 import cn.textwar.client.handlers.PlayerHandler;
 import cn.textwar.protocol.ConnectServer;
@@ -36,6 +37,7 @@ public class ClientServer extends ConnectServer {
     public void registerHandlers(HandlerExecutor executor) {
         executor.registerHandler(new MapHandler());
         executor.registerHandler(new PlayerHandler());
+        executor.registerHandler(new CommandHandler());
     }
 
     @Override
