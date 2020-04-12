@@ -4,14 +4,30 @@ import cn.qqtextwar.entity.player.Player;
 
 public enum Permission {
 
-    ALL,
-    ADMIN,
-    PLAYER,
-    CONSOLE;
+    ALL{
+        @Override
+        public boolean access(Player player) {
+            return true;
+        }
+    },
+    ADMIN{
+        @Override
+        public boolean access(Player player) {
+            return player.isAdmin();
+        }
+    },
+    PLAYER{
+        @Override
+        public boolean access(Player player) {
+            return !player.isAdmin();
+        }
+    },
+    CONSOLE{
+        @Override
+        public boolean access(Player player) {
+            return false;
+        }
+    };
 
-    public boolean access(Player player){
-        return !player.isAdmin()?
-                this.name().equals(ALL.name()) || this.name().equals(PLAYER.name())
-                :!(this.name().equals(PLAYER.name()) || this.name().equals(CONSOLE.name()));
-    }
+    public abstract boolean access(Player player);
 }
