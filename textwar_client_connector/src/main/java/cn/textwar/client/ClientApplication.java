@@ -97,7 +97,7 @@ public class ClientApplication implements Application, Listener {
                     ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
                 }
             }
-        },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],500);
+        },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],100);
         clientServer.start();
     }
 
