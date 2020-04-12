@@ -45,6 +45,7 @@ public abstract class Handler {
             if(object == null)throw new UnsupportedOperationException(DEFAULT_ERROR);
             return object;
         }catch (Exception e){
+            e.printStackTrace();
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }

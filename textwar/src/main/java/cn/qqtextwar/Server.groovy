@@ -169,7 +169,6 @@ class Server {
         }else{
             throw new ServerException(translate("start_exception"))
         }
-        this.daoFactory = new DAOFactory(server)
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
         this.register.register()
@@ -179,6 +178,7 @@ class Server {
         this.parser = new ServerConfigParser(register.getConfig(FileRegister.MAIN_CONFIG))
         ((List<String>)this.parser.getValue(PYTHON_COMMAND,[])[0]).each { it.execute() }
         this.database = new SQLiteConnector(this).createDefault()
+        this.daoFactory = new DAOFactory(server)
         this.init(test,app.toList())
     }
 

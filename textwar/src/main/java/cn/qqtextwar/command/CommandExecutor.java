@@ -66,7 +66,7 @@ public class CommandExecutor {
             }
             if(cmd instanceof Command){
                 Command command = (Command)cmd;
-                if(command.getPermission().access(player)){
+                if(!command.getPermission().access(player)){
                     return "do not have permission";
                 }
                 String result = command.execute(player,command,args);

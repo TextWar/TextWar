@@ -7,7 +7,7 @@ public enum SQL {
     PLAYER_SELECT("SELECT * FROM #{player_table} WHERE NAME = ?"),
     PLAYER_LEVEL("INSERT INTO #{player_table} (level) VALUES(?)"),
     PLAYER_XP("INSERT INTO #{player_table} (xp) VALUES(?) where name = ?"),//TODO
-    PLAYER_SET_ADMIN("INSERT INTO #{player_table} (admin) VALUES(?) where name = ?")
+    PLAYER_SET_ADMIN("UPDATE #{player_table} SET admin=? where name = ?")
     ;
 
     private String sql;

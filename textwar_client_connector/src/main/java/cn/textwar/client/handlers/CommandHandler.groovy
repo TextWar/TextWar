@@ -37,7 +37,7 @@ class CommandHandler extends Handler {
 
     @Override
     JSONObject execute(Application application, ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
-        if(playerDAO == null)(application as ClientApplication).daoFactory.playerDAO
+        if(playerDAO == null)this.playerDAO = (application as ClientApplication).daoFactory.playerDAO
         if("action" == type){
             int id = playerDAO.getId(jsonObject["playerName"] as String)
             return createResponse(SUCCESS,server.executor.doCommandOrAction(jsonObject["name"] as String,id,new String[0]),new JSONObject())
