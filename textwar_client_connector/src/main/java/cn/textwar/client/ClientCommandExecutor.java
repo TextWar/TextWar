@@ -23,7 +23,7 @@ public class ClientCommandExecutor extends CommandExecutor {
             eventExecutor.getPython().getLoader().getCommands().forEach(
                     (x,y)->builder.append(x+":"+y)
             );
-            return builder.append(super.doCommandOrAction(name, qq, args)).toString();
+            return builder.append("\n").append(super.doCommandOrAction(name, qq, args)).toString();
         }
         return super.doCommandOrAction(name, qq, args);
     }
