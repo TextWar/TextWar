@@ -118,6 +118,11 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         return 0;
     }
 
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+
     public void setName(String name) {
         this.name = name;
     }

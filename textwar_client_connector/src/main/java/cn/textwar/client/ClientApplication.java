@@ -83,11 +83,13 @@ public class ClientApplication implements Application, Listener {
             synchronized (this){
                 Long id = (Long) thread.getProperties().get("id");
                 if(id != null){
-                    Player player = server.getPlayer(id);
-                    server.getEventExecutor().callEvent(new PlayerExitEvent(player),0);
-                    thread.getServer().logOut(player);
-                    server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
-                    //退出的时候的，注销玩家的Socket信息
+                    Player player;
+                    if((player = server.getPlayerReturnNull(id)) != null){
+                        server.getEventExecutor().callEvent(new PlayerExitEvent(player),0);
+                        thread.getServer().logOut(player);
+                        server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
+                        //退出的时候的，注销玩家的Socket信息;
+                    }
                     ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
                 }
             }

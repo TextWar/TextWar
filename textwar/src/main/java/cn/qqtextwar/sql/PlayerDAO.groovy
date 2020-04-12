@@ -21,6 +21,22 @@ class PlayerDAO {
         this.database = database
     }
 
+    int getId(String name){
+        int id = -1
+        database.getTable(PLAYER_TABLE).eachRow(SQL.GET_ID_BY_NAME.sql.replace(PLAYER_TABLE_VAR,PLAYER_TABLE),[name]){
+            id = it."id"
+        }
+        return id
+    }
+
+    int getMaxId(){
+        List<Integer> ids = []
+        database.getTable(PLAYER_TABLE).eachRow(SQL.GET_MAX_ID.sql.replace(PLAYER_TABLE_VAR,PLAYER_TABLE)){
+            ids.add((Integer)it."id")
+        }
+        return ids.size() == 0?10000:ids.get(0)
+    }
+
     //如果已经存在玩家，则比较password和id,成功则将玩家初始化，不成功返回false
     //如果不存在玩家，则插入数据，返回true
     boolean registerPlayer(boolean register,String name,String password,Player player){
@@ -35,6 +51,7 @@ class PlayerDAO {
             data.health = player.healthPoints
             data.mana = player.manaPoints
             data.joinTime = new Date()
+            data.xp = player.xp
             database.insertBean(PLAYER_TABLE,[data])
             return true
         }else if(register){
@@ -49,6 +66,8 @@ class PlayerDAO {
                 player.healthPoints =  data.health
                 player.manaPoints = data.mana
                 player.name = data.name
+                player.xp = data.xp
+                player.id = data.id
                 return true
             }else{
                 throw new PlayerException("username or password is error")

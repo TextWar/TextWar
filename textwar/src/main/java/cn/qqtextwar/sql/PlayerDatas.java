@@ -7,6 +7,8 @@ import java.util.Date;
  */
 public class PlayerDatas {
 
+    private int xp;
+
     private long id;
 
     private String name;
@@ -85,6 +87,14 @@ public class PlayerDatas {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public int getXp() {
+        return xp;
     }
 
     @Override

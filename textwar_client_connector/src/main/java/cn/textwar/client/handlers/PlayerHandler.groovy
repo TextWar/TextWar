@@ -43,12 +43,17 @@ class PlayerHandler extends Handler{
         if(dao == null)this.dao = new PlayerDAO(server.database)
         if("player" == type){
             String name = jsonObject.get("name")
-            Player player = server.getPlayerReturnNull(name.hashCode() + 10000)
+            int id = dao.getId(name)
+            if(id == -1){
+                id = dao.getMaxId()+1
+            }
+            Player player = server.getPlayerReturnNull(id)
             if(player != null){
                 throw new ServerException("the player has logined")
             }else{
-                Player p = server.registerPlayer(application,thread.socket.inetAddress.hostName,name.hashCode() + 10000,server.gameMap)
+                Player p = server.registerPlayer(application,thread.socket.inetAddress.hostName,id,server.gameMap)
                 String action = jsonObject.get("action")
+                thread.properties.put("id",p.id) //存储id
                 try{
                     dao.registerPlayer(action == "register" ,name,jsonObject.get("password").toString(),p)
                 }catch(ServerException e){
@@ -58,11 +63,10 @@ class PlayerHandler extends Handler{
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),0)
                 p.addInto(server.gameMap)
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),1)
-                thread.properties.put("id",p.id) //存储id
                 return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,(Integer)jsonObject["rad"]).toJson())
             }
 
         }
-        throw new UnsupportedOperationException(DEFAULT_ERROR)
+        return null
     }
 }

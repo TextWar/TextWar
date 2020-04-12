@@ -31,6 +31,6 @@ class MapHandler extends Handler {
         if("update" == jsonObject["action"]){
             return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),(Integer)jsonObject["rad"]).toJson())
         }
-        throw new UnsupportedOperationException(DEFAULT_ERROR)
+        return null
     }
 }

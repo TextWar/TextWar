@@ -41,7 +41,9 @@ public abstract class Handler {
 
     public JSONObject executeOption(Application application,ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor){
         try{
-            return execute(application,thread,server,type,jsonObject,eventExecutor);
+            JSONObject object = execute(application,thread,server,type,jsonObject,eventExecutor);
+            if(object == null)throw new UnsupportedOperationException(DEFAULT_ERROR);
+            return object;
         }catch (Exception e){
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
