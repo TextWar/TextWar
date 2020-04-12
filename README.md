@@ -58,6 +58,12 @@ If you want to make and modify maps, use the [MapEditor](https://github.com/Text
 
 You should get the [Map generator](https://github.com/TextWar/textwar-py) to run it.
 
+#### About this project
+
+This is a server-side framework for two-dimensional games. 
+It is responsible for 2D game forwarding, authorization processing, instructions, map calculation and other functions. 
+The corresponding server can be realized through the Application interface.
+
 #### Demos
 
 The Project has not been finished yet.
