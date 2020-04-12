@@ -104,9 +104,9 @@ For Linux:
 
 `sh start.sh` to start it now.
 
-#### CopyRight
+#### Copyright
 
-@CopyRight TextWar Developing Studio
+@Copyright TextWar Developing Studio
 
 </div>
 
