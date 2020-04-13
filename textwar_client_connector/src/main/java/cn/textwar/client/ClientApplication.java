@@ -10,6 +10,7 @@ import cn.textwar.langs.python.Py4jServer;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.plugins.events.PlayerMessageEvent;
+import cn.textwar.protocol.ConnectServer;
 import cn.textwar.protocol.Handler;
 import cn.textwar.protocol.TextWarProtocol;
 import cn.textwar.protocol.events.PacketReceiveEvent;
@@ -18,6 +19,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.List;
 
 // tcp 连接
 public class ClientApplication implements Application, Listener {
@@ -93,6 +96,13 @@ public class ClientApplication implements Application, Listener {
                     server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
                     //退出的时候的，注销玩家的Socket信息;
                 }
+                try {
+                    //发送CLOSE包
+                    ((ClientServer) sc).getPlayerSocketMap().get(thread.getSocket().getInetAddress().getHostName())
+                            .get(1)
+                            .getOutputStream()
+                            .write(ConnectServer.CLOSE.encode());
+                }catch (SocketException ignore){}
                 ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
             }
         },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],100);
@@ -107,7 +117,7 @@ public class ClientApplication implements Application, Listener {
         try {
             Player player = server.getPlayer(qq);
             server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),0);
-            Socket socket = clientServer.getPlayerSocketMap().get(player.getIp());
+            Socket socket = getSocket(player.getIp());
             TextWarProtocol protocol = new TextWarProtocol();
             JSONObject messageJson = new JSONObject();
             messageJson.put("id", qq);
@@ -120,6 +130,8 @@ public class ClientApplication implements Application, Listener {
             server.getLogger().error(e.getMessage());
         }
     }
+
+
 
     /**
      * 这个是以玩家的身份，即id所指定的身份，发送信息，最终是广播到服务端的
@@ -154,5 +166,9 @@ public class ClientApplication implements Application, Listener {
 
     public DAOFactory getDaoFactory() {
         return daoFactory;
+    }
+
+    private Socket getSocket(String ip){
+        return clientServer.getPlayerSocketMap().get(ip).get(1);
     }
 }

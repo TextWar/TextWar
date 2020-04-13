@@ -24,6 +24,7 @@ public abstract class ConnectServer extends Thread {
 
     public static final TextWarProtocol CLOSE = new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,"close the server",new JSONObject()).toJSONString());
 
+    public static final TextWarProtocol ALIVE = new TextWarProtocol().addAll(Handler.createResponse(Handler.ALIVE,"alive?",new JSONObject()).toJSONString());
     protected HandlerExecutor handlerExecutor;
 
     private Executor executor;
@@ -89,6 +90,10 @@ public abstract class ConnectServer extends Thread {
 
     }
 
+    public void addStream(Socket socket) throws IOException{
+        streamList.add(socket.getOutputStream());
+    }
+
     public int getPort() {
         return port;
     }
@@ -101,6 +106,7 @@ public abstract class ConnectServer extends Thread {
         return ((double) tasks.get())/((double) counter.integer.get());
     }
 
+    public abstract boolean isConnected(String ip) throws IOException;
 
     @Override
     public void run() {
@@ -112,7 +118,7 @@ public abstract class ConnectServer extends Thread {
                 Socket socket = server.accept();
                 whenJoin(socket);
                 logger.info("New Client : "+socket.getInetAddress());
-                streamList.add(socket.getOutputStream());
+                addStream(socket);
                 executor.execute(new ClientThread(socket,this.server,this,connecting,whenOut));
             }
         }catch (IOException e){
@@ -160,7 +166,7 @@ public abstract class ConnectServer extends Thread {
         public TextWarProtocol whenGetProtocol(){
             try {
                 TextWarProtocol tw = null;
-                while (isConnected() && (tw = this.getProtocol().decode(this.getSocket().getInputStream())) == null) ;
+                while (isConnected(this.socket.getInetAddress().getHostName()) && (tw = this.getProtocol().decode(this.getSocket().getInputStream())) == null) ;
                 return tw;
             }catch (IOException e){
                 e.printStackTrace();
@@ -168,14 +174,6 @@ public abstract class ConnectServer extends Thread {
             }
         }
 
-        public boolean isConnected(){
-            try {
-                this.socket.sendUrgentData(0xFF);
-                return true;
-            }catch (Exception e){
-                return false;
-            }
-        }
 
         public Socket getSocket() {
             return socket;
@@ -195,7 +193,7 @@ public abstract class ConnectServer extends Thread {
         @Override
         public void run() {
             try {
-                while ((this.server == null && isConnected()) || (this.server.getState().get() != CLOSED && isConnected() )) {
+                while ((this.server == null && isConnected(this.socket.getInetAddress().getHostName())) || (this.server.getState().get() != CLOSED && isConnected(this.socket.getInetAddress().getHostName()) )) {
                     runnable.connecting(this,cs);
                     Thread.sleep(cs.getTime());
                     cs.tasks.addAndGet(1);

@@ -6,6 +6,7 @@ import cn.textwar.langs.python.Py4jServer;
 import cn.textwar.plugins.EventExecutor;
 import cn.textwar.protocol.*;
 
+import java.io.IOException;
 
 
 public class PluginServer extends ConnectServer {
@@ -37,5 +38,9 @@ public class PluginServer extends ConnectServer {
         },(thread,connectServer)->{},py4jServer);
     }
 
-
+    //TODO
+    @Override
+    public boolean isConnected(String ip) {
+        return true;
+    }
 }

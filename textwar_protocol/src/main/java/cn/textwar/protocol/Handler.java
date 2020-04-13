@@ -32,6 +32,8 @@ public abstract class Handler {
 
     public static int CLOSE = 100;
 
+    public static int ALIVE = 101;
+
 
     public Handler(List<String> types) {
         this.types = types;
@@ -45,7 +47,6 @@ public abstract class Handler {
             if(object == null)throw new UnsupportedOperationException(DEFAULT_ERROR);
             return object;
         }catch (Exception e){
-            e.printStackTrace();
             return createResponse(ERROR,e.getMessage(),new JSONObject());
         }
     }
