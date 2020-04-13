@@ -23,11 +23,6 @@ import groovy.transform.CompileStatic
  *     "args" : ["1","2"]
  * }
  */
-//TODO 未来会加权限部分
-//TODO 事件触发
-//TODO - PlayerActionEvent
-//TODO - PlayerMoveEvent
-//TODO - PlayerCommandEvent...
 @CompileStatic
 class CommandHandler extends Handler {
 
