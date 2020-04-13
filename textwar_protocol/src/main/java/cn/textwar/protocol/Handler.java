@@ -13,6 +13,8 @@ public abstract class Handler {
 
     public static final String DEFAULT_ERROR = "not support yet";
 
+    public static final String ID = "id";
+
     public static final String STATE = "state";
 
     public static final String DATA = "data";
@@ -34,9 +36,11 @@ public abstract class Handler {
 
     public static int ALIVE = 101;
 
+    private int id;
 
-    public Handler(List<String> types) {
+    public Handler(List<String> types,int id) {
         this.types = types;
+        this.id = id;
     }
 
     private List<String> types;
@@ -51,14 +55,22 @@ public abstract class Handler {
         }
     }
 
-    public abstract JSONObject execute(Application application,ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor);
+    public int getId() {
+        return id;
+    }
+
+    public abstract JSONObject execute(Application application, ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor);
 
     public List<String> getTypes() {
         return types;
     }
 
-    public static JSONObject createResponse(int state,String message,JSONObject data){
+    public JSONObject createResponse(int state,String message,JSONObject data){
+        return createResponse(getId(),state,message,data);
+    }
+    public static JSONObject createResponse(int id,int state,String message,JSONObject data){
         JSONObject object = new JSONObject();
+        object.put(ID,id);
         object.put(STATE,state);
         object.put(MESSAGE,message);
         object.put(DATA,data);

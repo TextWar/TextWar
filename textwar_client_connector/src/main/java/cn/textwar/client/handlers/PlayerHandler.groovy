@@ -11,6 +11,7 @@ import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
 import cn.textwar.plugins.EventExecutor
 import com.alibaba.fastjson.JSONObject
+import groovy.transform.CompileStatic
 
 /**
  * 玩家登录等操作
@@ -30,12 +31,13 @@ import com.alibaba.fastjson.JSONObject
  * }
  *
  */
+@CompileStatic
 class PlayerHandler extends Handler{
 
     private PlayerDAO dao
 
     PlayerHandler() {
-        super(["player"])
+        super(["player"],2)
     }
 
     @Override

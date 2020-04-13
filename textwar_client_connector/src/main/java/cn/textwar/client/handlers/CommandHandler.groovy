@@ -8,6 +8,7 @@ import cn.textwar.plugins.EventExecutor
 import cn.textwar.protocol.ConnectServer
 import cn.textwar.protocol.Handler
 import com.alibaba.fastjson.JSONObject
+import groovy.transform.CompileStatic
 
 /**
  * {
@@ -27,12 +28,13 @@ import com.alibaba.fastjson.JSONObject
 //TODO - PlayerActionEvent
 //TODO - PlayerMoveEvent
 //TODO - PlayerCommandEvent...
+@CompileStatic
 class CommandHandler extends Handler {
 
     private PlayerDAO playerDAO
 
     CommandHandler() {
-        super(["action","command"])
+        super(["action","command"],3)
     }
 
     @Override

@@ -2,6 +2,7 @@ package cn.qqtextwar.tests;
 
 import cn.textwar.protocol.Protocol;
 import cn.textwar.protocol.TextWarProtocol;
+import com.alibaba.fastjson.JSONObject;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -22,7 +23,7 @@ public class Text09 {
                             .addJSONCode("password", "12345")
                             .addJSONCode("rad", 5);
                     socket.getOutputStream().write(protocol1.encode());
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -32,7 +33,12 @@ public class Text09 {
         new Thread(()->{
             while(true){
                 try {
-                    System.out.println(protocol.decode(socket.getInputStream()).getJsonObject());
+                    JSONObject jsonObject = protocol.decode(socket.getInputStream()).getJsonObject();
+                    if((int)jsonObject.get("state") == 101){
+                        System.out.println("heartbeat!!");
+                    }else{
+                        System.out.println(jsonObject);
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }

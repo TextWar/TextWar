@@ -22,7 +22,7 @@ import groovy.transform.CompileStatic
 class MapHandler extends Handler {
 
     MapHandler() {
-        super(["map"])
+        super(["map"],1)
     }
 
     @Override

@@ -21,9 +21,10 @@ import static cn.qqtextwar.Server.CLOSED;
 
 public abstract class ConnectServer extends Thread {
 
-    public static final TextWarProtocol CLOSE = new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,"close the server",new JSONObject()).toJSONString());
+    public static final TextWarProtocol CLOSE = new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,Handler.CLOSE,"close the server",new JSONObject()).toJSONString());
 
-    public static final TextWarProtocol ALIVE = new TextWarProtocol().addAll(Handler.createResponse(Handler.ALIVE,"alive?",new JSONObject()).toJSONString());
+    public static final TextWarProtocol ALIVE = new TextWarProtocol().addAll(Handler.createResponse(Handler.ALIVE,Handler.ALIVE,"alive?",new JSONObject()).toJSONString());
+
     protected HandlerExecutor handlerExecutor;
 
     private Executor executor;

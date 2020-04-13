@@ -18,8 +18,6 @@ import cn.textwar.protocol.events.PacketSendEvent;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
-import java.net.Socket;
-import java.net.SocketException;
 import java.util.List;
 
 // tcp 连接
@@ -124,7 +122,7 @@ public class ClientApplication implements Application, Listener {
             messageJson.put("id", qq);
             messageJson.put("action", "sendToPlayer");
             messageJson.put("message", message);
-            protocol.addAll(Handler.createResponse(Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
+            protocol.addAll(Handler.createResponse(4,Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
             socket.write(protocol);
             server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),1);
         }catch (Exception e){
@@ -146,7 +144,7 @@ public class ClientApplication implements Application, Listener {
         jsonObject.put("id",qq);
         jsonObject.put("action","playerChat");
         jsonObject.put("message",message);
-        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(5,Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
     }
 
     /**
@@ -157,7 +155,7 @@ public class ClientApplication implements Application, Listener {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action","broadcast");
         jsonObject.put("message",message);
-        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(6,Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
     }
 
     @Override
