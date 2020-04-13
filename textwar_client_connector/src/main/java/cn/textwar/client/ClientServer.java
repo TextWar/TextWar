@@ -67,7 +67,7 @@ public class ClientServer extends ConnectServer {
 
 
     @Override
-    public synchronized boolean heartBeat(ClientThread thread) {
+    public boolean heartBeat(ClientThread thread) {
         try{
             String ip = thread.getSocket().getInetAddress().getHostName();
             if(playerSocketMap.get(ip).size() == 1){
