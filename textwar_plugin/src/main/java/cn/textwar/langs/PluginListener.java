@@ -24,7 +24,7 @@ public class PluginListener implements Listener {
     public void onEventHandler(Event e){
         server.getStreamList().forEach((x)->{
             try {
-                x.write(new TextWarProtocol().addJSONCode("event_name", e.getEventName()).encode());
+                x.write(new TextWarProtocol().addJSONCode("event_name", e.getEventName()));
             }catch (Exception e1){
                 e1.printStackTrace();
             }

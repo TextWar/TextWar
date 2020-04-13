@@ -9,7 +9,6 @@ import cn.textwar.protocol.Connecting;
 import cn.textwar.protocol.HandlerExecutor;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ClientServer extends ConnectServer {
 
     //这个用于玩家的信息发送所设计的
-    private Map<String, List<Socket>> playerSocketMap;
+    private Map<String, List<ClientThread>> playerSocketMap;
 
     public ClientServer(Server server, Connecting runnable,Connecting whenOut, int threads,int port,int time) {
         super(server, runnable,whenOut, threads,time);
@@ -44,24 +43,28 @@ public class ClientServer extends ConnectServer {
     }
 
     @Override
-    public void addStream(Socket socket) throws IOException {
-        if(playerSocketMap.get(socket.getInetAddress().getHostName()).size()==1) {
+    public void addStream(ClientThread socket) throws IOException {
+        if(isSplittingMode()){
+            if(playerSocketMap.get(socket.getSocket().getInetAddress().getHostName()).size()==1) {
+                super.addStream(socket);
+            }
+        }else{
             super.addStream(socket);
         }
     }
 
     @Override
-    public void whenJoin(Socket socket) {
-        if (!playerSocketMap.containsKey(socket.getInetAddress().getHostName())){
-            List<Socket> sockets = new ArrayList<>();
+    public void whenJoin(ClientThread socket) {
+        if (!playerSocketMap.containsKey(socket.getSocket().getInetAddress().getHostName())){
+            List<ClientThread> sockets = new ArrayList<>();
             sockets.add(socket);
-            playerSocketMap.put(socket.getInetAddress().getHostName(),sockets);
+            playerSocketMap.put(socket.getSocket().getInetAddress().getHostName(),sockets);
         }else{
-            playerSocketMap.get(socket.getInetAddress().getHostName()).add(socket);
+            playerSocketMap.get(socket.getSocket().getInetAddress().getHostName()).add(socket);
         }
     }
 
-    public Map<String,List<Socket>> getPlayerSocketMap() {
+    public Map<String,List<ClientThread>> getPlayerSocketMap() {
         return playerSocketMap;
     }
 
@@ -70,12 +73,18 @@ public class ClientServer extends ConnectServer {
     public boolean heartBeat(ClientThread thread) {
         try{
             String ip = thread.getSocket().getInetAddress().getHostName();
-            if(playerSocketMap.get(ip).size() == 1){
-                thread.getProperties().put("heartbeat",false);
-                return true;
-            }
-            if(playerSocketMap.get(ip).size() == 2) {
-                playerSocketMap.get(ip).get(1).getOutputStream().write(ALIVE.encode());
+            if(isSplittingMode()){
+                if(playerSocketMap.get(ip).get(0).getProperties().get("heartbeat") == null){
+                    playerSocketMap.get(ip).get(0).getProperties().put("heartbeat",false);
+                    if(thread.equals(playerSocketMap.get(ip).get(0))){
+                        return true;
+                    }
+                }
+                if(playerSocketMap.get(ip).size() == 2) {
+                    playerSocketMap.get(ip).get(1).write(ALIVE);
+                }
+            }else{
+                playerSocketMap.get(ip).get(0).write(ALIVE);
             }
             return true;
         }catch (Exception e){

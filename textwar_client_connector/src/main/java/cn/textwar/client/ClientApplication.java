@@ -99,13 +99,12 @@ public class ClientApplication implements Application, Listener {
 
             }
             //发送CLOSE包
-            ((ClientServer) sc).getPlayerSocketMap().get(thread.getSocket().getInetAddress().getHostName())
-                    .forEach(x->{
-                        try {
-                            x.getOutputStream()
-                                    .write(ConnectServer.CLOSE.encode());
-                        }catch(Exception ignore){ }
-                    });
+            List<ConnectServer.ClientThread> threads = ((ClientServer) sc).getPlayerSocketMap().get(thread.getSocket().getInetAddress().getHostName());
+            for(int i = 0;i<threads.size();i++){
+                try {
+                    threads.get(i).write(ConnectServer.CLOSE);
+                }catch(Exception ignore){ }
+            }
             ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
         },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],100);
         clientServer.start();
@@ -119,14 +118,14 @@ public class ClientApplication implements Application, Listener {
         try {
             Player player = server.getPlayer(qq);
             server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),0);
-            Socket socket = getSocket(player.getIp());
+            ConnectServer.ClientThread socket = getSocket(player.getIp());
             TextWarProtocol protocol = new TextWarProtocol();
             JSONObject messageJson = new JSONObject();
             messageJson.put("id", qq);
             messageJson.put("action", "sendToPlayer");
             messageJson.put("message", message);
             protocol.addAll(Handler.createResponse(Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
-            socket.getOutputStream().write(protocol.encode());
+            socket.write(protocol);
             server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),1);
         }catch (Exception e){
             server.getLogger().error(e.getMessage());
@@ -170,7 +169,7 @@ public class ClientApplication implements Application, Listener {
         return daoFactory;
     }
 
-    private Socket getSocket(String ip){
+    private ConnectServer.ClientThread getSocket(String ip){
         return clientServer.getPlayerSocketMap().get(ip).get(1);
     }
 }
