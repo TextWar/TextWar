@@ -3,14 +3,12 @@ package cn.qqtextwar.entity;
 import cn.qqtextwar.GameMap;
 import cn.qqtextwar.blocks.Block;
 import cn.qqtextwar.entity.player.Movement;
-import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.entity.points.SkillPoint;
 import cn.qqtextwar.entity.points.SkillPoints;
 import cn.qqtextwar.ex.MoveException;
 import cn.qqtextwar.math.Vector;
 import cn.qqtextwar.utils.Utils;
 
-import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -38,7 +36,7 @@ public abstract class Entity {
     private int level;
 
     //攻击力
-    protected int anggressivity;
+    protected int aggressivity;
 
     protected Random random;
     
@@ -55,7 +53,7 @@ public abstract class Entity {
         this.id = id;
         this.levels = new HashMap<>();
         this.useDates = new HashMap<>();
-        this.anggressivity = initAggressivity(getLevel());
+        this.aggressivity = initAggressivity(getLevel());
     }
 
     public Entity(Vector vector, long id, double healthPoints, double manaPoints) {
@@ -108,7 +106,7 @@ public abstract class Entity {
     public String hit(Entity entity,GameMap map){
         Vector vector = this.getVector().reduce(entity.getVector());
         if(vector.mod() <= Math.sqrt(2) && this.haveObstacle(entity,map)){
-            entity.delHealthPoints(anggressivity);
+            entity.delHealthPoints(aggressivity);
             return "攻击成功 -- HIT";
         }
         return "攻击范围不足，或者有阻挡物";

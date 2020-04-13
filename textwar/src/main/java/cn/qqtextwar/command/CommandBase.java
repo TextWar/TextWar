@@ -12,7 +12,6 @@ import java.util.List;
  * @author MagicLu550 @ 卢昶存
  * @author junhe-fafa
  */
-//TODO 未来写操作的权限部分
 public abstract class CommandBase {
 
     private Server server;
