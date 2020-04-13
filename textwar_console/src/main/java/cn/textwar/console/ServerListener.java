@@ -25,14 +25,18 @@ public class ServerListener implements Listener {
 
     @EventManager(type = 1)
     public void onSend(PacketSendEvent e){
-        console.getLogger().info("Send Packet - "+e.getProtocol().getJson());
-        console.getLogger().info("Send Packet Data - "+e.getProtocol());
+        if(console.isDebug()) {
+            console.getLogger().info("Send Packet - " + e.getProtocol().getJson());
+            console.getLogger().info("Send Packet Data - " + e.getProtocol());
+        }
     }
 
     @EventManager(type = 1)
     public void onReceive(PacketReceiveEvent e){
-        console.getLogger().info("Receive Packet - "+e.getProtocol().getJson());
-        console.getLogger().info("Receive Packet Data - "+e.getProtocol());
+        if(console.isDebug()){
+            console.getLogger().info("Receive Packet - "+e.getProtocol().getJson());
+            console.getLogger().info("Receive Packet Data - "+e.getProtocol());
+        }
     }
 
     @EventManager

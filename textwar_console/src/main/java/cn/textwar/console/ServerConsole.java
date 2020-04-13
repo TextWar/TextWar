@@ -19,12 +19,15 @@ public class ServerConsole extends Thread implements CommandSender {
 
     private ConsoleConfigParser parser;
 
+    private boolean debug;
+
     public ServerConsole(Server server){
         this.server = server;
         this.server.getEventExecutor().registerNativeEvents(new ServerListener(this));
         this.logger = new ServerLogger();
         this.server.getRegister().register("console.cfg");
         this.parser = new ConsoleConfigParser(server.getRegister().getConfig("console.cfg"));
+        this.debug = (Boolean) this.parser.getValue("console.debug",false)[0];
         boolean start = (Boolean)this.parser.getValue("console.startManager",false)[0];
         if(start)GroovyRun.runManager(server, cn.textwar.console.Utils.getProcessId());
         try {
@@ -51,6 +54,10 @@ public class ServerConsole extends Thread implements CommandSender {
         }catch (ServerException e){
             logger.info(e.getMessage());
         }
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 
     public ServerLogger getLogger() {
