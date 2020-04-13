@@ -65,14 +65,23 @@ public class ClientServer extends ConnectServer {
         return playerSocketMap;
     }
 
+
     @Override
-    public boolean isConnected(String ip) {
+    public synchronized boolean heartBeat(ClientThread thread) {
         try{
-            if(playerSocketMap.get(ip).size() == 2)
+            String ip = thread.getSocket().getInetAddress().getHostName();
+            if(playerSocketMap.get(ip).size() == 1){
+                thread.getProperties().put("heartbeat",false);
+                return true;
+            }
+            if(playerSocketMap.get(ip).size() == 2) {
                 playerSocketMap.get(ip).get(1).getOutputStream().write(ALIVE.encode());
+            }
             return true;
         }catch (Exception e){
             return false;
         }
     }
+
+
 }

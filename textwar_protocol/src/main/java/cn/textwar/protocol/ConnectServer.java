@@ -47,7 +47,9 @@ public abstract class ConnectServer extends Thread {
 
     private Connecting whenOut;
 
-    public ConnectServer(Server server,Connecting runnable,Connecting whenOut,int threads,int time){
+    private int heartbeatTime;
+
+    public ConnectServer(Server server,Connecting runnable,Connecting whenOut,int threads,int time,int heartbeatTime){
         this.server = server;
         this.streamList = new LinkedBlockingQueue<>();
         this.connecting = runnable;
@@ -59,8 +61,14 @@ public abstract class ConnectServer extends Thread {
         this.counter = new CountTime();
         this.counter.start();
         this.whenOut = whenOut;
+        this.heartbeatTime = heartbeatTime;
         this.registerHandlers(handlerExecutor);
     }
+
+    public ConnectServer(Server server,Connecting runnable,Connecting whenOut,int threads,int time){
+        this(server,runnable,whenOut,threads,time,1000);
+    }
+
 
     public abstract void registerHandlers(HandlerExecutor executor);
 
@@ -94,6 +102,10 @@ public abstract class ConnectServer extends Thread {
         streamList.add(socket.getOutputStream());
     }
 
+    public Executor getExecutor() {
+        return executor;
+    }
+
     public int getPort() {
         return port;
     }
@@ -102,11 +114,15 @@ public abstract class ConnectServer extends Thread {
         callMessage(CLOSE);
     }
 
+    public abstract boolean heartBeat(ClientThread thread);
+
     public double getTPS(){
         return ((double) tasks.get())/((double) counter.integer.get());
     }
 
-    public abstract boolean isConnected(String ip) throws IOException;
+    public boolean isConnected(ClientThread thread) {
+        return !thread.closed;
+    }
 
     @Override
     public void run() {
@@ -148,6 +164,10 @@ public abstract class ConnectServer extends Thread {
 
         private Connecting whenOut;
 
+        private volatile boolean closed;
+
+        private HeartBeat heartBeat;
+
         ClientThread(Socket socket,Server server,ConnectServer cs,Connecting runnable,Connecting whenOut){
             this.socket = socket;
             this.protocol = new Protocol();
@@ -157,6 +177,8 @@ public abstract class ConnectServer extends Thread {
             this.cs = cs;
             this.logger = new ServerLogger();
             this.properties = new ConcurrentHashMap<>();
+            this.heartBeat = new HeartBeat(this);
+            getExecutor().execute(heartBeat);
         }
 
         public Map<String, Object> getProperties() {
@@ -166,7 +188,7 @@ public abstract class ConnectServer extends Thread {
         public TextWarProtocol whenGetProtocol(){
             try {
                 TextWarProtocol tw = null;
-                while (isConnected(this.socket.getInetAddress().getHostName()) && (tw = this.getProtocol().decode(this.getSocket().getInputStream())) == null) ;
+                while (isConnected(this) && (tw = this.getProtocol().decode(this.getSocket().getInputStream())) == null) ;
                 return tw;
             }catch (IOException e){
                 e.printStackTrace();
@@ -193,8 +215,11 @@ public abstract class ConnectServer extends Thread {
         @Override
         public void run() {
             try {
-                while ((this.server == null && isConnected(this.socket.getInetAddress().getHostName())) || (this.server.getState().get() != CLOSED && isConnected(this.socket.getInetAddress().getHostName()) )) {
+                while ((this.server == null && isConnected(this)) || (this.server.getState().get() != CLOSED && isConnected(this) )) {
                     runnable.connecting(this,cs);
+                    if(properties.get("heartbeat") != null && !(boolean)properties.get("heartbeat")){
+                        heartBeat.stopIt();
+                    }
                     Thread.sleep(cs.getTime());
                     cs.tasks.addAndGet(1);
                 }
@@ -206,6 +231,7 @@ public abstract class ConnectServer extends Thread {
                 }catch (IOException e){
                     e.printStackTrace();
                 }
+                heartBeat.stopIt();
                 try {
                     synchronized (cs) {
                         cs.streamList.remove(socket.getOutputStream());
@@ -238,4 +264,32 @@ public abstract class ConnectServer extends Thread {
             }
         }
     }
+
+    class HeartBeat extends Thread{
+
+        private ClientThread thread;
+
+        private volatile boolean stop;
+
+        public HeartBeat(ClientThread thread){
+            this.thread = thread;
+        }
+
+        @Override
+        public void run() {
+            while (true){
+                if(stop)break;
+                thread.closed = !heartBeat(thread);
+                if(thread.closed)break;
+                try {
+                    Thread.sleep(heartbeatTime);
+                }catch (Exception ignore){ }
+            }
+        }
+
+        public void stopIt(){
+            this.stop = true;
+        }
+    }
+
 }

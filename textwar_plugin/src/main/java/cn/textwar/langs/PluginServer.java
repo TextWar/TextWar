@@ -40,7 +40,7 @@ public class PluginServer extends ConnectServer {
 
     //TODO
     @Override
-    public boolean isConnected(String ip) {
-        return true;
+    public boolean heartBeat(ClientThread thread) {
+        return false;
     }
 }

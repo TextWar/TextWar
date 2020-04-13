@@ -96,15 +96,17 @@ public class ClientApplication implements Application, Listener {
                     server.getEventExecutor().callEvent(new PlayerExitEvent(player),1);
                     //退出的时候的，注销玩家的Socket信息;
                 }
-                try {
-                    //发送CLOSE包
-                    ((ClientServer) sc).getPlayerSocketMap().get(thread.getSocket().getInetAddress().getHostName())
-                            .get(1)
-                            .getOutputStream()
-                            .write(ConnectServer.CLOSE.encode());
-                }catch (SocketException ignore){}
-                ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
+
             }
+            //发送CLOSE包
+            ((ClientServer) sc).getPlayerSocketMap().get(thread.getSocket().getInetAddress().getHostName())
+                    .forEach(x->{
+                        try {
+                            x.getOutputStream()
+                                    .write(ConnectServer.CLOSE.encode());
+                        }catch(Exception ignore){ }
+                    });
+            ((ClientServer)sc).getPlayerSocketMap().remove(thread.getSocket().getInetAddress().getHostName());
         },(int)parser.getValue("client.maxPlayer",100)[0],(int)parser.getValue("client.port",8765)[0],100);
         clientServer.start();
     }
