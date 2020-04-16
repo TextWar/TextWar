@@ -20,4 +20,5 @@ script:
   - cd textwar_client_connector
   - mvn clean compile package install
 after_success:
+  - export CODECOV_TOKEN="token"
   - bash <(curl -s https://codecov.io/bash)
