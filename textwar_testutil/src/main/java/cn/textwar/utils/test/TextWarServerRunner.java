@@ -54,7 +54,7 @@ public class TextWarServerRunner {
                         }
                     }
             );
-            Server.start(clients.toArray(new Application[0]));
+            Server.start(clients.toArray(new Application[0])).initMap();
             invokeAll(befores,TextWarBefore.class);
             invokeAll(tests,TextWarServerTest.class);
             invokeAll(afters,TextWarAfter.class);
@@ -66,11 +66,13 @@ public class TextWarServerRunner {
         methods.forEach(x->{
             try {
                 if ((boolean)test.getDeclaredMethod("doIt").invoke(x.getAnnotation(test))) {
+                    long testTimes = System.currentTimeMillis();
                     if (x.getParameterTypes().length == 1 && x.getParameterTypes()[0].equals(Server.class)) {
                         x.invoke(runner,Server.getServer());
                     } else {
                         x.invoke(runner);
                     }
+                    System.out.println("TEST_TIMES: "+(System.currentTimeMillis() - testTimes));
                 }
             }catch (Exception e){
                 e.printStackTrace();
