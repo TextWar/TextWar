@@ -11,7 +11,7 @@ class Translate {
                 "map_starting" : "Map thread is starting...",
                 "map_started": "Map thread has started",
                 "server_started" :"Server has started successfully",
-                "copyright" : "The TextWar game's server core v1.0.0 CopyRight @TextWar",
+                "copyright" : "The TextWar game's server core v1.0.0 Copyright @TextWar",
                 "closed":"the Server has closed",
                 "closed_info" : "the Server has closed state: 3 - CLOSED",
                 "map_thread_closed" : "The map thread has closed",

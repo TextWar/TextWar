@@ -19,7 +19,6 @@ public class Test10 extends TextWarServerRunner {
         Player player1 = server.registerPlayer(server.getApplications().get(0),"",10001,server.getGameMap());
         Player player2 = server.registerPlayer(server.getApplications().get(0),"",10002,server.getGameMap());
         System.out.println(server.getGameMap());
-
         System.out.println(player1.haveObstacle(player2,server.getGameMap()));
     }
 }

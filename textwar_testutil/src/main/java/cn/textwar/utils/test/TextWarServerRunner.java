@@ -2,6 +2,8 @@ package cn.textwar.utils.test;
 
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
+import cn.qqtextwar.log.LogFormat;
+import org.fusesource.jansi.Ansi;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -69,6 +71,7 @@ public class TextWarServerRunner {
     public void invokeAll(List<Method> methods, Class<? extends Annotation> test){
         methods.forEach(x->{
             try {
+                long free = Runtime.getRuntime().freeMemory();
                 if ((boolean)test.getDeclaredMethod("doIt").invoke(x.getAnnotation(test))) {
                     long testTimes = System.currentTimeMillis();
                     if (x.getParameterTypes().length == 1 && x.getParameterTypes()[0].equals(Server.class)) {
@@ -76,7 +79,9 @@ public class TextWarServerRunner {
                     } else {
                         x.invoke(runner);
                     }
-                    System.out.println("TEST_TIMES: "+(System.currentTimeMillis() - testTimes));
+                    System.out.println("---------------------TEST:"+x.getName()+"("+")"+"------------------------");
+                    System.out.println(LogFormat.fg(Ansi.Color.BLUE)+"USE_MEMORY: "+LogFormat.fg(Ansi.Color.GREEN)+((double)(free - Runtime.getRuntime().freeMemory())/(1024*1024))+LogFormat.fg(Ansi.Color.RED)+" MB"+LogFormat.fg(Ansi.Color.DEFAULT));
+                    System.out.println(LogFormat.fg(Ansi.Color.BLUE)+"TIME: "+LogFormat.fg(Ansi.Color.GREEN)+(System.currentTimeMillis()-testTimes)+LogFormat.fg(Ansi.Color.RED)+" MS"+LogFormat.fg(Ansi.Color.DEFAULT));
                 }
             }catch (Exception e){
                 e.printStackTrace();
