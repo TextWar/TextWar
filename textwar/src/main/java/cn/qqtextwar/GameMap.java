@@ -75,6 +75,8 @@ public class GameMap{
         object.put("name",getName());
         object.put("author","system");
         object.put("version",getVersion());
+        object.put("playerX",player.getX());
+        object.put("playerY",player.getY());
         int x1 = this.getXBound((int)(player.getVector().getX() - rad));
         int y1 = this.getYBound((int)(player.getVector().getY() - rad));
         int x2 = this.getXBound((int)(player.getVector().getX() + rad));
@@ -87,6 +89,10 @@ public class GameMap{
             }
             array.add(line);
         }
+        object.put("leftX",x1);
+        object.put("leftY",y1);
+        object.put("rightX",x2);
+        object.put("rightY",y2);
         object.put("map",array);
         return new GameMap(object.toJSONString());
     }
