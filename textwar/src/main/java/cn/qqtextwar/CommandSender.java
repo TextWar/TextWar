@@ -2,7 +2,6 @@ package cn.qqtextwar;
 
 import cn.qqtextwar.entity.player.Player;
 
-//TODO
 public interface CommandSender {
 
     default boolean isPlayer(){

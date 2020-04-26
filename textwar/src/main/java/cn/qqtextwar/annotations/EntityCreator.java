@@ -1,4 +1,4 @@
 package cn.qqtextwar.annotations;
 
-public @interface EntityCreater {
+public @interface EntityCreator {
 }

@@ -2,7 +2,7 @@ package cn.qqtextwar
 
 import cn.qqtextwar.Threads.MapThread
 import cn.qqtextwar.annotations.Action
-import cn.qqtextwar.annotations.EntityCreater
+import cn.qqtextwar.annotations.EntityCreator
 import cn.qqtextwar.annotations.InternalInit
 import cn.qqtextwar.annotations.RPC
 import cn.qqtextwar.annotations.Register
@@ -337,6 +337,9 @@ class Server {
         if(this.state.get() == CLOSED){
             throw new CloseException(translate("closed"))
         }
+        pluginLoader.plugins.each {
+            it.onDisable()
+        }
         if(this.logger != null){
             this.logger.info("the server is closing...")
             this.state.compareAndSet(this.state.get(),CLOSED)
@@ -359,16 +362,6 @@ class Server {
 
 
 
-    /** 这里通过数据库初始化信息 */
-    @InternalInit
-    void initPlayers(){
-
-    }
-    /** 同上 */
-    @InternalInit
-    void initFreaks(){
-
-    }
 
     //负责创建实体
 
@@ -380,7 +373,7 @@ class Server {
     }
 
     /** 用于创建玩家对象，*/
-    @EntityCreater
+    @EntityCreator
     Player createPlayer(Application app,String ip,long qq, GameMap map){
         if(!players.containsKey(qq)){
             Vector vector = map.randomVector()
@@ -393,7 +386,7 @@ class Server {
     }
 
     /** 创建玩家，并注册到地图 */
-    @EntityCreater
+    @EntityCreator
     Player registerPlayer(Application app,String ip,long qq,GameMap map){
         Player player = createPlayer(app,ip,qq,map).addInto(map) as Player
         if(test)logger.debug(map.toString())
@@ -402,7 +395,7 @@ class Server {
 
 
     /** 创建Mob，并注册到地图 */
-    @EntityCreater
+    @EntityCreator
     List<Mob> registerMobs(GameMap map,int n){
         List<Mob> mobs = createRandomMobs(map,n)
         for(Mob mob : mobs){
@@ -413,7 +406,7 @@ class Server {
 
 
     /** 通过地图创建单个怪物 */
-    @EntityCreater
+    @EntityCreator
     Mob createMob(GameMap map,Class<? extends Registered> clz){
         Registered registered = clz.newInstance(map.randomVector(),difficulty)
         if(registered instanceof Mob){
@@ -426,7 +419,7 @@ class Server {
     }
 
     /** n为创建的数量，创建多个怪物，根据怪物表 */
-    @EntityCreater
+    @EntityCreator
     List<Mob> createRandomMobs(GameMap map,int n){
         List<Mob> mobs = new ArrayList<>()
         (1..n).each {

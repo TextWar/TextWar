@@ -1,9 +1,9 @@
 package cn.qqtextwar.tests;
 
 import cn.qqtextwar.Server;
-import cn.qqtextwar.entity.player.Player;
 import cn.textwar.client.ClientApplication;
 import cn.textwar.utils.test.Client;
+import cn.textwar.utils.test.TextWarAfter;
 import cn.textwar.utils.test.TextWarServerRunner;
 import cn.textwar.utils.test.TextWarServerTest;
 
@@ -16,9 +16,15 @@ public class Test10 extends TextWarServerRunner {
 
     @TextWarServerTest
     public void test(Server server){
-        Player player1 = server.registerPlayer(server.getApplications().get(0),"",10001,server.getGameMap());
-        Player player2 = server.registerPlayer(server.getApplications().get(0),"",10002,server.getGameMap());
-        System.out.println(server.getGameMap());
-        System.out.println(player1.haveObstacle(player2,server.getGameMap()));
+        server.getLogger().info("hhhh");
+    }
+
+    @TextWarServerTest
+    public void test0(Server server){
+        server.getLogger().info("hhhh");
+    }
+    @TextWarAfter
+    public void close(Server server){
+        Server.stop();
     }
 }
