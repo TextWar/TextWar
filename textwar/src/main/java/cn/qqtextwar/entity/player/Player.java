@@ -159,6 +159,11 @@ public class Player extends Entity implements Skillable, CommandSender, Hitable 
         application.sendMessage(getId(),message);
     }
 
+    @Override
+    public String getSenderName() {
+        return getName();
+    }
+
     public void chat(String message){
         application.playerChat(this.getId(),message);
     }

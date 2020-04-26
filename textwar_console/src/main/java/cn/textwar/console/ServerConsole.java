@@ -63,4 +63,13 @@ public class ServerConsole extends Thread implements CommandSender {
     public ServerLogger getLogger() {
         return logger;
     }
+
+    @Override
+    public void sendMessage(String message) {
+        this.logger.info(message);
+    }
+
+    public String getSenderName(){
+        return "CONSOLE";
+    }
 }
