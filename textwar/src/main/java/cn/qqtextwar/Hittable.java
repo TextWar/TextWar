@@ -1,5 +1,5 @@
 package cn.qqtextwar;
 
 //TODO
-public interface Hitable {
+public interface Hittable {
 }

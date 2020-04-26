@@ -2,7 +2,7 @@ package cn.qqtextwar.entity.player;
 
 
 import cn.qqtextwar.CommandSender;
-import cn.qqtextwar.Hitable;
+import cn.qqtextwar.Hittable;
 import cn.qqtextwar.ProtocolVar;
 
 import cn.qqtextwar.Server;
@@ -21,7 +21,7 @@ import java.util.Map;
  * 玩家类
  * id > 10000
  */
-public class Player extends Entity implements Skillable, CommandSender, Hitable {
+public class Player extends Entity implements Skillable, CommandSender, Hittable {
 
     private int admin;
     private String name;
