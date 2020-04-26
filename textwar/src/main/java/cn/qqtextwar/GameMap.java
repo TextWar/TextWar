@@ -102,11 +102,13 @@ public class GameMap{
         if(!entityVector.containsKey(e.getUuid())){
             entityVector.put(e.getUuid(),e.getVector());
             mapData[(int)e.getY()][(int)e.getX()] = e.getId();
+            e.setOnFoot(blocks.get(new Vector(e.getX(),e.getY())));
         }else{
             //先前的vector
             setMapBefore(e);
             mapData[(int)e.getY()][(int)e.getX()] = e.getId();
             entityVector.put(e.getUuid(),e.getVector());
+            e.setOnFoot(blocks.get(new Vector(e.getX(),e.getY())));
         }
     }
 
@@ -118,6 +120,7 @@ public class GameMap{
         //先前的vector
         setMapBefore(e);
         entityVector.remove(e.getUuid());
+        e.setOnFoot(null);
     }
 
     private void setMapBefore(Entity e){

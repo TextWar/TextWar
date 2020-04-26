@@ -25,6 +25,8 @@ import java.util.UUID;
  */
 public abstract class Entity {
 
+    private Block onFoot;
+
     private long id;
 
     private UUID uuid;
@@ -103,7 +105,15 @@ public abstract class Entity {
         }
     }
 
-    public String hit(Entity entity,GameMap map){
+    public void setOnFoot(Block onFoot) {
+        this.onFoot = onFoot;
+    }
+
+    public Block getOnFoot() {
+        return onFoot;
+    }
+
+    public String hit(Entity entity, GameMap map){
         Vector vector = this.getVector().reduce(entity.getVector());
         if(vector.mod() <= Math.sqrt(2) && this.haveObstacle(entity,map)){
             entity.delHealthPoints(aggressivity);
