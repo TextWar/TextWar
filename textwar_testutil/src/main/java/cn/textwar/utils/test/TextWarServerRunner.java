@@ -39,8 +39,12 @@ public class TextWarServerRunner {
         );
     }
 
-    public static void doTest(TextWarServerRunner runner){
-        runner.doTest();
+    public static void doTest(Class<? extends TextWarServerRunner> runner){
+        try {
+            runner.newInstance().doTest();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void doTest(){

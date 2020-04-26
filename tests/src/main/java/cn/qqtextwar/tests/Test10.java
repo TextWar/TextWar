@@ -11,7 +11,7 @@ import cn.textwar.utils.test.TextWarServerTest;
 public class Test10 extends TextWarServerRunner {
 
     public static void main(String[] args) {
-        doTest(new Test10());
+        doTest(Test10.class);
     }
 
     @TextWarServerTest
