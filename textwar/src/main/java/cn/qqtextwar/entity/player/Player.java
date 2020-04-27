@@ -46,7 +46,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
     private int xp;
 
 
-    private Inventory inventory;
+    private ItemStorageRoom inventory;
 
     private int money;
 
@@ -58,7 +58,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
             throw new IllegalIdException("the player's id is bigger than 10000");
         }
         this.xp = 0;
-        this.inventory = new Inventory();
+        this.inventory = new ItemStorageRoom(this);
         this.money = money;
         this.ip = ip;
         this.application = application;
@@ -116,11 +116,11 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
     }
 
 
-    public Inventory getInventory() {
+    public ItemStorageRoom getInventory() {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory){
+    public void setInventory(ItemStorageRoom inventory){
         this.inventory = inventory;
     }
 
