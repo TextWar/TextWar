@@ -6,14 +6,14 @@ import java.util.Map;
 
 public class CollectItemTask extends Task{
 
-    private Map<Item.ItemType,Integer> items;
+    private Map<Class<? extends Item>,Integer> items;
 
-    public CollectItemTask(Map<Item.ItemType, Integer> items,Award award) {
+    public CollectItemTask(Map<Class<? extends Item>, Integer> items,Award award) {
         super(award);
         this.items = items;
     }
 
-    public Map<Item.ItemType, Integer> getItems() {
+    public Map<Class<? extends Item>, Integer> getItems() {
         return items;
     }
 }
