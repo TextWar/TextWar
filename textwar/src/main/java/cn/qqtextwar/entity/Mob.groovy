@@ -1,6 +1,7 @@
 package cn.qqtextwar.entity
 
 import cn.qqtextwar.ProtocolVar
+import cn.qqtextwar.annotations.NotImpl
 import cn.qqtextwar.ex.IllegalIdException
 import cn.qqtextwar.math.Vector
 import groovy.transform.CompileStatic
@@ -56,6 +57,7 @@ abstract class Mob extends Entity{
         return getXp(getLevel())
     }
 
+    @NotImpl("If you register the image,the image will not work")
     static Map<Class<? extends Registered>, String> getMobImages() {
         return mobImages
     }
