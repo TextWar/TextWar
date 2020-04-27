@@ -9,7 +9,7 @@ public interface CommandSender {
     }
 
     default Player toPlayer(){
-        if(this instanceof Player) return (Player)this;
+        if(isPlayer()) return (Player)this;
         return null;
     }
 

@@ -6,5 +6,5 @@ import cn.qqtextwar.entity.Entity;
 public interface Hittable {
 
     String hit(Entity entity, GameMap map);
-    
+
 }
