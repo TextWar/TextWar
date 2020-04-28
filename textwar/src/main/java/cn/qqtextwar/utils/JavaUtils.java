@@ -63,10 +63,10 @@ public class JavaUtils {
         return levelStr.toString();
     }
 
-    public static void horizontalFlip(int[][] arr){
+    public static void horizontalFlip(Object[][] arr){
         int middle = arr.length % 2 == 0?arr.length/2:arr.length/2 + 1 ;
         for(int i = 0;i<middle;i++){
-            int[] a = arr[arr.length -1 - i];
+            Object[] a = arr[arr.length -1 - i];
             arr[arr.length - 1 - i] = arr[i];
             arr[i] = a;
         }
@@ -74,7 +74,7 @@ public class JavaUtils {
 
     //arr[i][j] arr[i][arr.length -1 - j]
     //arr[arr.length -1 -i ][j] arr[arr.length -1 -i ][arr.length -1 - j]
-    public static void verticalFlip(int[][] arr){
+    public static void verticalFlip(Object[][] arr){
         if(arr.length != 0){
             //横中点
             int middleX = arr[0].length % 2 == 0?arr[0].length /2:arr[0].length/2+1;
@@ -82,10 +82,10 @@ public class JavaUtils {
             int middleY = arr.length % 2 == 0?arr.length / 2:arr.length /2 +1;
             for(int i = 0;i<middleY;i++){
                 for(int j = 0;j<middleX;j++){
-                    int a1 = arr[j][arr.length - i -1];
+                    Object a1 = arr[j][arr.length - i -1];
                     arr[j][arr[j].length - i - 1] = arr[j][i];
                     arr[j][i] = a1;
-                    int a2 = arr[arr.length - j -1 ][arr[j].length - i -1];
+                    Object a2 = arr[arr.length - j -1 ][arr[j].length - i -1];
                     arr[arr.length - j -1][arr[j].length - i - 1] = arr[arr.length - j -1][i];
                     arr[arr.length - j -1][i] = a2;
                 }
