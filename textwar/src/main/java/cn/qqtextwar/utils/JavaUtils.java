@@ -62,4 +62,34 @@ public class JavaUtils {
         }
         return levelStr.toString();
     }
+
+    public static void horizontalFlip(int[][] arr){
+        int middle = arr.length % 2 == 0?arr.length/2:arr.length/2 + 1 ;
+        for(int i = 0;i<middle;i++){
+            int[] a = arr[arr.length -1 - i];
+            arr[arr.length - 1 - i] = arr[i];
+            arr[i] = a;
+        }
+    }
+
+    //arr[i][j] arr[i][arr.length -1 - j]
+    //arr[arr.length -1 -i ][j] arr[arr.length -1 -i ][arr.length -1 - j]
+    public static void verticalFlip(int[][] arr){
+        if(arr.length != 0){
+            //横中点
+            int middleX = arr[0].length % 2 == 0?arr[0].length /2:arr[0].length/2+1;
+            //纵中点
+            int middleY = arr.length % 2 == 0?arr.length / 2:arr.length /2 +1;
+            for(int i = 0;i<middleY;i++){
+                for(int j = 0;j<middleX;j++){
+                    int a1 = arr[j][arr.length - i -1];
+                    arr[j][arr[j].length - i - 1] = arr[j][i];
+                    arr[j][i] = a1;
+                    int a2 = arr[arr.length - j -1 ][arr[j].length - i -1];
+                    arr[arr.length - j -1][arr[j].length - i - 1] = arr[arr.length - j -1][i];
+                    arr[arr.length - j -1][i] = a2;
+                }
+            }
+        }
+    }
 }

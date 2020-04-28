@@ -14,7 +14,7 @@ public class Test10 extends TextWarServerRunner {
         doTest(Test10.class);
     }
 
-    @TextWarServerTest
+    @TextWarServerTest(doIt = false)
     public void test(Server server){
         server.getLogger().info("hhhh");
     }
