@@ -7,7 +7,7 @@ import java.util.Random;
 public class Test11 {
 
     public static void main(String[] args) {
-        int[][] arr = new int[1000][1000];
+        Integer[][] arr = new Integer[1000][1000];
 
         Random random = new Random();
         for(int i = 0;i<arr.length;i++){
