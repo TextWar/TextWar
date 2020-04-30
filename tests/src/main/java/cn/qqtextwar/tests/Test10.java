@@ -23,7 +23,7 @@ public class Test10 extends TextWarServerRunner {
     public void test0(Server server){
         server.getLogger().info("[BLUE]hello[RED]world[BLUE]![DEFAULT]");
     }
-    @TextWarAfter
+    @TextWarAfter(doIt = false)
     public void close(Server server){
         Server.stop();
     }
