@@ -61,6 +61,8 @@ public class TextWarServerRunner {
                     }
             );
             Server.start(clients.toArray(new Application[0])).initMap();
+            Server.getServer().setTest(true);
+            Server.getServer().getLogger().setAsDebug(true);
             invokeAll(befores,TextWarBefore.class);
             invokeAll(tests,TextWarServerTest.class);
             invokeAll(afters,TextWarAfter.class);

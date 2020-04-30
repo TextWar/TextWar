@@ -16,12 +16,12 @@ public class Test10 extends TextWarServerRunner {
 
     @TextWarServerTest(doIt = false)
     public void test(Server server){
-        server.getLogger().info("hhhh");
+        server.getLogger().info("[RED]hhhh[DEFAULT]");
     }
 
     @TextWarServerTest
     public void test0(Server server){
-        server.getLogger().info("hhhh");
+        server.getLogger().info("[BLUE]hello[RED]world[BLUE]![DEFAULT]");
     }
     @TextWarAfter
     public void close(Server server){

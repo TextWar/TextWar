@@ -8,6 +8,7 @@ with the law, @Copyright Jsmod2 China,more can see <a href="http://jsmod2.cn">th
  */
 package cn.qqtextwar.log;
 
+import cn.qqtextwar.BannerReader;
 import org.fusesource.jansi.Ansi;
 
 import java.time.LocalDateTime;
@@ -54,7 +55,7 @@ public class LogFormat {
     }
 
     public static String format(String message, String type, Ansi.Color color,String prefix,boolean controlMain){
-        return prefix+fg(MAGENTA)+dateTimeFormatter.format(LocalDateTime.now())+fg(DEFAULT)+"["+fg(color)+(controlMain?control(type, Control.GLISTEN):type)+fg(DEFAULT)+"\t]"+fg(DEFAULT)+" "+message;
+        return BannerReader.format(prefix+fg(MAGENTA)+dateTimeFormatter.format(LocalDateTime.now())+fg(DEFAULT)+"["+fg(color)+(controlMain?control(type, Control.GLISTEN):type)+fg(DEFAULT)+"\t]"+fg(DEFAULT)+" "+message);
         //return ansi().eraseScreen().a(prefix).fg(MAGENTA).a(dateTimeFormatter.format(LocalDateTime.now())).fg(DEFAULT).a("[").fg(color).a(type).fg(DEFAULT).a("\t]").fg(BLUE).a(" "+message).reset();
     }
 

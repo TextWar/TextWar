@@ -8,7 +8,7 @@ class ReloadCommand extends Command{
 
 
     ReloadCommand() {
-        super(["/reload"], "reloaded", Permission.ADMIN)
+        super(["/reload"], "reload_cmd", Permission.ADMIN)
     }
 
     @Override

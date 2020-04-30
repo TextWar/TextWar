@@ -18,6 +18,8 @@ public class ServerLogger implements ILogger{
 
     private static ServerLogger log;
 
+    private boolean debug;
+
     private Logger logger = Logger.getLogger(ServerLogger.class);
 
     static {
@@ -124,8 +126,12 @@ public class ServerLogger implements ILogger{
 
     @Override
     public void info(String message, String prefix, String suffix) {
-        String msg = LogFormat.format(message,"INFO",YELLOW,prefix)+suffix;
-        logger.info(msg);
+        if(!debug) {
+            String msg = LogFormat.format(message, "INFO", YELLOW, prefix) + suffix;
+            logger.info(msg);
+        }else{
+            debug(message,prefix,suffix);
+        }
     }
 
     @Override
@@ -173,6 +179,9 @@ public class ServerLogger implements ILogger{
         return str.replaceAll("\\033\\[[0-9]+m","");
     }
 
+    public void setAsDebug(boolean debug){
+        this.debug = debug;
+    }
 
 
 }

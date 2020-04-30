@@ -169,6 +169,10 @@ class Server {
         }else{
             throw new ServerException(translate("start_exception"))
         }
+        String banner = BannerReader.readBanner()
+        if("" != banner){
+            println(banner)
+        }
         this.baseFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile()
         this.register = new FileRegister(this)
         this.register.register()
@@ -271,8 +275,8 @@ class Server {
             if(parser.getValue("server.map.random",true)[0]){
                 File[] maps = file.listFiles()
                 if(maps == null || maps.length == 0){
-                    this.logger.warn("the map is not found")
-                    this.logger.info("creating a random map")
+                    this.logger.warn(translate("map_not_found"))
+                    this.logger.info(translate("create_random_map"))
                     this.gameMap = new SystemMap()
                     return this
                 }
@@ -341,7 +345,7 @@ class Server {
             it.onDisable()
         }
         if(this.logger != null){
-            this.logger.info("the server is closing...")
+            this.logger.info(translate("server_closing"))
             this.state.compareAndSet(this.state.get(),CLOSED)
             if(throwable!=null) {
                 this.logger.error(throwable.toString())
@@ -571,7 +575,7 @@ class Server {
     }
 
     String translate(String key){
-        translater.translate(key)
+        BannerReader.format(translater.translate(key))
     }
 
     PluginClassLoader getPluginLoader() {
@@ -616,4 +620,11 @@ class Server {
         return database
     }
 
+    boolean getTest() {
+        return test
+    }
+
+    void setTest(boolean test) {
+        this.test = test
+    }
 }

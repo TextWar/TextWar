@@ -11,7 +11,7 @@ class Translate {
                 "map_starting" : "Map thread is starting...",
                 "map_started": "Map thread has started",
                 "server_started" :"Server has started successfully",
-                "copyright" : "The TextWar game's server core v1.0.0 Copyright @TextWar",
+                "copyright" : "The [YELLOW]TextWar[DEFAULT] game's server core v1.0.0 Copyright @TextWar",
                 "closed":"the Server has closed",
                 "closed_info" : "the Server has closed state: 3 - CLOSED",
                 "map_thread_closed" : "The map thread has closed",
@@ -23,7 +23,12 @@ class Translate {
                 "help_cmd" : "help command",
                 "exit_cmd" : "player exit",
                 "update_cmd" : "a command for updating the map",
-                "move_cmd" : "player moving: /w is up,/s is down,/a is left,/d is right"
+                "move_cmd" : "player moving: /w is up,/s is down,/a is left,/d is right",
+                "server_closing" : "the server is closing...",
+                "map_not_found" : "the map is not found",
+                "create_random_map" : "creating a random map",
+                "admin_give_cmd" : "give somebody admin",
+                "reload_cmd" : "reloaded"
         ])
         addLanguage("zh",[
                 "start_exception" : "服务端已经启动过了",
