@@ -65,7 +65,8 @@ public class ClientApplication implements Application, Listener {
                 this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
                 eventExecutor.getPython().setFind(true);
             }catch (Exception e){
-                this.server.getLogger().info("The python plugin executor is not found");
+                e.printStackTrace();
+                this.server.getLogger().info("The python plugin executor is not found: "+e.getMessage());
             }
         }else{
             this.server.getLogger().info("The python path: "+path);
