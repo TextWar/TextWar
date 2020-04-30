@@ -32,8 +32,11 @@ public class ServerConsole extends Thread implements CommandSender {
         if(start)GroovyRun.runManager(server, cn.textwar.console.Utils.getProcessId());
         try {
             this.reader = new ConsoleReader();
-        }catch (IOException e){
+        }catch (Exception e){
             this.logger.error(e.getMessage());
+            if(e instanceof NumberFormatException){
+                this.logger.warn("If you are linux,you can modify the ~/.bash_profile,add 'export TERM=xterm-color'");
+            }
         }
     }
 
