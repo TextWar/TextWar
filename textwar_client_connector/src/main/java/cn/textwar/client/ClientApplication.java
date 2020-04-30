@@ -6,6 +6,7 @@ import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.sql.DAOFactory;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
+import cn.textwar.langs.PyEventCaller;
 import cn.textwar.langs.python.Py4jServer;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
@@ -59,6 +60,7 @@ public class ClientApplication implements Application, Listener {
             try {
                 eventExecutor.getPython().getLoader().setPluginsDir(parser.getHeadValue("client.pythonExecutorMain").trim());
                 eventExecutor.getPython().getLoader().getServer(server);
+                eventExecutor.getPython().getLoader().getPyEventExec(new PyEventCaller(server));
                 eventExecutor.getPython().getLoader().refreshPlugins();
                 this.server.setExecutor(new ClientCommandExecutor(this.server, eventExecutor));
                 eventExecutor.getPython().setFind(true);

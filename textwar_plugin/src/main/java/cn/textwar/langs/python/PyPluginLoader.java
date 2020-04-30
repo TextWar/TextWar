@@ -3,6 +3,7 @@ package cn.textwar.langs.python;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.log.ServerLogger;
+import cn.textwar.langs.PyEventCaller;
 import cn.textwar.plugins.Event;
 
 import java.io.File;
@@ -15,6 +16,9 @@ public interface PyPluginLoader {
 
     @PythonMethod
     void getServer(Server server);
+
+    @PythonMethod
+    void getPyEventExec(PyEventCaller caller);
 
     @PythonMethod
     void refreshPlugins();
