@@ -48,13 +48,13 @@ public class ClientApplication implements Application, Listener {
         this.parser = new ClientConfigParser(file);
         this.server.getLogger().info("the python plugins are loading...");
         String path = parser.getHeadValue("client.pythonPath");
-        File pathFile = new File(path.split(" ")[1].trim());
+        File pathFile = new File(path);
         if(pathFile.exists()){
             this.eventExecutor = new ClientEventExecutor(new Py4jServer());
             this.server.setEventExecutor(eventExecutor);
             new Thread(()->{
                 this.server.getLogger().info("The Python Plugin Thread has started");
-                CommandUtils.execute(parser.getHeadValue("client.pythonPath"));
+                CommandUtils.execute(parser.getHeadValue("client.python")+" "+parser.getHeadValue("client.pythonPath"));
             }).start();
             CommandUtils.sleep(1000);
             try {
