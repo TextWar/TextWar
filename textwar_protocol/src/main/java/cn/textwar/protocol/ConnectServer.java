@@ -19,6 +19,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static cn.qqtextwar.Server.CLOSED;
 
+/**
+ * The Connect Server : TextWar protocol impl
+ *
+ * @author MagicLu550
+ */
 public abstract class ConnectServer extends Thread {
 
     public static final TextWarProtocol CLOSE = new TextWarProtocol().addAll(Handler.createResponse(Handler.CLOSE,Handler.CLOSE,"close the server",new JSONObject()).toJSONString());

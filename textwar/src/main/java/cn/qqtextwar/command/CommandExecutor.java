@@ -87,10 +87,13 @@ public class CommandExecutor {
     //控制台执行用
     public void doCommand(CommandSender sender,String name,String[] args){
         CommandExecuteEvent executeEvent = new CommandExecuteEvent(name,args,sender);
+        server.getEventExecutor().callEvent(executeEvent,0);
         if(executeEvent.isCancelled()){
+            if(server.isTest()){
+                server.getLogger().info("The command is cancelled");
+            }
             return;
         }
-        server.getEventExecutor().callEvent(executeEvent,0);
         CommandBase cmd = commands.get(name);
         if(cmd == null){
             throw new ServerException("No such command");

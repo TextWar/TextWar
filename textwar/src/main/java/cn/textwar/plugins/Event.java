@@ -16,7 +16,7 @@ public class Event {
         return name;
     }
 
-    //TODO 所有的0事件将支持
+
     public void setCancelled(boolean cancelled) {
         if(this instanceof Cancellable)
             isCancelled = cancelled;

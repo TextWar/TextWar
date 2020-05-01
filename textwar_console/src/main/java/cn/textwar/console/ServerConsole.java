@@ -34,9 +34,7 @@ public class ServerConsole extends Thread implements CommandSender {
             this.reader = new ConsoleReader();
         }catch (Exception e){
             this.logger.error(e.getMessage());
-            if(e instanceof NumberFormatException){
-                this.logger.warn("If you are linux,you can modify the ~/.bash_profile,add 'export TERM=xterm-color'");
-            }
+            this.logger.warn("If you are linux,you can modify the ~/.bash_profile,add 'export TERM=xterm-color'");
         }
     }
 
