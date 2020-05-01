@@ -33,7 +33,7 @@ class SQLiteConnector {
         String driver = server.parser.getHeadValue("${DATABASE}.driver")
         this.first = !new File(server.parser.getHeadValue("${DATABASE}.url")).exists()
         this.sql = Sql.newInstance(url,driver)
-        this.server.logger.info("connect the database : "+url)
+        this.server.logger.info("connect the database : [GREEN]"+url+"[DEFAULT]")
     }
 
     SQLiteConnector createDefault(){

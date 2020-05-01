@@ -21,7 +21,7 @@ public class ClientEventExecutor extends EventExecutor {
             super.callEvent(event, type);
             if(server.isFind()){
                 server.getLoader().callEvent(event.getEventName(), type,event);
-                if(event instanceof CommandExecuteEvent){
+                if(event instanceof CommandExecuteEvent && !event.isCancelled()){
                     if(((CommandExecuteEvent) event).getSender() instanceof Player) {
                         server.getLoader().commandExecutor(((CommandExecuteEvent) event).getCommandName(),((CommandExecuteEvent) event).getArgs(),(Player) ((CommandExecuteEvent) event).getSender());
                     }

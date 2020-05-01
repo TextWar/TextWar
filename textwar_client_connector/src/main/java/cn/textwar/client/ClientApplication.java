@@ -4,13 +4,15 @@ import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.entity.player.Player;
 import cn.qqtextwar.sql.DAOFactory;
+import cn.textwar.client.events.BroadcastEvent;
+import cn.textwar.client.events.PlayerChatEvent;
 import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
 import cn.textwar.langs.PyEventCaller;
 import cn.textwar.langs.python.Py4jServer;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
-import cn.textwar.plugins.events.PlayerMessageEvent;
+import cn.textwar.client.events.PlayerMessageEvent;
 import cn.textwar.protocol.ConnectServer;
 import cn.textwar.protocol.Handler;
 import cn.textwar.protocol.TextWarProtocol;
@@ -119,7 +121,14 @@ public class ClientApplication implements Application, Listener {
     public void sendMessage(long qq, String message) {
         try {
             Player player = server.getPlayer(qq);
-            server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),0);
+            PlayerMessageEvent e = new PlayerMessageEvent(player,message);
+            server.getEventExecutor().callEvent(e,0);
+            if(e.isCancelled()){
+                if(server.isTest()){
+                    server.getLogger().info("send message action is cancelled");
+                }
+                return;
+            }
             ConnectServer.ClientThread socket = getSocket(player.getIp());
             TextWarProtocol protocol = new TextWarProtocol();
             JSONObject messageJson = new JSONObject();
@@ -144,11 +153,20 @@ public class ClientApplication implements Application, Listener {
     @Override
     public void playerChat(long qq, String message) {
         Player player = server.getPlayer(qq);
+        PlayerChatEvent event = new PlayerChatEvent(player,message);
+        if(event.isCancelled()){
+            if(server.isTest()){
+                server.getLogger().info("the player chat action is cancelled");
+            }
+            return;
+        }
+        server.getEventExecutor().callEvent(event,0);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id",qq);
         jsonObject.put("action","playerChat");
-        jsonObject.put("message",message);
+        jsonObject.put("message",event.getMessage());
         clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(5,Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
+        server.getEventExecutor().callEvent(event,1);
     }
 
     /**
@@ -156,10 +174,19 @@ public class ClientApplication implements Application, Listener {
      */
     @Override
     public void broadcast(String message) {
+        BroadcastEvent event = new BroadcastEvent(message);
+        server.getEventExecutor().callEvent(event,0);
+        if(event.isCancelled()){
+            if(server.isTest()){
+                server.getLogger().info("the broadcast is cancelled");
+            }
+            return;
+        }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action","broadcast");
-        jsonObject.put("message",message);
+        jsonObject.put("message",event.getMessage());
         clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(6,Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
+        server.getEventExecutor().callEvent(event,1);
     }
 
     @Override

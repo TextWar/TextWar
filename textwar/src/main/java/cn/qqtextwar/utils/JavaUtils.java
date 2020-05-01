@@ -72,6 +72,18 @@ public class JavaUtils {
         }
     }
 
+    public static long timing(Timing t){
+        long t1 = System.currentTimeMillis();
+        t.call();
+        long t2 = System.currentTimeMillis();
+        return t2 - t1;
+    }
+
+    public interface Timing{
+
+        void call();
+    }
+
     //arr[i][j] arr[i][arr.length -1 - j]
     //arr[arr.length -1 -i ][j] arr[arr.length -1 -i ][arr.length -1 - j]
     public static void verticalFlip(Object[][] arr){

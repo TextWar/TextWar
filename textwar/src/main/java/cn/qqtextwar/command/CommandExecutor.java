@@ -54,7 +54,11 @@ public class CommandExecutor {
 
     public String doCommandOrAction(String name,long qq,String[] args){
         Player player = server.getPlayer(qq);
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,player),0);
+        CommandExecuteEvent executeEvent = new CommandExecuteEvent(name,args,player);
+        server.getEventExecutor().callEvent(executeEvent,0);
+        if(executeEvent.isCancelled()){
+            return "the command is cancelled";
+        }
         CommandBase cmd = commands.get(name);
         if(cmd!=null){
             server.getEventExecutor().callEvent(new FoundCommandEvent(cmd),0);
@@ -76,22 +80,26 @@ public class CommandExecutor {
         }else{
             player.sendMessage("No such command");
         }
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,player),1);
+        server.getEventExecutor().callEvent(executeEvent,1);
         return "";
     }
 
     //控制台执行用
     public void doCommand(CommandSender sender,String name,String[] args){
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,sender),0);
+        CommandExecuteEvent executeEvent = new CommandExecuteEvent(name,args,sender);
+        if(executeEvent.isCancelled()){
+            return;
+        }
+        server.getEventExecutor().callEvent(executeEvent,0);
         CommandBase cmd = commands.get(name);
         if(cmd == null){
             throw new ServerException("No such command");
         }
         if(cmd instanceof Command){
             Command command = (Command)cmd;
-            command.execute(sender,command,args);
+            server.getLogger().info(command.execute(sender,command,args));
         }
-        server.getEventExecutor().callEvent(new CommandExecuteEvent(name,args,sender),1);
+        server.getEventExecutor().callEvent(executeEvent,1);
     }
 
     public Map<String, CommandBase> getCommands() {

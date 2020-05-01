@@ -8,7 +8,7 @@ import cn.qqtextwar.entity.player.Player
 class SetAdminCommand extends Command{
 
     SetAdminCommand() {
-        super(["/admin"], "dmin_give_cmd", Permission.ADMIN)
+        super(["/admin"], "admin_give_cmd", Permission.ADMIN)
     }
 
     @Override

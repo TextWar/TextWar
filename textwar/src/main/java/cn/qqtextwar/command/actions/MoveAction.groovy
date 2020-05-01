@@ -16,25 +16,29 @@ class MoveAction extends Action{
     @Override
     String execute(Player player, String command) {
         try{
-            server.eventExecutor.callEvent(new PlayerMoveEvent(player,this,command.toLowerCase()),0)
+            PlayerMoveEvent event = new PlayerMoveEvent(player,this,command.toLowerCase())
+            server.eventExecutor.callEvent(event,0)
+            if(event.isCancelled()){
+                return "cancelled"
+            }
             if("w" == command.toLowerCase()){
                 player.up(server.gameMap).update()
-                server.eventExecutor.callEvent(new PlayerMoveEvent(player,this,command.toLowerCase()),1)
+                server.eventExecutor.callEvent(event,1)
                 return "${server.translate("move_up")}".replace("#{id}","${player.id}")
             }
             if("s" == command.toLowerCase()){
                 player.down(server.gameMap).update()
-                server.eventExecutor.callEvent(new PlayerMoveEvent(player,this,command.toLowerCase()),1)
+                server.eventExecutor.callEvent(event,1)
                 return "${server.translate("move_down")}".replace("#{id}","${player.id}")
             }
             if("a" == command.toLowerCase()){
                 player.left(server.gameMap).update()
-                server.eventExecutor.callEvent(new PlayerMoveEvent(player,this,command.toLowerCase()),1)
+                server.eventExecutor.callEvent(event,1)
                 return "${server.translate("move_left")}".replace("#{id}","${player.id}")
             }
             if("d" == command.toLowerCase()){
                 player.right(server.gameMap).update()
-                server.eventExecutor.callEvent(new PlayerMoveEvent(player,this,command.toLowerCase()),1)
+                server.eventExecutor.callEvent(event,1)
                 return "${server.translate("move_right")}".replace("#{id}","${player.id}")
             }
         }catch(Exception e){

@@ -22,11 +22,14 @@ import cn.qqtextwar.math.Vector
 import cn.qqtextwar.log.ServerLogger
 import cn.qqtextwar.sql.DAOFactory
 import cn.qqtextwar.sql.SQLiteConnector
+import cn.qqtextwar.utils.JavaUtils
 import cn.qqtextwar.utils.Translate
 import cn.qqtextwar.utils.Utils
 import cn.textwar.plugins.EventExecutor
 import cn.textwar.plugins.PluginClassLoader
 import cn.textwar.plugins.events.MapLoadEvent
+import cn.textwar.plugins.events.ServerCloseEvent
+import cn.textwar.plugins.events.ServerReloadEvent
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import groovy.transform.CompileStatic
@@ -163,7 +166,7 @@ class Server {
 
     /** 服务端构造方法，请不要直接使用它 */
     @InternalInit
-    private Server(boolean test,Application... app){
+    Server(boolean test,Application... app){
         if(!server){
             server = this
         }else{
@@ -247,6 +250,7 @@ class Server {
 
     @Action
     void reload(){
+        eventExecutor.callEvent(new ServerReloadEvent(),0)
         applications.each {
             it.reload()
         }
@@ -255,6 +259,7 @@ class Server {
             freaksMap.each { gameMap.removeEntity(it.value) }
             initMap() //重置地图
         }
+        eventExecutor.callEvent(new ServerReloadEvent(),1)
     }
 
     @Action
@@ -303,12 +308,15 @@ class Server {
     /** 服务端只能开启一次 */
     @Action
     static Server start(Application... app){
-        if(System.getProperties().getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1){
-            AnsiConsole.systemInstall()
+        long t = JavaUtils.timing{
+            if(System.getProperties().getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1){
+                AnsiConsole.systemInstall()
+            }
+            Server server = new Server(false,app).start0()
+            server.logger.info(server.translate("server_started"))
+            server.logger.info(server.translate("copyright"))
         }
-        Server server = new Server(false,app).start0()
-        server.logger.info(server.translate("server_started"))
-        server.logger.info(server.translate("copyright"))
+        server.logger.info(server.translate("use_time").replace("#{time}","${t}"))
         server
     }
 
@@ -338,6 +346,14 @@ class Server {
     /** 服务端只能关闭一次*/
     @Action
     void close0(Throwable throwable){
+        ServerCloseEvent e = new ServerCloseEvent()
+        eventExecutor.callEvent(e,0)
+        if(e.isCancelled()){
+            if(test){
+                logger.info("the close action is cancelled")
+            }
+            return
+        }
         if(this.state.get() == CLOSED){
             throw new CloseException(translate("closed"))
         }

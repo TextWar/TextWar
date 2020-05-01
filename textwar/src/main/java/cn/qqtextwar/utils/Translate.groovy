@@ -28,14 +28,15 @@ class Translate {
                 "map_not_found" : "the map is not found",
                 "create_random_map" : "creating a random map",
                 "admin_give_cmd" : "give somebody admin",
-                "reload_cmd" : "reloaded"
+                "reload_cmd" : "reloaded",
+                "use_time" : "use time [RED]#{time}[DEFAULT] ms"
         ])
         addLanguage("zh",[
                 "start_exception" : "服务端已经启动过了",
                 "map_starting" : "地图获取线程正在启动中...",
                 "map_started": "地图获取线程已经启动",
                 "server_started" :"服务端已经启动成功",
-                "copyright" : "The TextWar game's server core v1.0.0 CopyRight @TextWar",
+                "copyright" : "[YELLOW]文字战争[DEFAULT] 服务端核心 v1.0.0 解释权归 @TextWar 所有",
                 "closed":"服务端已经关闭",
                 "closed_info" : "服务端已经关闭，状态号码: 3 - CLOSED",
                 "map_thread_closed" : "地图获取线程已经关闭",
@@ -47,7 +48,13 @@ class Translate {
                 "help_cmd" : "帮助命令",
                 "exit_cmd" : "玩家退出",
                 "update_cmd" : "请求更新地图",
-                "move_cmd" : "玩家移动: /w 向上,/s 向下,/a 向左,/d 向右"
+                "move_cmd" : "玩家移动: /w 向上,/s 向下,/a 向左,/d 向右",
+                "server_closing" : "服务端正在关闭",
+                "map_not_found" : "地图没有找到",
+                "create_random_map" : "正在生成随机地图",
+                "admin_give_cmd" : "给予管理员权限",
+                "reload_cmd" : "重启服务端",
+                "use_time" : "开启使用时间 [RED]#{time}[DEFAULT] 毫秒"
         ])
     }
 

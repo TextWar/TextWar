@@ -2,14 +2,15 @@ package cn.textwar.plugins.events;
 
 import cn.qqtextwar.command.Action;
 import cn.qqtextwar.entity.player.Player;
+import cn.textwar.plugins.Cancellable;
 
-public abstract class PlayerActionEvent extends PlayerEvent{
+public abstract class PlayerActionEvent extends PlayerEvent implements Cancellable {
 
 
     private Action action;
 
-    public PlayerActionEvent( Player player,Action action) {
-        super(PlayerActionEvent.class.getSimpleName(), player);
+    public PlayerActionEvent(String name,Player player,Action action) {
+        super(name, player);
         this.action = action;
     }
 

@@ -8,7 +8,7 @@ public class PlayerMoveEvent extends PlayerActionEvent{
     private String move;
 
     public PlayerMoveEvent(Player player, Action action,String move) {
-        super(player, action);
+        super(PlayerMoveEvent.class.getSimpleName(),player, action);
         this.move = move;
     }
 
