@@ -54,7 +54,7 @@ public abstract class SkillPoint {
         return time;
     }
 
-    public abstract String doSkill(Entity entity, SkillPoint point, GameMap map);
+    public abstract String doSkill(Entity self,Entity entity, SkillPoint point, GameMap map);
 
     void setSkillPoints(SkillPoints points){
         this.points = points;

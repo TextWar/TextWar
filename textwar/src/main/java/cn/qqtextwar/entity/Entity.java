@@ -126,7 +126,7 @@ public abstract class Entity {
     //TODO 技能攻击
     public String skill(SkillPoints points,GameMap map,Entity entity){
         SkillPoint point = getSkillByLevel(points);
-        return point.doSkill(entity,point,map);
+        return point.doSkill(this,entity,point,map);
     }
 
 
