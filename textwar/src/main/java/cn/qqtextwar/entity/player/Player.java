@@ -33,6 +33,10 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
 
     private String ip;
 
+    private SkillTree tree;
+
+
+
     /**
      * 这里用于定义升下一级所需的xp值
      */
@@ -63,6 +67,7 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
         this.ip = ip;
         this.application = application;
         this.server = server;
+        this.tree = new SkillTree(this);
     }
 
     public Server getServer() {

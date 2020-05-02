@@ -180,6 +180,7 @@ public abstract class Entity {
         this.levels.put(points,0);
     }
 
+
     /**
      * 获得生物相相应等级的特定技能
      */
@@ -331,5 +332,7 @@ public abstract class Entity {
                 '}';
     }
 
-
+    public Map<SkillPoints, Integer> getSkillLevels() {
+        return levels;
+    }
 }
