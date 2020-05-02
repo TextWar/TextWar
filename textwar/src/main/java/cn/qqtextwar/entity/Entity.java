@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 这里是所有实体的基类，只要是游戏里活着的东西都继承
@@ -54,7 +55,7 @@ public abstract class Entity {
         this.vector = vector;
         this.id = id;
         this.levels = new HashMap<>();
-        this.useDates = new HashMap<>();
+        this.useDates = new ConcurrentHashMap<>();
         this.aggressivity = initAggressivity(getLevel());
     }
 
@@ -84,7 +85,7 @@ public abstract class Entity {
      * 这个负责执行技能，只有实现了Skillable接口的生物才能使用
      * 这里允许使用的为玩家和有害的生物
      */
-    public synchronized SkillPoint doSkill(SkillPoints points){
+    public SkillPoint doSkill(SkillPoints points){
         LocalDateTime time = useDates.get(points);
         LocalDateTime now = LocalDateTime.now();
         if(time == null){
@@ -117,14 +118,15 @@ public abstract class Entity {
         Vector vector = this.getVector().reduce(entity.getVector());
         if(vector.mod() <= Math.sqrt(2) && this.haveObstacle(entity,map)){
             entity.delHealthPoints(aggressivity);
-            return "攻击成功 -- HIT";
+            return "Success -- HIT";
         }
-        return "攻击范围不足，或者有阻挡物";
+        return "Insufficient or obstructed";
     }
 
     //TODO 技能攻击
     public String skill(SkillPoints points,GameMap map,Entity entity){
-        return "";
+        SkillPoint point = getSkillByLevel(points);
+        return point.doSkill(entity,point,map);
     }
 
 

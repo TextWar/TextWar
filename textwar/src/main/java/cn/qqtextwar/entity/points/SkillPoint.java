@@ -2,10 +2,13 @@ package cn.qqtextwar.entity.points;
 
 //SkillPoints(name,[new Skill])
 
+import cn.qqtextwar.GameMap;
+import cn.qqtextwar.entity.Entity;
+
 /**
  * 技能点，
  */
-public class SkillPoint {
+public abstract class SkillPoint {
 
     private int buff;
 
@@ -16,6 +19,8 @@ public class SkillPoint {
     private long time; //冷却
 
     private String name;
+
+    private SkillPoints points;
 
     public SkillPoint(int buff, int damage, int level, String name,int time) {
         this.buff = buff;
@@ -47,5 +52,15 @@ public class SkillPoint {
 
     public long getTime() {
         return time;
+    }
+
+    public abstract String doSkill(Entity entity, SkillPoint point, GameMap map);
+
+    void setSkillPoints(SkillPoints points){
+        this.points = points;
+    }
+
+    public SkillPoints getPoints() {
+        return points;
     }
 }
