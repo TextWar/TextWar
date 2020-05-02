@@ -172,4 +172,8 @@ public class Player extends Entity implements Skillable, CommandSender, Hittable
     public void chat(String message){
         application.playerChat(this.getId(),message);
     }
+
+    public SkillTree getSkillTree() {
+        return tree;
+    }
 }
