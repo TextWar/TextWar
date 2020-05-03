@@ -12,16 +12,13 @@ import cn.textwar.utils.test.*;
 
 @Client({ClientApplication.class})
 @NativeListener
+@Close
 public class Test10 extends TextWarServerRunner implements Listener {
 
     public static void main(String[] args) {
         doTest(Test10.class);
     }
 
-    @TextWarBefore
-    public void add(Server server){
-        server.getEventExecutor().registerNativeEvents(this);
-    }
     @TextWarServerTest(doIt = false)
     public void test(Server server){
         server.getLogger().info("[RED]hhhh[DEFAULT]");
@@ -32,11 +29,6 @@ public class Test10 extends TextWarServerRunner implements Listener {
         server.getLogger().info("[BLUE]hello[RED]world[BLUE]![DEFAULT]");
 
     }
-    @TextWarAfter(doIt = false)
-    public void close(Server server){
-        Server.stop();
-    }
-
     @EventManager
     public void pythonEvent(PythonEvent e){
         System.out.println(e);

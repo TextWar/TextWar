@@ -3,6 +3,7 @@ package cn.textwar.utils.test;
 import cn.qqtextwar.Server;
 import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.LogFormat;
+import cn.textwar.plugins.Listener;
 import org.fusesource.jansi.Ansi;
 
 import java.lang.annotation.Annotation;
@@ -43,7 +44,8 @@ public class TextWarServerRunner {
 
     public static void doTest(Class<? extends TextWarServerRunner> runner){
         try {
-            runner.newInstance().doTest();
+            TextWarServerRunner r = runner.newInstance();
+            r.doTest();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -63,9 +65,15 @@ public class TextWarServerRunner {
             Server.start(clients.toArray(new Application[0])).initMap();
             Server.getServer().setTest(true);
             Server.getServer().getLogger().setAsDebug(true);
+            if(runner instanceof Listener){
+                Server.getServer().getEventExecutor().registerNativeEvents((Listener) runner);
+            }
             invokeAll(befores,TextWarBefore.class);
             invokeAll(tests,TextWarServerTest.class);
             invokeAll(afters,TextWarAfter.class);
+            if(runner.getClass().getAnnotation(Close.class)!=null){
+                Server.stop();
+            }
         }
 
     }
