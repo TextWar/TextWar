@@ -163,6 +163,25 @@ public abstract class Entity {
         return true;
     }
 
+    //TODO not impl
+    public boolean haveObstacleFast(Entity entity,GameMap map){
+
+        int x = (int)((entity.getX() + this.getX())/2);
+
+        int y = (int)((entity.getX() + this.getX())/2);
+
+        if(!map.getBlocks().get(Vector.of(x,y)).isCross()){
+            return false;
+        }
+
+        Vector vector = entity.getVector();
+        Vector dir = vector.reduce(this.getVector()).toPositive();
+        double tan = dir.getDirection();
+
+        return true;
+    }
+
+
 
 
     /**

@@ -129,4 +129,8 @@ public class Vector implements Computable<Vector>,ScalarProduct<Vector>,Mod,Dire
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public static Vector of(int x,int y){
+        return new Vector(x,y);
+    }
 }

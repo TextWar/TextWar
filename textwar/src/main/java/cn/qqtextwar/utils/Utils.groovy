@@ -72,5 +72,11 @@ class Utils {
         return vector1.x<vector2.x?vector1:vector2
     }
 
+    static cn.qqtextwar.math.Vector maxY(cn.qqtextwar.math.Vector vector1,cn.qqtextwar.math.Vector vector2){
+        return vector1.y>vector2.y?vector1:vector2
+    }
+    static cn.qqtextwar.math.Vector minY(cn.qqtextwar.math.Vector vector1,cn.qqtextwar.math.Vector vector2){
+        return vector1.y<vector2.y?vector1:vector2
+    }
 
 }
