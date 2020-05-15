@@ -48,6 +48,11 @@ This RPG game is designed with NPCs, monsters, creatures, skill points.
 And will be designed to interface with all chat software.
 
 This game is based on the java,groovy,python.
+
+#### Current progress
+
+The project is expected to be completed from August to September. Since most of the developers are students, the development speed is slow. If you are interested in the project, you can assist in development or attention.
+
 #### Matching components
 
 We wrote a game's map generator and map editor using python.
