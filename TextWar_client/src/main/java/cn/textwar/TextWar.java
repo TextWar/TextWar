@@ -1,7 +1,6 @@
 package cn.textwar;
 
 import cn.qqtextwar.math.Vector;
-import cn.textwar.protocol.TextWarClient;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 
