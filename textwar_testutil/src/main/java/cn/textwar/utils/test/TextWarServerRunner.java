@@ -5,6 +5,7 @@ import cn.qqtextwar.api.Application;
 import cn.qqtextwar.log.LogFormat;
 import cn.textwar.plugins.Listener;
 import org.fusesource.jansi.Ansi;
+import org.junit.runners.BlockJUnit4ClassRunner;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TextWarServerRunner {
+public abstract class TextWarServerRunner{
 
     private List<Method> tests = new ArrayList<>();
 

@@ -15,9 +15,6 @@ import cn.textwar.utils.test.*;
 @Close
 public class Test10 extends TextWarServerRunner implements Listener {
 
-    public static void main(String[] args) {
-        doTest(Test10.class);
-    }
 
     @TextWarServerTest(doIt = false)
     public void test(Server server){

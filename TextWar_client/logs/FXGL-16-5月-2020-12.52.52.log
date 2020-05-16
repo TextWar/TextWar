@@ -1,0 +1,83 @@
+12:52:46.016 [main                     ] DEBUG GameApplication      - Logger initialized
+12:52:46.036 [main                     ] DEBUG GameApplication      - Logging settings
+Title: TextWar
+Version: 1.0.0
+Width: 800
+Height: 600
+Fullscreen: false
+Intro: false
+Menus: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class com.almasb.fxgl.app.scene.SceneFactory
+
+12:52:49.482 [JavaFX Application Thread] DEBUG GameApplication      - Initializing FXGL
+12:52:49.493 [JavaFX Application Thread] INFO  Engine               - FXGL-11.8 (08.03.2020 09.09) on MAC (J:12 FX:13.0.2)
+12:52:49.493 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+12:52:49.494 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+12:52:49.671 [JavaFX Application Thread] DEBUG MainWindow           - Creating a JavaFX scene
+12:52:49.768 [JavaFX Application Thread] DEBUG MainWindow           - Target settings size: 800.0 x 600.0
+12:52:49.769 [JavaFX Application Thread] DEBUG MainWindow           - Scaled scene size:    800.0 x 600.0
+12:52:49.769 [JavaFX Application Thread] DEBUG MainWindow           - Scaled ratio: (1.0, 1.0)
+12:52:49.772 [JavaFX Application Thread] DEBUG MainWindow           - Set initial scene to FXGLStartupScene
+12:52:49.783 [JavaFX Application Thread] DEBUG MainWindow           - Opening main window
+12:52:49.885 [JavaFX Application Thread] DEBUG MainWindow           - Window border size: (0.0, 22.0)
+12:52:49.886 [JavaFX Application Thread] DEBUG MainWindow           - Scaled size: 800.0 x 600.0
+12:52:49.886 [JavaFX Application Thread] DEBUG MainWindow           - Scaled ratio: (1.0, 1.0)
+12:52:49.886 [JavaFX Application Thread] DEBUG MainWindow           - Scene size: 800.0 x 600.0
+12:52:49.887 [JavaFX Application Thread] DEBUG MainWindow           - Stage size: 800.0 x 622.0
+12:52:49.896 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+12:52:49.932 [FXGL Background Thread 1 ] DEBUG WindowService        - Applying CSS: fxgl_dark.css
+12:52:49.933 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/css/fxgl_dark.css
+12:52:49.998 [FXGL Background Thread 1 ] DEBUG WindowService        - Initializing application scenes
+12:52:50.368 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+12:52:50.428 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=600, physics.ppm=50.0
+12:52:50.430 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 800x600
+12:52:50.443 [FXGL Background Thread 1 ] DEBUG Input                - Registered new binding: Resume - Esc
+12:52:50.449 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/textures/pause_menu_bg.png
+12:52:50.545 [FXGL Background Thread 1 ] DEBUG Input                - Registered new binding: Pause - Esc
+12:52:50.545 [FXGL Background Thread 1 ] DEBUG WindowService        - Application scenes initialized
+12:52:50.559 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Loading FXGL system data
+12:52:50.564 [FXGL Background Thread 1 ] DEBUG FileSystemAccess     - Reading from: /Users/luchangcun/Downloads/TextWarGame/system/fxgl.bundle
+12:52:50.575 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Bundle FXGL: {}
+12:52:50.575 [FXGL Background Thread 1 ] INFO  Engine               - FXGL initialization took: 0.677 sec
+12:52:50.578 [FXGL Background Thread 1 ] DEBUG GameApplication      - Loading localizations
+12:52:50.579 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/properties/languages/english.properties
+12:52:50.583 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/properties/languages/french.properties
+12:52:50.589 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/properties/languages/german.properties
+12:52:50.591 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/properties/languages/hungarian.properties
+12:52:50.593 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/properties/languages/russian.properties
+12:52:50.595 [FXGL Background Thread 1 ] DEBUG GameApplication      - Registering font factories with UI factory
+12:52:50.595 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/fonts/VarelaRound-Regular.ttf
+12:52:50.620 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/fonts/Abel-Regular.ttf
+12:52:50.623 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/fonts/lucida_console.ttf
+12:52:50.630 [FXGL Background Thread 1 ] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/fonts/Courier-Prime.ttf
+12:52:50.641 [JavaFX Application Thread] DEBUG AssetLoaderService   - Loading from file system: /assets/textures/fxgl_icon.png
+12:52:50.687 [JavaFX Application Thread] DEBUG AssetLoaderService   - Loading from file system: /assets/ui/cursors/fxgl_default.png
+12:52:50.690 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - P
+12:52:50.691 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+12:52:50.691 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+12:52:50.693 [JavaFX Application Thread] DEBUG LoopRunner           - Starting loop
+12:52:50.715 [JavaFX Application Thread] DEBUG FXGLStartupScene     - STARTUP
+12:52:50.716 [JavaFX Application Thread] DEBUG WindowService        - Starting new game
+12:52:50.719 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+12:52:50.734 [JavaFX Application Thread] DEBUG WindowService        - Removing overlay from FXGLStartupScene and adding to FXGLLoadingScene
+12:52:50.735 [JavaFX Application Thread] DEBUG MainWindow           - FXGLStartupScene -> FXGLLoadingScene
+12:52:50.735 [JavaFX Application Thread] DEBUG WindowService        - Clearing previous game
+12:52:50.735 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+12:52:50.736 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+12:52:50.736 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+12:52:50.737 [FXGL Background Thread 1 ] DEBUG GameApplication      - Initializing game
+12:52:50.739 [FXGL Background Thread 1 ] INFO  GameApplication      - Game initialization took: 0.002 sec
+12:52:50.837 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+12:52:50.849 [JavaFX Application Thread] DEBUG WindowService        - Removing overlay from FXGLLoadingScene and adding to GameScene
+12:52:50.849 [JavaFX Application Thread] DEBUG MainWindow           - FXGLLoadingScene -> GameScene
+12:52:52.244 [JavaFX Application Thread] DEBUG GameApplication      - Exiting FXGL
+12:52:52.244 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+12:52:52.244 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+12:52:52.246 [JavaFX Application Thread] DEBUG FileSystemAccess     - Writing to: /Users/luchangcun/Downloads/TextWarGame/system/fxgl.bundle
+12:52:52.248 [JavaFX Application Thread] DEBUG GameApplication      - Shutting down background threads
+12:52:52.248 [JavaFX Application Thread] DEBUG GameApplication      - Closing logger and exiting JavaFX
