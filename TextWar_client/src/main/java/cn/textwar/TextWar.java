@@ -1,6 +1,5 @@
 package cn.textwar;
 
-import cn.qqtextwar.math.Vector;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 
@@ -25,7 +24,7 @@ public class TextWar extends GameApplication {
     //之后输入账号密码服务端ip端口进入
     @Override
     protected void initGame() {
-        
+
     }
 
     public static void main(String[] args) {
