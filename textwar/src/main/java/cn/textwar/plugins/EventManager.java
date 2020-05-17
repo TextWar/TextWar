@@ -11,5 +11,5 @@ public @interface EventManager {
 
     EventPriority priority() default EventPriority.NORMAL;
 
-    int type() default 0;
+    int type() default ListenerType.BEFORE;
 }

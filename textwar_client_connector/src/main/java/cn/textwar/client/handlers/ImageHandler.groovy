@@ -29,7 +29,7 @@ class ImageHandler extends Handler {
     private Map<Long,String> images = new ConcurrentHashMap<>()
 
     ImageHandler() {
-        super(["image"],4)
+        super(["image"],5)
     }
 
     @Override

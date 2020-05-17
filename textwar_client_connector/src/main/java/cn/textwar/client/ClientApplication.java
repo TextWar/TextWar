@@ -10,6 +10,7 @@ import cn.textwar.console.ServerConsole;
 import cn.textwar.langs.PluginServer;
 import cn.textwar.langs.PyEventCaller;
 import cn.textwar.langs.python.Py4jServer;
+import cn.textwar.listeners.PlayerMoveListener;
 import cn.textwar.plugins.Listener;
 import cn.textwar.plugins.events.PlayerExitEvent;
 import cn.textwar.client.events.PlayerMessageEvent;
@@ -42,6 +43,7 @@ public class ClientApplication implements Application, Listener {
     @Override
     public void init(Server server) {
         this.server = server;
+        this.server.getEventExecutor().registerNativeEvents(new PlayerMoveListener(clientServer));
         this.daoFactory = server.getDaoFactory();
         this.console = new ServerConsole(server);
         server.getRegister().register("client.cfg");
@@ -135,7 +137,7 @@ public class ClientApplication implements Application, Listener {
             messageJson.put("id", qq);
             messageJson.put("action", "sendToPlayer");
             messageJson.put("message", message);
-            protocol.addAll(Handler.createResponse(4,Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
+            protocol.addAll(Handler.createResponse(messageJson,4,Handler.SUCCESS, "id: " + qq + " send a message", messageJson).toJSONString());
             socket.write(protocol);
             server.getEventExecutor().callEvent(new PlayerMessageEvent(player,message),1);
         }catch (Exception e){
@@ -165,7 +167,7 @@ public class ClientApplication implements Application, Listener {
         jsonObject.put("id",qq);
         jsonObject.put("action","playerChat");
         jsonObject.put("message",event.getMessage());
-        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(5,Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(jsonObject,5,Handler.SUCCESS,player.getName(),jsonObject).toJSONString()));
         server.getEventExecutor().callEvent(event,1);
     }
 
@@ -185,7 +187,7 @@ public class ClientApplication implements Application, Listener {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action","broadcast");
         jsonObject.put("message",event.getMessage());
-        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(6,Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
+        clientServer.callMessage(new TextWarProtocol().addAll(Handler.createResponse(jsonObject,6,Handler.SUCCESS,"broadcast",jsonObject).toJSONString()));
         server.getEventExecutor().callEvent(event,1);
     }
 

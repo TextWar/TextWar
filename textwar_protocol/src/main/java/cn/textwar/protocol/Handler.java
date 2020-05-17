@@ -66,14 +66,17 @@ public abstract class Handler {
     }
 
     public JSONObject createResponse(JSONObject req,int state,String message,JSONObject data){
-        return createResponse(req.get("action").toString(),getId(),state,message,data);
+        return createResponse(req,getId(),state,message,data);
     }
-    public static JSONObject createResponse(String action,int id,int state,String message,JSONObject data){
+    public static JSONObject createResponse(JSONObject action,int id,int state,String message,JSONObject data){
         JSONObject object = new JSONObject();
         object.put(ID,id);
         object.put(STATE,state);
         object.put(MESSAGE,message);
         object.put(DATA,data);
+        if(action != null){
+            object.put("action",(action.get("type") == null?"":(action.get("type")+"."))+action.get("action").toString());
+        }
         return object;
     }
 }

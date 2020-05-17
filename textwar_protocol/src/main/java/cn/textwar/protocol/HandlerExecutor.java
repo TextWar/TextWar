@@ -28,7 +28,7 @@ public class HandlerExecutor {
 
     public JSONObject callHandler(Application application,ConnectServer.ClientThread thread, String type, JSONObject object, Server server, EventExecutor eventExecutor){
         Handler handler = this.handlers.get(type);
-        return handler == null?Handler.createResponse(NOT_FOUND,NOT_FOUND,NOT_FOUND_MESSAGE.replace("#{type}",type),new JSONObject()):handler.executeOption(
+        return handler == null?Handler.createResponse(object,NOT_FOUND,NOT_FOUND,NOT_FOUND_MESSAGE.replace("#{type}",type),new JSONObject()):handler.executeOption(
                 application,thread,server,type,object,eventExecutor
         );
     }
