@@ -50,6 +50,6 @@ public class TextWarClient {
                    e.printStackTrace();
                }
            }
-        });
+        }).start();
     }
 }

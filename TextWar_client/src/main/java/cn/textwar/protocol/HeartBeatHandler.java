@@ -6,6 +6,7 @@ public class HeartBeatHandler extends ClientHandler {
 
     @Override
     public JSONObject handle(JSONObject object) {
+        System.out.println(object);
         return null;
     }
 }
