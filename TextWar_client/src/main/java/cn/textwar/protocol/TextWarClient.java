@@ -36,20 +36,37 @@ public class TextWarClient {
         }
         return  this;
     }
-    public void sync(){
+
+    public void write(JSONObject object) {
+        try {
+            this.socket.getOutputStream().write(new TextWarProtocol().addAll(object.toJSONString()).encode());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public TextWarClient sync(){
         Protocol protocol = new Protocol();
         new Thread(()->{
            while (TextWar.isStarting){
                try {
-                   JSONObject jsonObject = protocol.decode(socket.getInputStream()).getJsonObject();
-                   JSONObject object = handlerMap.get((int)jsonObject.get("state")).handle(jsonObject);
-                   if(object != null){
-                       socket.getOutputStream().write(new TextWarProtocol().addAll(object.toJSONString()).encode());
+                   TextWarProtocol p = protocol.decode(socket.getInputStream());
+                   if(p != null){
+                       JSONObject jsonObject = p.getJsonObject();
+                       ClientHandler handler = handlerMap.get((int)jsonObject.get("state"));
+                       if(handler != null){
+                           JSONObject object = handler.handle(jsonObject);
+                           if(object != null){
+                               socket.getOutputStream().write(new TextWarProtocol().addAll(object.toJSONString()).encode());
+                           }
+                       }
                    }
+
                }catch (Exception e){
                    e.printStackTrace();
                }
            }
         }).start();
+        return this;
     }
 }
