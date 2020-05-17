@@ -65,7 +65,7 @@ class PlayerHandler extends Handler{
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),0)
                 p.addInto(server.gameMap)
                 server.eventExecutor.callEvent(new PlayerJoinEvent(p),1)
-                return createResponse(SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,(Integer)jsonObject["rad"]).toJson())
+                return createResponse(jsonObject,SUCCESS,"you have been ${jsonObject.get("action")}ed",server.gameMap.interceptForPlayer(p,(Integer)jsonObject["rad"]).toJson())
             }
 
         }

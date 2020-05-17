@@ -51,7 +51,7 @@ public abstract class Handler {
             if(object == null)throw new UnsupportedOperationException(DEFAULT_ERROR);
             return object;
         }catch (Exception e){
-            return createResponse(ERROR,e.getMessage(),new JSONObject());
+            return createResponse(jsonObject,ERROR,e.getMessage(),new JSONObject());
         }
     }
 
@@ -65,10 +65,10 @@ public abstract class Handler {
         return types;
     }
 
-    public JSONObject createResponse(int state,String message,JSONObject data){
-        return createResponse(getId(),state,message,data);
+    public JSONObject createResponse(JSONObject req,int state,String message,JSONObject data){
+        return createResponse(req.get("action").toString(),getId(),state,message,data);
     }
-    public static JSONObject createResponse(int id,int state,String message,JSONObject data){
+    public static JSONObject createResponse(String action,int id,int state,String message,JSONObject data){
         JSONObject object = new JSONObject();
         object.put(ID,id);
         object.put(STATE,state);

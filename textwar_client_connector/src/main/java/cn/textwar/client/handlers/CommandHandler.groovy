@@ -37,10 +37,10 @@ class CommandHandler extends Handler {
         if(playerDAO == null)this.playerDAO = (application as ClientApplication).daoFactory.playerDAO
         if("action" == type){
             int id = playerDAO.getId(jsonObject["playerName"] as String)
-            return createResponse(SUCCESS,server.executor.doCommandOrAction(jsonObject["name"] as String,id,new String[0]),new JSONObject())
+            return createResponse(jsonObject,SUCCESS,server.executor.doCommandOrAction(jsonObject["name"] as String,id,new String[0]),new JSONObject())
         }else if("command" == type){
             int id = playerDAO.getId(jsonObject["playerName"] as String)
-            return createResponse(SUCCESS,server.executor.doCommandOrAction(jsonObject["name"] as String,id,(jsonObject["args"] as List).toArray() as String[]),new JSONObject())
+            return createResponse(jsonObject,SUCCESS,server.executor.doCommandOrAction(jsonObject["name"] as String,id,(jsonObject["args"] as List).toArray() as String[]),new JSONObject())
         }
         return null
     }

@@ -29,7 +29,7 @@ class MapHandler extends Handler {
     JSONObject execute(Application application,ConnectServer . ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
         long id = Long.parseLong(jsonObject["player"].toString())
         if("update" == jsonObject["action"]){
-            return createResponse(SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),(Integer)jsonObject["rad"]).toJson())
+            return createResponse(jsonObject,SUCCESS,DEFAULT_SUCCESS_MESSAGE,server.getGameMap().interceptForPlayer(server.getPlayer(id),(Integer)jsonObject["rad"]).toJson())
         }
         return null
     }
