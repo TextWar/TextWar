@@ -25,7 +25,7 @@ public class TextWar extends GameApplication {
     //之后输入账号密码服务端ip端口进入
     @Override
     protected void initGame() {
-        GPlayer player = new GPlayer(new Vector(10,10),10001);
+        
     }
 
     public static void main(String[] args) {

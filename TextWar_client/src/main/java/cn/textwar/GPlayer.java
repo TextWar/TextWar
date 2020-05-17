@@ -18,7 +18,7 @@ public class GPlayer extends Player{
         super(null,null,"", vector, id,0,0,0);
         this.playerEntity = FXGL
                 .entityBuilder()
-                .at(vector.getX(),vector.getY())
+                .at(vector.getX()*25,vector.getY()*25)
                 //TODO The Image will be received by server and game
                 .view(new Rectangle(25,25, Color.BLUE))
                 .buildAndAttach();
