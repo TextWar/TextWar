@@ -65,6 +65,7 @@ public abstract class Handler {
         return types;
     }
 
+    //req request
     public JSONObject createResponse(JSONObject req,int state,String message,JSONObject data){
         return createResponse(req,getId(),state,message,data);
     }
