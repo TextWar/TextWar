@@ -1,8 +1,13 @@
 package cn.textwar;
 
+import cn.qqtextwar.GameMap;
+
 //添加一个limitX和limitY
 // 玩家移动则通过比对新从服务端请求获得的地图，然后更改相应节点即可，然后每个方块的实际Vector也+1
 // 如玩家移动一格，所有的对应应该加1的坐标都应该相应的加1，然后请求得到新的地图，根据新的地图里面的节点将相应
 // 坐标的节点更改
-public class GGameMap {
+//就是客户端链接服务端的时候，服务端给一个完整的地图，然后玩家移动的时候，自行移动地图范围，然后给服务端发送新范围的请求，服务端根据新范围发出这里面的实体对象，然后客户端修改里面的节点。
+public class GGameMap extends GameMap {
+
+
 }

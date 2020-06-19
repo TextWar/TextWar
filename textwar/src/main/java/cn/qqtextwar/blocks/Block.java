@@ -2,6 +2,8 @@ package cn.qqtextwar.blocks;
 
 import cn.qqtextwar.math.Vector;
 
+import java.util.Objects;
+
 public class Block {
 
     private Vector vector;
@@ -39,5 +41,20 @@ public class Block {
                 ", id=" + id +
                 ", cross=" + cross +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Block block = (Block) o;
+        return id == block.id &&
+                cross == block.cross &&
+                Objects.equals(vector, block.vector);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vector, id, cross);
     }
 }
