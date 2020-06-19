@@ -15,12 +15,12 @@ import java.util.concurrent.ConcurrentHashMap
  *     "type" : "image",
  *     "action" : "upload",
  *     "image" : base64,
- *     "id" : player_id
+ *     "player_id" : player_id
  * }
  * {
  *     "type" : "image",
  *     "action" : "get",
- *     "id" : player_id
+ *     "player_id" : player_id
  * }
  */
 @CompileStatic
@@ -35,12 +35,12 @@ class ImageHandler extends Handler {
     @Override
     JSONObject execute(Application application, ConnectServer.ClientThread thread, Server server, String type, JSONObject jsonObject, EventExecutor eventExecutor) {
         if("upload" == jsonObject["action"]){
-            images[Long.parseLong(jsonObject["id"].toString())] = (String)jsonObject["image"]
+            images[Long.parseLong(jsonObject["player_id"].toString())] = (String)jsonObject["image"]
             return createResponse(jsonObject,SUCCESS,"upload the image",new JSONObject())
         }
         if("get" == jsonObject["action"]){
             JSONObject rep = new JSONObject()
-            Object id = jsonObject["id"]
+            Object id = jsonObject["player_id"]
             if(id == null)return null
             rep["image"] = images[Long.parseLong(id.toString())]
             return createResponse(jsonObject,SUCCESS,"get the image",rep)
