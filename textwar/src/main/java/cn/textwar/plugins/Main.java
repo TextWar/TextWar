@@ -16,7 +16,7 @@ public @interface Main {
 
     String name();
 
-    String description() default "jsmod2 plugin";
+    String description() default "my plugin";
 
     String version() default "1.0.0";
 }
